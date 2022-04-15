@@ -1,0 +1,40 @@
+site_name: EDA technical academy - IBM internal Only
+repo_url: https://github.ibm.com/boyerje/eda-tech-academy
+nav:
+  - Why EDA now?: eda.md
+  - Lab 1: Event Streams Demo from A to Z: https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/
+
+
+theme: 
+  name: material
+  feature:
+    tabs: true
+  palette:
+    scheme: default
+    primary: 'magenta dark'
+  language: en
+  features:
+      # - navigation.tabs
+      - navigation.instant
+      - navigation.tracking
+      - navigation.tabs.sticky
+      - navigation.left
+extra_css: ["extra.css"]
+plugins:
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - attr_list
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.tabbed
+  - pymdownx.highlight
+  - pymdownx.details
