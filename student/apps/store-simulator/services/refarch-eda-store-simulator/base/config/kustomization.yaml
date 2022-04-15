@@ -1,0 +1,8 @@
+resources:
+- 010-serviceaccount.yaml
+- 020-rolebinding.yaml
+- 030-configmap.yaml
+- 100-deployment.yaml
+- 200-service.yaml
+- 300-route.yaml
+

@@ -1,0 +1,7 @@
+resources:
+- argocd-admin.yaml
+- role.yaml
+- service-account.yaml
+- rt-inventory-dev-environment.yaml
+- rt-inventory-dev-rolebinding.yaml
+- cp-secret.yaml

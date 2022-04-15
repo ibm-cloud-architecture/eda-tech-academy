@@ -1,0 +1,5 @@
+resources:
+- argo-app.yaml
+- rt-inventory-dev-env-app.yaml
+- rt-inventory-dev-mq-services-app.yaml
+- rt-inventory-dev-es-services-app.yaml

@@ -1,0 +1,48 @@
+apiVersion: eventstreams.ibm.com/v1beta1
+kind: KafkaConnect
+metadata:
+  name: std-1-connect-cluster
+  annotations:
+    eventstreams.ibm.com/use-connector-resources: "true"
+spec:
+  version: 2.8.1
+  replicas: 1
+  bootstrapServers: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
+  image: quay.io/ibmcase/eda-kconnect-cluster-image:latest
+  template:
+    pod:
+      imagePullSecrets: []
+      metadata:
+        annotations:
+          productChargedContainers: std-1-connect-cluster-connect
+          eventstreams.production.type: CloudPakForIntegrationNonProduction
+          productID: 2a79e49111f44ec3acd89608e56138f5
+          productName: IBM Event Streams for Non Production
+          productVersion: 10.5.0
+          productMetric: VIRTUAL_PROCESSOR_CORE
+          cloudpakId: c8b82d189e7545f0892db9ef2731b90d
+          cloudpakName: IBM Cloud Pak for Integration
+          cloudpakVersion: 2021.4.1
+          productCloudpakRatio: "2:1"
+  config:
+    group.id: std-1-connect-cluster
+    offset.storage.topic: std-1-connect-cluster-offsets
+    config.storage.topic: std-1-connect-cluster-configs
+    status.storage.topic: std-1-connect-cluster-status
+    config.storage.replication.factor: 1
+    offset.storage.replication.factor: 1
+    status.storage.replication.factor: 1
+  tls:
+    trustedCertificates:
+      - secretName: es-demo-cluster-ca-cert
+        certificate: ca.crt
+  authentication:
+     type: tls
+     certificateAndKey:
+       certificate: user.crt
+       key: user.key
+       secretName: std-1-tls-user
+#    username: my-connect-user
+#    passwordSecret:
+#      secretName: my-connect-user
+#      password: my-connect-password-key

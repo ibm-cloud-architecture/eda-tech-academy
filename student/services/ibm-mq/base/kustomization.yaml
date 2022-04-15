@@ -1,0 +1,3 @@
+resources:
+- configMap.yaml
+- qmgr.yaml

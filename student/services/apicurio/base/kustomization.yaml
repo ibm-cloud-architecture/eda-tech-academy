@@ -1,0 +1,4 @@
+resources:
+  - ./es-kafka-topics.yaml
+  - ./registry.yaml
+  
