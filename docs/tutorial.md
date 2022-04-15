@@ -1,1 +1,0 @@
-# Why EDA is a hot topic

@@ -10,7 +10,7 @@ The overall tutorial should be around 4 hours.
 
 ## Pre-requisites:
 
-* Get a git client, docker on developer local laptop
+* Get a git client, [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on developer local laptop
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/)
 * OCP access with CP4I installed, we are using [CoC environment](https://cmc.coc-ibm.com/cluster/biggs) as a based for our deployments.
 
@@ -18,4 +18,9 @@ The overall tutorial should be around 4 hours.
 You can read the tutorial content using the [BOOK VIEW](https://pages.github.ibm.com/boyerje/eda-tech-academy)
 
 
+## Clone this git repository
+
+```sh
+git clone  https://github.ibm.com/boyerje/eda-tech-academy.git
+```
 

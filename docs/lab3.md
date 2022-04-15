@@ -61,7 +61,7 @@ Ready to modify the configurations.
 
 We will prepare the configuration for the following green components in figure below:
 
-![](../../../docs/images/student_env.png)
+![](./images/student_env.png)
 
 The blue components should have been deployed with the Cloud Pak for Integration deployment. 
 
