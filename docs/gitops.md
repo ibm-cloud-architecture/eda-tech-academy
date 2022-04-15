@@ -1,0 +1,1 @@
+# A GitOps approach for deployment
