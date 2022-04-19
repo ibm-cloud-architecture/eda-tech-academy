@@ -17,4 +17,4 @@ At the technical level we can see three adoptions of event-driven solutions:
 * **Real time analytics**: this embraces pure analytic computations like aggregate on the data streams but also complex event processing, time window-based reasoning, or AI scoring integration on the data streams.
 
 ???- "Read more"
-    * []()
+    * [business requirements](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/usecases/)

@@ -24,3 +24,4 @@ You can read the tutorial content using the [BOOK VIEW](https://pages.github.ibm
 git clone  https://github.ibm.com/boyerje/eda-tech-academy.git
 ```
 
+## Notes for contributors

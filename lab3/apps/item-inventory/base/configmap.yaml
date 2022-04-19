@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: item-inventory-cm
+data:
+  APP_VERSION: 0.0.10
+  APP_ITEM_INVENTORY_TOPIC: std-1-item.inventory
+  APP_ITEMS_TOPIC: std-1-items
+  KAFKA_SECURITY_PROTOCOL: SSL
+  KAFKA_BOOTSTRAP_SERVERS: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
+  

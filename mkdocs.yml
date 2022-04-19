@@ -7,8 +7,8 @@ nav:
     - Fit for purpose: https://ibm-cloud-architecture.github.io/refarch-eda/concepts/fit-to-purpose/
     - Reference Architecture: https://ibm-cloud-architecture.github.io/refarch-eda/introduction/reference-architecture/#event-driven-architecture
   - Lab 1 System Design:
-    - Problem Statement: lab1.md
-    - Solution Overview: lab1-sol.md
+    - Problem Statement: lab1/index.md
+    - Solution Overview: lab1/lab1-sol.md
   - Lab 2 Item inventory:
     - Problem Statement: lab2.md
     - Solution Overview: lab2-sol.md
