@@ -18,7 +18,11 @@ In the Event-driven architecture workshop, you will learn how to use of Event-Dr
 * OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster/biggs) as a based for our deployments.
 ## Lecture 1: Review key EDA patterns, use cases and usage scenarios.
 
-[Use Case Slides](https://github.ibm.com/boyerje/eda-internal/raw/master/docs/eda-usecases/01-EDA-Usecases.pptx)
+What are the technical use cases where Event Streams is a good fit.
+
+* [Technical use cases - general positioning](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/usecases/#technical-use-cases)
+* [Assessment questions for Event Streams opportunity](https://pages.github.ibm.com/boyerje/eda-internal/kafka-assessment/)
+* Detailed [use case slides](https://github.ibm.com/boyerje/eda-internal/raw/master/docs/eda-usecases/01-EDA-Usecases.pptx)
 
 [Video]()
 
@@ -28,14 +32,18 @@ In the Event-driven architecture workshop, you will learn how to use of Event-Dr
 
 Review the Client provided requirements, and elaborate a system design for an EDA solution.
 
-[Review the problem statement and the lab's instructions](/lab1/)
+[Review the problem statement and the lab's instructions](./lab1/)
 
 ???- "Read more"
     * [Demonstration of Event Streams product](https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/)
 ## Lab 2: Implement a simple item sell or restock events with Kafka Streams
 
+
+[Review the problem statement and the lab's instructions](./lab2)
+mkd
+
 ## Lab 3: Deploy the solution in one Click
 
-This is a simple of the solution using few commands. [10 minutes lab](/lab3)
+This is a simple of the solution using few commands. [10 minutes lab](./lab3)
 
 ## Lab 4: Deploy the solution with OpenShift GitOps

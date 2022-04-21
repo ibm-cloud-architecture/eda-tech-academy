@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: es-demo-kafka
+  namespace: cp4i-eventstreams
+spec:
+  podMetricsEndpoints:
+  - port: tcp-prometheus
+    scheme: http
+  selector:
+    matchLabels:
+      eventstreams.ibm.com/cluster: es-demo
+      eventstreams.ibm.com/kind: Kafka
+      eventstreams.ibm.com/name: es-demo-kafka
+
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: es-demo-metrics
+  namespace: cp4i-eventstreams
+spec:
+  podMetricsEndpoints:
+  - port: metrics
+    scheme: http
+  selector:
+    matchLabels:
+      eventstreams.ibm.com/name: es-demo-ibm-es-metrics

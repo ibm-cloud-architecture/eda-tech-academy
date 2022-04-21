@@ -68,7 +68,7 @@ The blue components should have been deployed with the Cloud Pak for Integration
 
 1. The demonstration will run on its own namespace. The `env/base` folder includes the definition of the namespace, roles, role binding needed to deploy the demonstration. This is a classical way to isolate apps in kubernetes. 
 
-Running the `updateStudent.sh` shell script, will modify all the yaml files used by the solution with your student id. Two main naming conventions are used: `student-XX` for user name id XX, and `std-XX` prefix. So the namespace for Student-2 will be `sdt-2-rt-inventory` namespace. 
+    Running the `updateStudent.sh` shell script, will modify all the yaml files used by the solution with your student id. Two main naming conventions are used: `student-XX` for user name id XX, and `std-XX` prefix. So the namespace for Student-2 will be `sdt-2-rt-inventory` namespace. 
 
     ```sh
     export USER_NAME=student-2
@@ -79,28 +79,32 @@ Running the `updateStudent.sh` shell script, will modify all the yaml files used
 
 1. Start the deployment
 
-```sh
-make all-no-gitops
-```
+    ```sh
+    make all-no-gitops
+    ```
 
 1. Verify the solution is up and running
 
-```sh
-oc project std-1-rt-inventor
-oc get pods
-oc get routes 
-oc get kafkatopic -n cp4i-eventstreams
-oc get kafkauser -n  cp4i-eventstreams
-```
+    ```sh
+    oc project std-1-rt-inventor
+    oc get pods
+    oc get routes 
+    oc get kafkatopic -n cp4i-eventstreams
+    oc get kafkauser -n  cp4i-eventstreams
+    ```
 
 1. Execute the demo script
 
-[The instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing)
+    [The instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing)
 
 1. Delete the deployment
 
-If you want to stop working and clean the OpenShift cluster and event streams elements
+    If you want to stop working and clean the OpenShift cluster and event streams elements
 
-```sh
-make clean-all
-```
+    ```sh
+    make clean-all
+    ```
+
+1. Social media
+
+    After this lab you should tweet about your wonderful experience and do a tiktok video, and next time you visit the Eiffel Tower take a selfie with a web browser open on the lab 3 page. 
