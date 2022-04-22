@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-originPrefix="std-2"
+originPrefix="std-1"
 
 echo "Updating prefix to " $PREFIX
 

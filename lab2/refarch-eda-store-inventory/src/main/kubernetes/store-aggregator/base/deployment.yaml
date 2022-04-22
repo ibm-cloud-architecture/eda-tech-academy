@@ -7,15 +7,15 @@ metadata:
     prometheus.io/scrape: "true"
     prometheus.io/path: /q/metrics
   labels:
-    app.kubernetes.io/version: 0.0.10
-    app.kubernetes.io/name: item-inventory
-  name: item-inventory
+    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/name: store-aggregator
+  name: store-aggregator
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/version: 0.0.10
-      app.kubernetes.io/name: item-inventory
+      app.kubernetes.io/version: 0.0.1
+      app.kubernetes.io/name: store-aggregator
   template:
     metadata:
       annotations:
@@ -24,8 +24,8 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/path: /q/metrics
       labels:
-        app.kubernetes.io/version: 0.0.10
-        app.kubernetes.io/name: item-inventory
+        app.kubernetes.io/version: 0.0.1
+        app.kubernetes.io/name: store-aggregator
     spec:
       containers:
       - args:
@@ -53,22 +53,24 @@ spec:
         - name: KAFKA_SECURITY_PROTOCOL
           value: SSL
         - name: KAFKA_USER
-          value: std-1-tls-user
+          value: tls-user
         - name: KAFKA_CERT_PWD
           valueFrom:
             secretKeyRef:
               key: ca.password
-              name: es-demo-cluster-ca-cert
+              name: kafka-cluster-ca-cert
         - name: USER_CERT_PWD
           valueFrom:
             secretKeyRef:
               key: user.password
-              name: std-1-tls-user
+              name: tls-user
         envFrom:
         - configMapRef:
-            name: item-inventory-cm
-        image: quay.io/ibmcase/item-aggregator
-        imagePullPolicy: Always
+            name: store-aggregator-cm
+        - configMapRef:
+            name: kafka-env-cm
+        image: quay.io/ibmcase/store-aggregator
+        imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -79,7 +81,7 @@ spec:
           periodSeconds: 30
           successThreshold: 1
           timeoutSeconds: 10
-        name: item-inventory
+        name: store-aggregator
         ports:
         - containerPort: 8080
           name: http
@@ -103,13 +105,13 @@ spec:
           name: user-cert
           readOnly: false
           subPath: ""
-      serviceAccount: item-inventory
+      serviceAccount: inventory-solution-sa
       volumes:
       - name: kafka-cert
         secret:
           optional: true
-          secretName: es-demo-cluster-ca-cert
+          secretName: kafka-cluster-ca-cert
       - name: user-cert
         secret:
           optional: true
-          secretName: std-1-tls-user
+          secretName: tls-user

@@ -39,11 +39,14 @@ Review the Client provided requirements, and elaborate a system design for an ED
 ## Lab 2: Implement a simple item sell or restock events with Kafka Streams
 
 
-[Review the problem statement and the lab's instructions](./lab2)
-mkd
+[Lab's instructions - 1 hour lab](./lab2)
 
 ## Lab 3: Deploy the solution in one Click
 
 This is a simple of the solution using few commands. [10 minutes lab](./lab3)
 
 ## Lab 4: Deploy the solution with OpenShift GitOps
+
+In this lab, you will deploy the ArgoCD application that monitor your git repository for any change to the configuration.
+
+[Lab 4 GitOps deployment](./lab4)

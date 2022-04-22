@@ -1,0 +1,30 @@
+{
+    "namespace": "ibm.eda.demo.stores.infra.events",
+    "type": "record",
+    "name": "StoreInventory",
+    "fields": [
+        {
+            "name": "storeName",
+            "type": {
+                "type": "String",
+                "avro.java.string": "String"
+            },
+            "doc": "Unique ID for a store"
+        },
+        {
+            "name": "stock",
+            "type": {
+                "type": "string",
+                "avro.java.string": "String"
+            },
+            "doc": "Unique ID for the product as defined in product catalog"
+        },
+        {
+            "name": "timestamp",
+            "type": {
+                "type": "string",
+                "avro.java.string": "String"
+            }
+        }
+    ]
+}

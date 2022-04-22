@@ -46,7 +46,7 @@ spec:
           value: /deployments/certs/server/ca.p12
         - name: KAFKA_SSL_TRUSTSTORE_TYPE
           value: PKCS12
-        - name: KAFKA_SSL_KEYSTORE_FILE_LOCATION
+        - name: KAFKA_SSL_KEYSTORE_LOCATION
           value: /deployments/certs/user/user.p12
         - name: KAFKA_SSL_KEYSTORE_TYPE
           value: PKCS12
@@ -65,7 +65,7 @@ spec:
         envFrom:
         - configMapRef:
             name: store-inventory-cm
-        image: quay.io/ibmcase/store-aggregator:0.0.10
+        image: quay.io/ibmcase/store-aggregator
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
