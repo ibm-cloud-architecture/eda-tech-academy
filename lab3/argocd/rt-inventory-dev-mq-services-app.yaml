@@ -2,16 +2,16 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  name: rt-inventory-mq-services
+  name: mq-services-app
   namespace: openshift-gitops
 spec:
   destination:
     namespace: std-1-rt-inventory
     server: https://kubernetes.default.svc
-  project: student-1
+  project: std-1
   source:
-    path: environments/multi-tenancy/student/services/ibm-mq/overlays
-    repoURL: https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops.git
+    path: lab3/services/ibm-mq/overlays
+    repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git
   syncPolicy:
     automated:
       prune: true

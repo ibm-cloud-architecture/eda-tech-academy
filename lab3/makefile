@@ -1,6 +1,7 @@
 # Makefile to support bootstrapping GitOps and deploy apps with GitOps
 # or having single target to do in one click without GitOps to monitor the git.
 
+# Setting global variables
 
 # Reusable functions
 ensure_operator_installed = \
@@ -48,6 +49,7 @@ eventstreams-config:
 # Prepare student dedicated namespace
 prepare_ns:
 	@oc apply -k env/overlays
+	if [ -z $PREFIX ]; then echo Use $PREFIX; else export PREFIX=std-1;fi
 	@oc project $PREFIX-rt-inventory
 
 mq-config:
@@ -69,7 +71,7 @@ store-inventory:
 item-inventory:
 	@oc apply -k ./apps/item-inventory/
 
-all-no-gitops: prepare_ns \
+all-no-gitops:  \
 	eventstreams-config \
 	mq-config \
 	kconnect \
@@ -85,4 +87,7 @@ clean-all:
 	@oc delete -k ./services/kconnect
 	@oc delete -k ./services/ibm-mq/overlays
 	@oc delete -k ./services/ibm-eventstreams/overlays
-
+	@oc delete kafkatopic $PREFIX-connect-cluster-configs -n cp4i-eventstreams
+	@oc delete kafkatopic $PREFIX-connect-cluster-offsets -n cp4i-eventstreams
+	@oc delete kafkatopic $PREFIX-connect-cluster-status -n cp4i-eventstreams
+	

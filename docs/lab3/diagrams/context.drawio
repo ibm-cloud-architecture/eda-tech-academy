@@ -1,0 +1,58 @@
+<mxfile host="65bd71144e">
+    <diagram id="d4RvNy4XhsKZERcVbzgO" name="Page-1">
+        <mxGraphModel dx="648" dy="590" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Git Repository" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="1">
+                    <mxGeometry x="450" y="590" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="OpenShift Cluster" style="swimlane;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+                    <mxGeometry x="161" y="60" width="440" height="470" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="cp4i-eventstreams" style="swimlane;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="5">
+                    <mxGeometry x="15" y="40" width="195" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="IBM Event Streams Brokers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="11">
+                    <mxGeometry x="32.5" y="40" width="135" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="User Interface" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="11">
+                    <mxGeometry x="32.5" y="80" width="135" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="std-1-rt-inventory" style="swimlane;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="5">
+                    <mxGeometry x="15" y="200" width="375" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="IBM MQ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="13">
+                    <mxGeometry x="25" y="30" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Kafka Connector" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="13">
+                    <mxGeometry x="25" y="55" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Store Simulator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="13">
+                    <mxGeometry x="25" y="100" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Store Aggregator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="13">
+                    <mxGeometry x="25" y="150" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Item Aggregator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="13">
+                    <mxGeometry x="25" y="200" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Student Laptop" style="swimlane;" vertex="1" parent="1">
+                    <mxGeometry x="100" y="550" width="200" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="git client" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="19">
+                    <mxGeometry x="40" y="40" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="oc cli" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="19">
+                    <mxGeometry x="40" y="80" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="make" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;" vertex="1" parent="19">
+                    <mxGeometry x="40" y="130" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Student" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="610" width="30" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -29,10 +29,10 @@ spec:
     jsonPointers:
     - /spec/host
     kind: Route
-  project: student-1
+  project: std-1
   source:
-    path: environments/multi-tenancy/argocd
-    repoURL: https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops.git
+    path: lab3/argocd
+    repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git
   syncPolicy:
     automated:
       prune: true

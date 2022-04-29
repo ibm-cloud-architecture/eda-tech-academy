@@ -1,17 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: student-1
+  name: std-1
   namespace: openshift-gitops
   labels:
     gitops.tier.layer: infra
 spec:
   description: The ArgoCD project to manage the real time inventory Solution deployment
   sourceRepos: 
-  - https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops.git
+  - https://github.ibm.com/boyerje/eda-tech-academy.git
   # Only permit applications to deploy to the following namespace in the same cluster
   destinations:
   - namespace: std-1-rt-inventory
+    server: https://kubernetes.default.svc
+  - namespace: cp4i-eventstreams
     server: https://kubernetes.default.svc
   - namespace: openshift-gitops
     server: https://kubernetes.default.svc
@@ -25,6 +27,6 @@ spec:
   - name: read-only
     description: Read-only privileges to this project
     policies:
-    - p, proj:student-1:read-only, applications, get, student-1/*, allow
+    - p, proj:std-1:read-only, applications, get, std-1-rt-inventory/*, allow
     groups:
     - argocd-admins

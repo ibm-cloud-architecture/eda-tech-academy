@@ -1,62 +1,38 @@
 # Lab 3: Item inventory demonstration deployment
 
-In this lab, you will learn how to deploy the solution simply using this repository and the minimum set of commands.
+In this lab, you will learn how to deploy the solution by simply using this repository and a minimum set of commands.
 
 Each Student will have received a unique identifier and will modify the current settings in this folder with their student id. 
-All the current configurations are currently set for `student_1`, prefix: `std-1`.
+All the current kubernetes configurations are currently set for `student-1`, prefix: `std-1`.
 
 We assume the following are pre-set in you OpenShift cluster, which is the same as CoC integration cluster:
 
-* API Connect is installed under `cp4i-apic` project
-* Event Streams is installed under `cp4i-eventstreams` project
+* Platform navigator is deployed in `cp4i` project.
+* API Connect is installed under `cp4i-apic` project.
+* Event Streams is installed under `cp4i-eventstreams` project.
 
+The following diagram illustrates the components we will deploy in the student namespace using this repository.
+
+![](./images/context.png)
 ## pre-requisites
 
-* Have `make` installed. On Mac it should be pre-installed, on Windows [install GnuWin](http://gnuwin32.sourceforge.net/install.html)
-* You need the 'oc cli'
+See [Pre-requisites section](../#pre-requisites)
 
 ## Preparation
 
-As we are using GitOps, you need to have the source of the configuration into your own account.
+1. Login to your OpenShift cluster using the login command from the OpenShift Console
 
-1. Fork the current repository to your github account: 
+    ![](./images/ocp-login.png)
 
-    ```sh
-    chrome https://github.ibm.com/boyerje/eda-tech-academy
-    ```
+    Then copy this line:
 
-    ![]()
-
-1. Then clone it to your laptop
+    ![](./images/ocp-login-cmd.png)
+    
+1. Verify your `oc` cli works
 
     ```sh
-    git clone https://github.ibm.com/boyerje/eda-tech-academy.git
+    oc get nodes
     ```
-1. Login to your OpenShift cluster
-
-1. Verify the OpenShift GitOps Operator is installed on your OpenShift cluster.
-
-    Work in the `eda-tech-academy/lab3` folder.
-
-    ```sh
-    make verify-argocd-available
-    ```
-
-    Should get this output if not installed
-
-    ```sh
-    Installing
-    Complete
-    ```
-
-    Or this one if already installed.
-
-    ```sh
-    openshift-gitops-operator Installed
-    ```
-
-Ready to modify the configurations.
-
 
 ## Modify existing configuration
 
@@ -75,9 +51,16 @@ The blue components should have been deployed with the Cloud Pak for Integration
     ```sh
     export USER_NAME=student-2
     export PREFIX=std-2
-    export GIT_REPO_NAME=<your-git-user-id>
     ./updateStudent.sh
     ```
+
+## Deploy
+
+The deployment will configure topics in event streams, deploy the three apps, MQ broker and Kafka Connect cluster with the MQ source connector.
+
+![](../images/mq-es-demo.png)
+
+*Event Gateway, schema registry, and Cloud Object Storage sink connector are not used*
 
 1. Start the deployment
 
@@ -94,12 +77,28 @@ The blue components should have been deployed with the Cloud Pak for Integration
     oc get kafkatopic -n cp4i-eventstreams
     oc get kafkauser -n  cp4i-eventstreams
     ```
+1. Access to the MQ console
 
+1. Access to the simulator console
+
+    ```sh
+    chrome http://$(oc get route store-simulator -o jsonpath='{.status.ingress[].host}')
+    ```
+1. Access MQ web cosole
+
+    ```sh
+    chrome   https://cpd-cp4i.apps.biggs.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
+    ```
 1. Execute the demo script
 
-    [The instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing)
+    [The demonstration instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing) as this is a demonstration available in the public git and shareable with customers and prospects.
 
-1. Delete the deployment
+
+## Clean 
+
+1. If you plan to do the lab 4 using gitops do not delete anything
+
+1. Full clean up the deployment
 
     If you want to stop working and clean the OpenShift cluster and event streams elements
 
@@ -107,6 +106,4 @@ The blue components should have been deployed with the Cloud Pak for Integration
     make clean-all
     ```
 
-1. Social media
-
-    After this lab you should tweet about your wonderful experience and do a tiktok video, and next time you visit the Eiffel Tower take a selfie with a web browser open on the lab 3 page. 
+> [Next to deploy with GitOps](../lab4)
