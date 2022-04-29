@@ -43,3 +43,6 @@ Start from a white page, design components that you think will be relevant.
     * Do not read !
     * Think about enterprise network, cloud provider, stores and warehouses as sources.
     * SAP is one of the system of records
+
+
+> [See the Solution](./lab1-sol.md)

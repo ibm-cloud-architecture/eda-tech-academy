@@ -43,6 +43,11 @@ public class StoreInventoryAggregator {
      **/  
     public Topology buildProcessFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
+        
+        /**
+         * implement HERE your topology
+         */
+       
         KStream<String,ItemTransaction> items = builder.stream(itemSoldInputStreamName, 
         Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));     
         // process items and aggregate at the store level 

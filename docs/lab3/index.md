@@ -25,6 +25,8 @@ As we are using GitOps, you need to have the source of the configuration into yo
     chrome https://github.ibm.com/boyerje/eda-tech-academy
     ```
 
+    ![]()
+
 1. Then clone it to your laptop
 
     ```sh

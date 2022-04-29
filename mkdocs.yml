@@ -11,6 +11,7 @@ nav:
     - Problem Statement: lab1/index.md
     - Solution Overview: lab1/lab1-sol.md
   - Lab 2 Item inventory:
+    - Kstream getting started: lab2/kstream.md
     - Problem Statement: lab2/index.md
     - Solution Overview: lab2/lab2-sol.md
   - Lab 3 Running demo: lab3/index.md

@@ -13,22 +13,37 @@ In the Event-driven architecture workshop, you will learn how to use of Event-Dr
 ## Pre-requisites
 
 * Have a [git client installed](https://github.com/git-guides/install-git)
-* Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on developer local laptop
+* Have a git account into [IBM Internal github](https://github.ibm.com/). 
+* Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/)
 * OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster/biggs) as a based for our deployments.
-## Lecture 1: Review key EDA patterns, use cases and usage scenarios.
 
-What are the technical use cases where Event Streams is a good fit.
+Fork this repository to your own account 
+
+![](./lab2/images/fork-repo.png)
+
+and then clone it to your local laptop:
+
+```sh
+git clone ...
+```
+## Study - Lecture: Review key EDA patterns, use cases and usage scenarios.
+
+**Duration:** 20 minutes.
+
+What are the technical use cases where Event Streams is a good fit. Why customers are going full speed to adopt EDA?
 
 * [Technical use cases - general positioning](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/usecases/#technical-use-cases)
 * [Assessment questions for Event Streams opportunity](https://pages.github.ibm.com/boyerje/eda-internal/kafka-assessment/)
 * Detailed [use case slides](https://github.ibm.com/boyerje/eda-internal/raw/master/docs/eda-usecases/01-EDA-Usecases.pptx)
 
-[Video]()
 
 ???- "Read more"
     * [EDA internal site - use cases](https://pages.github.ibm.com/boyerje/eda-internal/eda-usecases/)
+    * [EDA public web site we use to present content to customer - ](https://ibm.biz/learn-eda)
 ## Lab 1: System design for a real-time inventory solution
+
+**Duration**: 30 minutes
 
 Review the Client provided requirements, and elaborate a system design for an EDA solution.
 
@@ -36,17 +51,25 @@ Review the Client provided requirements, and elaborate a system design for an ED
 
 ???- "Read more"
     * [Demonstration of Event Streams product](https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/)
-## Lab 2: Implement a simple item sell or restock events with Kafka Streams
+## Lab 2: Implement a simple item sell or restock event processing with Kafka Streams
 
+Learning the basic of Kafka Streams, and implement a store aggregation processing.
+
+**Duration**: 60 minutes
 
 [Lab's instructions - 1 hour lab](./lab2)
 
 ## Lab 3: Deploy the solution in one Click
 
-This is a simple of the solution using few commands. [10 minutes lab](./lab3)
+**Duration**: 20 minutes
+
+This is a sample of the solution using few commands to deploy to OpenShift. [20 minutes lab](./lab3)
 
 ## Lab 4: Deploy the solution with OpenShift GitOps
 
-In this lab, you will deploy the ArgoCD application that monitor your git repository for any change to the configuration.
+**Duration**: 30 minutes
+
+In this lab, you will deploy the ArgoCD applications that monitor your git repository for any change to the configuration
+and deploy the different services and MQ broker in your own namespace.
 
 [Lab 4 GitOps deployment](./lab4)
