@@ -21,7 +21,6 @@ import ibm.gse.eda.stores.domain.StoreInventory;
 import ibm.gse.eda.stores.domain.StoreInventoryAggregator;
 import ibm.gse.eda.stores.infra.api.dto.InventoryQueryResult;
 import ibm.gse.eda.stores.infra.api.dto.PipelineMetadata;
-import ibm.gse.eda.stores.infra.events.ItemProcessingAgent;
 
 @ApplicationScoped
 public class StoreInventoryQueries {

@@ -17,11 +17,11 @@ spec:
             -  example.mqsc
     resources:
       limits:
-        cpu: 500m
+        cpu: 250m
       requests:
-        cpu: 500m
+        cpu: 250m
     metrics:
-      enabled: true
+      enabled: false
     route:
       enabled: true
     storage:

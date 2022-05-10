@@ -19,6 +19,7 @@ import org.apache.kafka.streams.TopologyTestDriver;
 import org.apache.kafka.streams.kstream.Branched;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Named;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -44,14 +45,14 @@ public class TestDeadLetterTopic {
         KStream<String,ItemTransaction> items = builder.stream(inTopicName, 
                 Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));  
         // 2 build branches
-        Map<String, KStream<String,ItemTransaction>> branches = items.split()
+        Map<String, KStream<String,ItemTransaction>> branches = items.split(Named.as("B-"))
         .branch((k,v) -> 
            (v.storeName == null ||  v.storeName.isEmpty() || v.sku == null || v.sku.isEmpty()),
            Branched.as("wrong-tx")
        ).defaultBranch(Branched.as("good-tx"));
         // Generate to output topic
-       // branches.get("good-tx").to(outTopicName);
-        //branches.get("wring-tx").to(deadLetterTopicName);
+        branches.get("B-good-tx").to(outTopicName);
+        branches.get("B-wrong-tx").to(deadLetterTopicName);
         return builder.build();  
     }
 
