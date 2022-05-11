@@ -38,7 +38,7 @@ spec:
           - configMapRef:
               name: mq-config
 
-  version: 9.2.4.0-r1
+  version: 9.2.5.0-r2
   web:
     enabled: true
 
