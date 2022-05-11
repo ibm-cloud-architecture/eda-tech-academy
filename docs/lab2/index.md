@@ -1,6 +1,6 @@
 # Lab 2: Store inventory with Kafka Streams
 
-In this Lab you will do a simple Kafka Streams processing using simple APIs to build a streaming topology to compute the store inventory for each items.
+In this Lab you will do a simple Kafka Streams implementation using simple APIs to build a streaming topology to compute the store inventory for each items.
 
 The figure illustrates what you need to build, the green rectangle, which is a [Java Quarkus](https://quarkus.io) application using Kafka Streams API consuming `items` events and computing `store inventory` events by aggregating at the store level.
 

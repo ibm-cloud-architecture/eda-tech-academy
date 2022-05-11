@@ -1,25 +1,37 @@
 ## Kafka Stream concepts
 
-You need to understand some basic Kafka Stream APIs.
+You need to understand some basic on how to use the Kafka Stream APIs so you can develop some simple streaming applications in a scope of a proof of concepts.
 
 ### Topology
 
-The business logic is implemented via "topology" that represents a graph of processing operators or nodes. Each node within the graph, processes events from the parent node and may generate events for the down stream node(s). 
-This is really close to the Java Streaming APIs or Mutiny APIs, but the APIs used by the topology is from Kafka streams APIS.
+The business logic is implemented via a Kafka Streams "topology" which represents a graph of processing operators or nodes. Each node within the graph, processes events from the parent node and may generate events for the down stream node(s). 
+This is really close to the Java Streaming APIs or Mutiny APIs, but the APIs used by the topology is from Kafka Streams APIS.
 
-Kafka Streams applications are built on top of producer and consumer APIs and are leveraging Kafka capabilities to do data parallelism processing, support distributed coordination of partition to task assignment, and being fault tolerant.
+Kafka Streams applications are built on top of Kafka producer and consumer APIs and are leveraging Kafka capabilities to do data parallelism processing, to support distributed coordination of partition to task assignment, and to support fault tolerance.
 
-To build a topology we use a Builder class to define input streams, logic to apply and then produce results
+To build a topology we use a `StreamsBuilder` class to define the input streams (mapped to a Kakfa topic), the logic to apply to the events and then how to produce results to a Kafka topic.
 
 ```java
+// Create a builder
 final StreamsBuilder builder = new StreamsBuilder();
- //...
-
+// define the KStream abstraction by defining where the data come from (topic) and in which format
+KStream<String,ItemTransaction> items = builder.stream(itemSoldInputStreamName, 
+        Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde())); 
 final Topology topology = builder.build();
+// start the topology in a thread... we will this code later
+
 ```
+
+So let start by playing with KStream construct.
+
+???- "Some Reading"
+    If you do not know about topic, kafka producer, and consumer, you may spend time to read some quick [kafka concepts](https://ibm.github.io/event-streams/about/key-concepts/)
+    * More [about producer practice](https://ibm.github.io/event-streams/about/producing-messages/)
+    * And [consumer](https://ibm.github.io/event-streams/about/consuming-messages/)
 ### KStream API
 
-[KStream](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KStream.html) is an abstraction of a Kafka record stream. It can be defined from one ot multiple Topics.
+[KStream](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KStream.html) is an abstraction of a Kafka record stream. It can be defined from one ot multiple Topics, and will define the structure of the Kafka
+record key, and the record structure.
 
 The following declaration is for consuming from topic named `items` with Key and Value of type `String`:
 
@@ -27,7 +39,7 @@ The following declaration is for consuming from topic named `items` with Key and
  KStream<String, String> aStream = builder.stream("items",Consumed.with(Serdes.String(), Serdes.String()));
 ```
 
-Then Kstream offers a lot of functions to process the records. Below is a quick summary of the methd you need
+Then Kstream offers a lot of functions to process the records. Below is a quick summary of the methods you may need to use in the next exercises:
 
 | Method | What it does | Example |
 | --- | --- | --- | 
@@ -39,9 +51,19 @@ Then Kstream offers a lot of functions to process the records. Below is a quick 
 
 ### KTable
 
-KTable is an abstraction of a changelog stream from a primary-keyed table.
+KTable is the second main abstraction of a changelog stream from a primary-keyed table.
 
 A stream can be considered a changelog of a table, where each data record in the stream captures a state change of the table.
+
+The figure below is a simplication of both concepts:
+
+![](./images/stream-table.png)
+
+A Kstream is first connect to a topic and will receive event with Key,Value structure, as unbounded stream. You can chain Kstream to build a topology, and to a Ktable, which will keep only the last value of a given key. To ouput to a Kafka topic, the final construct is a KStream.
+
+KStreams are in memory, Ktables can be persisted in Kafka.
+
+Interesting methods:
 
 | Method | What it does | Example |
 | --- | --- | --- | 
@@ -55,20 +77,22 @@ A stream can be considered a changelog of a table, where each data record in the
     * [Kafka Streams summary](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-streams/)
     * [Other labs](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/kafka-streams/)
 
-## Getting started with simple Kafka Streaming 
+## Getting started with a simple Kafka Streaming 
 
-Go to the `/lab2/refarch-eda-store-inventory` folder to do your work, and load this folder into your IDE. Be sure you can run test inside the IDE, it may be easier to debug.
+Go to the `/lab2/refarch-eda-store-inventory` folder to do your work, and load this folder into your IDE. Be sure you can run tests inside the IDE, it may be easier to debug.
 
-### Test your first topology
+### Exercise 1: Test your first topology
 
-We want to print the messages received from a Kafka topic and filter only events coming from `store_1`.
+**Duration: 10 minutes**
 
-In your IDE go to the `src/test/java/ut` folder and the class: [TestYourFirstTopology.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java). We will review the most important elements of this test:
+**Goal:** Test a basic topology inside unit test.
 
-* The TopologyTestDriver is a class to test a Kafka Streams topology without Kafka
-* the TestInputTopic is used to pipe records to topic in TopologyTestDriver. This is used to send test messages
-* The `@BeforeAll` annotation on the `setup()` method means that it will be run before any test is executed, while the @AfterAll annotation on the teardown method ensures that it will be run each time after each test execution. This allows us to spin up and tear down all the necessary components after all test. We use this approach as we have one topology under test in this class.
-* The buildTopology method utilizes the StreamsBuilder class to construct a simple topology, reading from the input Kafka topic defined by the inTopicName String. The logic is simple print the message, the filter on a value, and generates the output to the topic:
+In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java). The most important elements of this test are:
+
+* The `TopologyTestDriver` is a class to test a Kafka Streams topology without Kafka
+* the TestInputTopic is used to pipe test records to a topic in TopologyTestDriver. This is used to send test messages.
+* The `@BeforeAll` annotation on the `setup()` method means that it will be run before any test is executed, while the `@AfterAll` annotation on the teardown method ensures that it will be run after last test execution.  We use this approach to define the topology under test in this class.
+* The `buildTopology` method utilizes the StreamsBuilder class to construct a simple topology, reading from the input Kafka topic defined by the inTopicName String. The logic is simply to print the message, the filter on a `blue` value, and generates the output to a topic:
 
 ```java
  KStream<String, String> basicColors = builder.stream(inTopicName,Consumed.with(Serdes.String(), Serdes.String()));
@@ -112,7 +136,7 @@ POST-FILTER: key=C01, value=blue
 [or.ap.ka.st.pr.in.StreamTask] (main) stream-thread [main] task [0_0] Closed clean
 ```
 
-### Filter item transaction without a store
+### Exercise 2: Filter item transaction without a store
 
 **Problem:** 
 
@@ -141,7 +165,7 @@ Use Test Driven Development to build tests before the topology. Tests are alread
     .to(outTopicName);
     ```
 
-### Dead letter topic
+### Exercise 3: Dead letter topic
 
-Extend the topology to route the records in error to a dead letter topic. 
+Extend the topology to route the records in error to a dead letter topic. This will be using the concept of branches.
 
