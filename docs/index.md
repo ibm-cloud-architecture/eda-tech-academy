@@ -16,8 +16,12 @@ applications and proof of concepts. 
 * Have a [git client installed](https://github.com/git-guides/install-git)
 * Have a git account into [IBM Internal github](https://github.ibm.com/). 
 * Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
-* Have maven installed
 * A JDK 11.
+* Install the make tool:
+
+    * For Mac: `brew install make`
+    * For Windows: See [this note](https://www.technewstoday.com/install-and-use-make-in-windows/)
+* Have [oc cli] installed.
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/)
 * OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster/biggs) as a base for our deployments.
 

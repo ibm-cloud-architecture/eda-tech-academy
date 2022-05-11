@@ -87,3 +87,14 @@ As we are using GitOps, you need to have the source of the configuration into yo
 
 
 
+## Clean 
+
+1. If you plan to do the lab 4 using gitops do not delete anything
+
+1. Full clean up the deployment
+
+    If you want to stop working and clean the OpenShift cluster and event streams elements
+
+    ```sh
+    make clean-all
+    ```
