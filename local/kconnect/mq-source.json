@@ -1,0 +1,22 @@
+{
+    "name": "mq-source",
+    "config":
+    {
+        "connector.class": "com.ibm.eventstreams.connect.mqsource.MQSourceConnector",
+        "tasks.max": "1",
+        "topic": "items",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+        "mq.queue.manager": "QM1",
+        "mq.connection.name.list": "ibmmq(1414)",
+        "mq.user.name": "app",
+        "mq.password": "passw0rd",
+        "mq.user.authentication.mqcsp": true,
+        "mq.channel.name": "DEV.APP.SVRCONN",
+        "mq.queue": "DEV.QUEUE.1",
+        "mq.record.builder": "com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder",
+        "mq.connection.mode": "client",
+        "mq.message.body.jms": true,
+        "mq.record.builder.key.header": "JMSCorrelationID"
+    }
+}

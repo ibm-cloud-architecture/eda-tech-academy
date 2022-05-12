@@ -6,7 +6,7 @@ metadata:
     eventstreams.ibm.com/use-connector-resources: "true"
 spec:
   version: 3.0.0
-  replicas: 1
+  replicas: 2
   bootstrapServers: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
   image: quay.io/ibmcase/eda-kconnect-cluster-image:latest
   resources:
@@ -36,9 +36,9 @@ spec:
     offset.storage.topic: std-1-connect-cluster-offsets
     config.storage.topic: std-1-connect-cluster-configs
     status.storage.topic: std-1-connect-cluster-status
-    config.storage.replication.factor: 1
-    offset.storage.replication.factor: 1
-    status.storage.replication.factor: 1
+    config.storage.replication.factor: 3
+    offset.storage.replication.factor: 3
+    status.storage.replication.factor: 3
   tls:
     trustedCertificates:
       - secretName: es-demo-cluster-ca-cert

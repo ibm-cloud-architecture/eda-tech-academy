@@ -1,0 +1,132 @@
+version: '3.7'
+services:
+  ibmmq:
+    image: ibmcom/mq
+    container_name: ibmmq
+    hostname: ibmmq
+    ports:
+        - '1414:1414'
+        - '9443:9443'
+        - '9157:9157'
+    volumes:
+        - qm1data:/mnt/mqm
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+        LICENSE: accept
+        MQ_QMGR_NAME: QM1
+        MQ_APP_PASSWORD: passw0rd
+        MQ_ENABLE_METRICS: "true"
+  zookeeper:
+    image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.0
+    container_name: zookeeper
+    hostname: zookeeper
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+  kafka:
+    image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.0
+    container_name: kafka
+    command: [
+      "sh", "-c",
+      "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} \
+      --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} \
+      --override listener.security.protocol.map=$${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP} \
+      --override inter.broker.listener.name=$${KAFKA_INTER_BROKER_LISTENER_NAME} \
+      --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: EXTERNAL://0.0.0.0:9092,INTERNAL://kafka:29092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  simulator:
+    image: quay.io/ibmcase/eda-store-simulator
+    container_name: simulator
+    depends_on:
+      - kafka
+    hostname: storeapp
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      APP_TARGET_MESSAGING: IBMMQ,Kafka
+      KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_CERT_PWD: ""
+      USER_CERT_PWD: ""
+      MQ_QMGR: QM1
+      MQ_HOST: ibmmq
+      MQ_PORT: 1414
+      MQ_QUEUE_NAME: DEV.QUEUE.1
+      MQ_CHANNWL: DEV.APP.SVRCONN
+  itemInventory:
+    image: quay.io/ibmcase/item-aggregator
+    container_name: item-aggregator
+    depends_on:
+      - kafka
+    hostname: iaggregator
+    ports:
+      - "8081:8080"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_CERT_PWD: ""
+      USER_CERT_PWD: ""
+  storeInventory:
+    image: quay.io/ibmcase/store-aggregator
+    container_name: store-aggregator
+    depends_on:
+      - kafka
+    hostname: saggregator
+    ports:
+      - "8082:8080"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_CERT_PWD: ""
+      USER_CERT_PWD: ""
+  addTopics:
+    image:  cp.icr.io/cp/ibm-eventstreams-kafka:11.0.0
+    depends_on:
+      - kafka
+    entrypoint: [ "bash",  "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic items 
+            && /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic store.inventory 
+            && /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic item.inventory"]
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+    depends_on:
+      - kafka
+  kconnect:
+    container_name: kconnect
+    image: quay.io/ibmcase/eda-kconnect-cluster-image
+    ports:
+      - 8083:8083
+    volumes:
+      - ./kconnect:/tmp
+    command: [
+      "sh", "-c",
+      "export LOG_DIR=/tmp &&
+       bin/connect-distributed.sh /tmp/distributed.properties"
+    ]
+    depends_on:
+      - kafka
+volumes:
+  qm1data:

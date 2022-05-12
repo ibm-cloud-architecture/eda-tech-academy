@@ -107,7 +107,7 @@ The deployment will configure topics in event streams, deploy the three apps, MQ
 1. Access to the MQ console (replace the namespace and base url)
 
     ```sh
-    chrome   https://cpd-cp4i.apps.biggs.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
+    chrome   https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
     ```
 
 1. Access to the simulator console
@@ -116,15 +116,42 @@ The deployment will configure topics in event streams, deploy the three apps, MQ
     chrome http://$(oc get route store-simulator -o jsonpath='{.status.ingress[].host}')
     ```
 
-1. Access MQ web cosole
+    Go to the SIMULATOR tab and select IBMMQ backen, and controlled scenario 
 
-    ```sh
-    chrome   https://cpd-cp4i.apps.biggs.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
-    ```
+    ![](./images/simulator-ctl.png)
 
-1. Execute the demo script
+    You should get a set of predefined messages sent to MQ, and then to Kafka items topic
 
+    ![](./images/msgs-sent.png)
+
+    Go to the Event Streams console
+
+???- "Read more on the demonstration script"
     [The demonstration instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing) as this is a demonstration available in the public git and shareable with customers and prospects.
 
+## Troubleshooting
 
-> [Next to deploy with GitOps](../lab4)
+### Message not sent to MQ
+
+This could come from a connection issue between the simulator and MQ. Get the logs for the simulator pod:
+
+```sh
+oc get pod -l app.kubernetes.io/name=store-simulator
+oc logs <pod_id>
+```
+
+## Running locally
+
+During proof of concept development you can run Event Streams, MQ and your code locally. We give you a docker compose file to do so. Here are the commands to run the same demonstration locally:
+
+```sh
+cd local
+docker-compose up -d
+./listTopics.sh
+```
+
+* Access simulator user interface at [http://localhost:8080](http://localhost:8080)
+* Access MQ UI at [https://localhost:9443](https://localhost:9443)
+* Access Kafdrop UI [http://localhost:9000](http://localhost:9000)
+
+> [Next >> deploy with GitOps](../lab4)

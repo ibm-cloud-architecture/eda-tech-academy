@@ -71,14 +71,16 @@ store-inventory:
 item-inventory:
 	@oc apply -k ./apps/item-inventory/
 
+apps: store-simulator \
+	store-inventory\
+	item-inventory 
+
 all-no-gitops:  prepare-ns\
 	eventstreams-config \
 	mq-config \
 	kconnect \
 	mq-kconnector \
-	store-simulator \
-	store-inventory\
-	item-inventory 
+	apps
 
 clean-all:
 	@oc delete -k ./apps/item-inventory/

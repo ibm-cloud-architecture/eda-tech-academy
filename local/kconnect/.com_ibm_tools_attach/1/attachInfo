@@ -1,0 +1,10 @@
+version=0.1
+userId=unknown
+userUid=1001
+processId=1
+vmId=1
+displayName=org.apache.kafka.connect.cli.ConnectDistributed\ /tmp/distributed.properties
+notifier=_notifier
+globalSemaphore=true
+replyFile=/tmp/.com_ibm_tools_attach/1/replyInfo
+attachNotificationSync=/tmp/.com_ibm_tools_attach/1/attachNotificationSync
