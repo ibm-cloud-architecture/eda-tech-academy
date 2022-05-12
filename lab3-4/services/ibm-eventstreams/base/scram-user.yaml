@@ -1,4 +1,4 @@
-apiVersion: eventstreams.ibm.com/v1beta1
+apiVersion: eventstreams.ibm.com/v1beta2
 kind: KafkaUser
 metadata:
   name: std-1-scram-user

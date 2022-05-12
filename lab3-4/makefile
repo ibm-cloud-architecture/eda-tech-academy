@@ -47,10 +47,10 @@ eventstreams-config:
 	@oc apply -k services/ibm-eventstreams/overlays
 
 # Prepare student dedicated namespace
-prepare_ns:
+prepare-ns:
 	@oc apply -k env/overlays
-	if [ -z $PREFIX ]; then echo Use $PREFIX; else export PREFIX=std-1;fi
-	@oc project $PREFIX-rt-inventory
+	if [ -z $$PREFIX ]; then echo Use $$PREFIX; else export PREFIX=std-1;fi
+	@oc project $$PREFIX-rt-inventory
 
 mq-config:
 	@oc apply -k services/ibm-mq/overlays
@@ -71,7 +71,7 @@ store-inventory:
 item-inventory:
 	@oc apply -k ./apps/item-inventory/
 
-all-no-gitops:  \
+all-no-gitops:  prepare-ns\
 	eventstreams-config \
 	mq-config \
 	kconnect \
@@ -87,7 +87,8 @@ clean-all:
 	@oc delete -k ./services/kconnect
 	@oc delete -k ./services/ibm-mq/overlays
 	@oc delete -k ./services/ibm-eventstreams/overlays
-	@oc delete kafkatopic $PREFIX-connect-cluster-configs -n cp4i-eventstreams
-	@oc delete kafkatopic $PREFIX-connect-cluster-offsets -n cp4i-eventstreams
-	@oc delete kafkatopic $PREFIX-connect-cluster-status -n cp4i-eventstreams
+	@oc delete kafkatopic $$PREFIX-connect-cluster-configs -n cp4i-eventstreams
+	@oc delete kafkatopic $$PREFIX-connect-cluster-offsets -n cp4i-eventstreams
+	@oc delete kafkatopic $$PREFIX-connect-cluster-status -n cp4i-eventstreams
+	@oc delete -k env/overlays
 	
