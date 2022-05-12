@@ -9,18 +9,20 @@ This is really close to the Java Streaming APIs or Mutiny APIs, but the APIs use
 
 Kafka Streams applications are built on top of Kafka producer and consumer APIs and are leveraging Kafka capabilities to do data parallelism processing, to support distributed coordination of partition to task assignment, and to support fault tolerance.
 
-To build a topology we use a `StreamsBuilder` class to define the input streams (mapped to a Kakfa topic), the logic to apply to the events and then how to produce results to a Kafka topic.
+To build a topology we use a StreamsBuilder class to define the input streams (mapped to a Kakfa topic), the logic to apply to the events and then how to produce results to a Kafka topic.
 
-```java
+```Java title="Define a topology"
 // Create a builder
-final StreamsBuilder builder = new StreamsBuilder();
+final StreamsBuilder builder = new StreamsBuilder(); // (1)
 // define the KStream abstraction by defining where the data come from (topic) and in which format
 KStream<String,ItemTransaction> items = builder.stream(itemSoldInputStreamName, 
-        Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde())); 
+        Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));  // (2)
 final Topology topology = builder.build();
 // start the topology in a thread... we will this code later
-
 ```
+
+1. StreamsBuilder to build a topology and run it
+1. Define a stream from a topic with serialization of the value to a Java Bean
 
 So let start by playing with KStream construct.
 
@@ -87,7 +89,7 @@ Go to the `/lab2/refarch-eda-store-inventory` folder to do your work, and load t
 
 **Goal:** Test a basic topology inside unit test.
 
-In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java). The most important elements of this test are:
+In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java "Link to apache doc"). The most important elements of this test are:
 
 * The `TopologyTestDriver` is a class to test a Kafka Streams topology without Kafka
 * the TestInputTopic is used to pipe test records to a topic in TopologyTestDriver. This is used to send test messages.
@@ -169,3 +171,4 @@ Use Test Driven Development to build tests before the topology. Tests are alread
 
 Extend the topology to route the records in error to a dead letter topic. This will be using the concept of branches.
 
+*[StreamsBuilder]: Builder for Kafka Streams topology

@@ -1,5 +1,7 @@
 site_name: EDA technical academy
+site_author: Jerome Boyer
 repo_url: https://github.ibm.com/boyerje/eda-tech-academy
+
 nav:
   - Introduction: index.md
   - Preparation:
@@ -20,18 +22,21 @@ nav:
 
 theme: 
   name: material
-  feature:
-    tabs: true
+  # custom_dir: docs/overrides
   palette:
     scheme: default
-    primary: 'magenta dark'
   language: en
+  include_search_page: false
+  search_index_only: true
   features:
-      # - navigation.tabs
+      - content.code.annotate
+      - content.tooltips
+      - navigation.tabs
       - navigation.instant
+      - navigation.indexes
       - navigation.tracking
       - navigation.tabs.sticky
-      - navigation.left
+
 extra_css: ["extra.css"]
 plugins:
   - search:
@@ -39,15 +44,18 @@ plugins:
   - minify:
       minify_html: true
 markdown_extensions:
+  - meta
+  - abbr
+  - attr_list
   - admonition
-  - codehilite
   - footnotes
   - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - attr_list
   - toc:
       permalink: true
       toc_depth: 3
-  - pymdownx.tabbed
-  - pymdownx.highlight
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - pymdownx.details
+  - pymdownx.superfences

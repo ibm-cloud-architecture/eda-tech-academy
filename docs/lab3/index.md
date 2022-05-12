@@ -103,18 +103,25 @@ The deployment will configure topics in event streams, deploy the three apps, MQ
     oc get kafkatopic -n cp4i-eventstreams
     oc get kafkauser -n  cp4i-eventstreams
     ```
-1. Access to the MQ console
+
+1. Access to the MQ console (replace the namespace and base url)
+
+    ```sh
+    chrome   https://cpd-cp4i.apps.biggs.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
+    ```
 
 1. Access to the simulator console
 
     ```sh
     chrome http://$(oc get route store-simulator -o jsonpath='{.status.ingress[].host}')
     ```
+
 1. Access MQ web cosole
 
     ```sh
     chrome   https://cpd-cp4i.apps.biggs.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
     ```
+
 1. Execute the demo script
 
     [The demonstration instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing) as this is a demonstration available in the public git and shareable with customers and prospects.

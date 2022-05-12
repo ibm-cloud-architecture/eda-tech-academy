@@ -1,3 +1,9 @@
+---
+title: Real-time inventory solution design
+icon: material/emoticon-happy
+template: main.html
+---
+
 # Real-time inventory solution design
 
 This use case is coming from four customer's engagements since the last three years. 
