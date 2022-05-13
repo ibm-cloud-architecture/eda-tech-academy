@@ -1,2 +1,4 @@
 site/
 lab2/refarch-eda-store-inventory/target/
+local/kconnect/.log.*
+local/kconnect/.com_ibm*/
