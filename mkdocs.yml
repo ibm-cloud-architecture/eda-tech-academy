@@ -9,7 +9,7 @@ nav:
     - Event Streams Demo from A to Z: https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/
     - Fit for purpose: https://ibm-cloud-architecture.github.io/refarch-eda/concepts/fit-to-purpose/
     - Reference Architecture: https://ibm-cloud-architecture.github.io/refarch-eda/introduction/reference-architecture/#event-driven-architecture
-  - Beginner Lab: lab0/demo-script.md
+  - Beginner Lab: lab0/
   - Lab 1 System Design:
     - Problem Statement: lab1/index.md
     - Solution Overview: lab1/lab1-sol.md
