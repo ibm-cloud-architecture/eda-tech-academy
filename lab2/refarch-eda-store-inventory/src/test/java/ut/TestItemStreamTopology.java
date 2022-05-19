@@ -49,7 +49,7 @@ public class TestItemStreamTopology {
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "store-aggregator");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummmy:1234");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,  Serdes.String().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,   StoreSerdes.ItemTransactionSerde().getClass());
         return props;
     }
 

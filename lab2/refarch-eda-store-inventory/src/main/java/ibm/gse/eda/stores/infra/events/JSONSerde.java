@@ -17,6 +17,9 @@ public class JSONSerde<T> implements Serializer<T>, Deserializer<T>, Serde<T> {
     public JSONSerde(String cn){
         this.className = cn;
     }
+
+    public JSONSerde(){}
+    
     @Override
     public void configure(final Map<String, ?> configs, final boolean isKey) {}
 

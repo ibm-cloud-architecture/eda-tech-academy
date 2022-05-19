@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import ibm.gse.eda.stores.domain.ItemTransaction;
 import ibm.gse.eda.stores.domain.StoreInventory;
 
-public class TestInventoryLogic {
+public class TestStoreInventoryLogic {
 
     @Test
     public void shouldUpdateItemSoldQuantityTo10(){

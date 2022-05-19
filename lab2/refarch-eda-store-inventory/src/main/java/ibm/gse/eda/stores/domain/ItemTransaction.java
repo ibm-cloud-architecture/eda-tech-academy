@@ -35,4 +35,14 @@ public class ItemTransaction   {
                 this.quantity = quantity;
                 this.timestamp = LocalDateTime.now().toString();
         }
+
+        public String toString(){
+                StringBuffer sb = new StringBuffer();
+                sb.append("id: " + id);
+                sb.append(" Store: " + storeName);
+                sb.append(" Item: " + sku);
+                sb.append(" Type: " + type);
+                sb.append(" Quantity: " + quantity);
+                return sb.toString(); 
+        }
 }

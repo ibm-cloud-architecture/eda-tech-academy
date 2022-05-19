@@ -18,13 +18,10 @@ import org.apache.kafka.streams.TopologyTestDriver;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class TestYourFirstTopology {
-    // Name of input topic
-    public static String itemSoldInputStreamName = "items";
     
     private  static TopologyTestDriver testDriver;
     private static String inTopicName = "my-input-topic";
@@ -79,6 +76,9 @@ public class TestYourFirstTopology {
         assertThat(outTopic.isEmpty(), is(true));
     }
 
+    /**
+     * Send one message, and use test topic to assess expected results
+     */
     @Test
     public void isNotEmpty() {
         assertThat(outTopic.isEmpty(), is(true));
@@ -89,8 +89,11 @@ public class TestYourFirstTopology {
     }
 
 
+    /**
+     * Do the real test of the topology
+     */
     @Test
-    public void selectBlues() {
+    public void shouldGetOnlyTheBlue() {
         assertThat(outTopic.isEmpty(), is(true));
         inTopic.pipeInput("C01", "blue");
         inTopic.pipeInput("C02", "red");

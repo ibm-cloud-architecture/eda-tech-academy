@@ -24,9 +24,10 @@ import org.junit.jupiter.api.Test;
 import ibm.gse.eda.stores.domain.ItemTransaction;
 import ibm.gse.eda.stores.infra.events.StoreSerdes;
 
+/**
+ * Filter out items with no store name or no sku
+ */
 public class TestSecondTopology {
-    // Name of input topic
-    public static String itemSoldInputStreamName = "items";
     
     private  static TopologyTestDriver testDriver;
     private  static TestInputTopic<String, ItemTransaction> inputTopic;
@@ -37,7 +38,7 @@ public class TestSecondTopology {
     public static Topology buildTopologyFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
          // 1- get the input stream
-
+        
         // 2 filter
 
         // Generate to output topic
@@ -61,7 +62,7 @@ public class TestSecondTopology {
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kstream-labs");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummmy:1234");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,  Serdes.String().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,   StoreSerdes.ItemTransactionSerde().getClass());
         return props;
     }
 
@@ -89,21 +90,35 @@ public class TestSecondTopology {
         assertThat(outputTopic.getQueueSize(), equalTo(1L) );
         ItemTransaction filteredItem = outputTopic.readValue();
         assertThat(filteredItem.storeName, equalTo("Store-1"));
+        assertThat(filteredItem.sku, equalTo("Item-1"));
     }
 
     @Test
-    public void sendInValidRecord(){
+    public void nullStoreNameRecordShouldGetNoOutputMessage() {
         ItemTransaction item = new ItemTransaction(null,"Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
-        //assertThat(outputTopic.getQueueSize(), equalTo(0L) );
-        item = new ItemTransaction("","Item-1",ItemTransaction.RESTOCK,5,33.2);
-        inputTopic.pipeInput(item.storeName, item);
-        assertThat(outputTopic.getQueueSize(), equalTo(0L) );
-        item = new ItemTransaction("Store-1",null,ItemTransaction.RESTOCK,5,33.2);
+    }
+
+    @Test
+    public void emptyStoreNameRecordShouldGetNoOutputMessage() {
+        ItemTransaction item = new ItemTransaction("","Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
-        item = new ItemTransaction("Store-1","",ItemTransaction.RESTOCK,5,33.2);
+    }
+
+    @Test
+    public void nullSkuRecordShouldGetNoOutputMessage(){
+        //assertThat(outputTopic.getQueueSize(), equalTo(0L) );
+
+        ItemTransaction item = new ItemTransaction("Store-1",null,ItemTransaction.RESTOCK,5,33.2);
+        inputTopic.pipeInput(item.storeName, item);
+        assertThat(outputTopic.isEmpty(), is(true));
+    }
+
+    @Test
+    public void emptySkuRecordShouldGetNoOutputMessage(){
+        ItemTransaction item = new ItemTransaction("Store-1","",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
     }

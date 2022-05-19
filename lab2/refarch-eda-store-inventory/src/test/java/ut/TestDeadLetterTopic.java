@@ -27,32 +27,31 @@ import org.junit.jupiter.api.Test;
 import ibm.gse.eda.stores.domain.ItemTransaction;
 import ibm.gse.eda.stores.infra.events.StoreSerdes;
 
+/**
+ * Route input message with data issue to a dead letter topic
+ */
 public class TestDeadLetterTopic {
-    // Name of input topic
-    public static String itemSoldInputStreamName = "items";
     
     private  static TopologyTestDriver testDriver;
     private  static TestInputTopic<String, ItemTransaction> inputTopic;
     private  static TestOutputTopic<String, ItemTransaction> outputTopic;
-    private  static TestOutputTopic<String, ItemTransaction> dlTopic;
     private static String inTopicName = "my-input-topic";
-    private static String deadLetterTopicName = "dlt-topic";
     private static String outTopicName = "my-output-topic";
+    // 0 add dead letter topic 
+    private  static TestOutputTopic<String, ItemTransaction> dlTopic;
 
+    /**
+     * Using split and branches to separate good from wrong records
+     * @return Kafka Streams topology
+     */
     public static Topology buildTopologyFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
          // 1- get the input stream
-        KStream<String,ItemTransaction> items = builder.stream(inTopicName, 
-                Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));  
+
         // 2 build branches
-        Map<String, KStream<String,ItemTransaction>> branches = items.split(Named.as("B-"))
-        .branch((k,v) -> 
-           (v.storeName == null ||  v.storeName.isEmpty() || v.sku == null || v.sku.isEmpty()),
-           Branched.as("wrong-tx")
-       ).defaultBranch(Branched.as("good-tx"));
-        // Generate to output topic
-        branches.get("B-good-tx").to(outTopicName);
-        branches.get("B-wrong-tx").to(deadLetterTopicName);
+
+        // 3 Generate to output topics
+
         return builder.build();  
     }
 
@@ -64,7 +63,7 @@ public class TestDeadLetterTopic {
         testDriver = new TopologyTestDriver(topology, getStreamsConfig());
         inputTopic = testDriver.createInputTopic(inTopicName, new StringSerializer(), StoreSerdes.ItemTransactionSerde().serializer());
         outputTopic = testDriver.createOutputTopic(outTopicName, new StringDeserializer(),  StoreSerdes.ItemTransactionSerde().deserializer());
-        dlTopic = testDriver.createOutputTopic(deadLetterTopicName, new StringDeserializer(),  StoreSerdes.ItemTransactionSerde().deserializer());
+        // 4 create the output dead letter topic to test record
     }
 
     public  static Properties getStreamsConfig() {
@@ -72,7 +71,7 @@ public class TestDeadLetterTopic {
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kstream-labs");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummmy:1234");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,  Serdes.String().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,  StoreSerdes.ItemTransactionSerde().getClass());
         return props;
     }
 
@@ -102,23 +101,46 @@ public class TestDeadLetterTopic {
         assertThat(filteredItem.storeName, equalTo("Store-1"));
     }
 
+
     @Test
-    public void sendInValidRecord(){
+    public void nullStoreNameRecordShouldGetNoOutputMessageButDeadLetterMessage() {
         ItemTransaction item = new ItemTransaction(null,"Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
         assertThat(dlTopic.isEmpty(), is(false));
         ItemTransaction filteredItem = dlTopic.readValue();
         assertThat(filteredItem.sku, equalTo("Item-1"));
+    }
 
-        item = new ItemTransaction("","Item-1",ItemTransaction.RESTOCK,5,33.2);
-        inputTopic.pipeInput(item.storeName, item);
-        assertThat(outputTopic.getQueueSize(), equalTo(0L) );
-        item = new ItemTransaction("Store-1",null,ItemTransaction.RESTOCK,5,33.2);
-        inputTopic.pipeInput(item.storeName, item);
-        assertThat(outputTopic.isEmpty(), is(true));
-        item = new ItemTransaction("Store-1","",ItemTransaction.RESTOCK,5,33.2);
+    @Test
+    public void emptyStoreNameRecordShouldGetNoOutputMessage() {
+        ItemTransaction item = new ItemTransaction("","Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
+        assertThat(dlTopic.isEmpty(), is(false));
+        ItemTransaction filteredItem = dlTopic.readValue();
+        assertThat(filteredItem.sku, equalTo("Item-1"));
+    }
+
+    @Test
+    public void nullSkuRecordShouldGetNoOutputMessage(){
+        //assertThat(outputTopic.getQueueSize(), equalTo(0L) );
+
+        ItemTransaction item = new ItemTransaction("Store-1",null,ItemTransaction.RESTOCK,5,33.2);
+        inputTopic.pipeInput(item.storeName, item);
+        assertThat(outputTopic.isEmpty(), is(true));
+        assertThat(dlTopic.isEmpty(), is(false));
+        ItemTransaction filteredItem = dlTopic.readValue();
+        assertThat(filteredItem.storeName, equalTo("Store-1"));
+    }
+
+    @Test
+    public void emptySkuRecordShouldGetNoOutputMessage(){
+        ItemTransaction item = new ItemTransaction("Store-1","",ItemTransaction.RESTOCK,5,33.2);
+        inputTopic.pipeInput(item.storeName, item);
+        assertThat(outputTopic.isEmpty(), is(true));
+        assertThat(dlTopic.isEmpty(), is(false));
+        ItemTransaction filteredItem = dlTopic.readValue();
+        assertThat(filteredItem.sku, equalTo(""));
     }
 }
