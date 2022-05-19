@@ -196,7 +196,7 @@ Use Test Driven Development to build tests before the topology, but here tests a
 
 Transform the previous topology to support branches and routing the records in error to a dead letter topic. 
 
-You should use the [TestDeadLetterTopic](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/) test class, and implement the Kafka Streams topology in the buildTopologyFlow() method:
+You should use the [TestDeadLetterTopic](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestDeadLetterTopic.java) test class, and implement the Kafka Streams topology in the buildTopologyFlow() method:
 
 Some guidances:
 
@@ -234,7 +234,7 @@ Some guidances:
     dlTopic = testDriver.createOutputTopic(deadLetterTopicName, new StringDeserializer(),  StoreSerdes.ItemTransactionSerde().deserializer());
     ```
 
-## Exercice 4 - Using Ktable
+### Exercice 4 - Using Ktable
 
 **Problem:** now you want to group record in table and keep last item transaction per store
 
@@ -260,8 +260,10 @@ Item_3
         inputTopic.pipeInput(item.sku, item);
     ```
 
-* Create a Ktable from the new stream
-* Use materialized view to keep data in a Kafka store
+* Create a Kstream from the items stream
+* use `map` to generate new KeyValue with key being the storeName
+* Create a Ktable from the output of the map
+* Use materialized view to keep data in a state store (KeyValueStore)
 
 ???- "Solution"
     * The topology looks like
@@ -275,7 +277,54 @@ Item_3
                         Materialized.<String, ItemTransaction, KeyValueStore<Bytes, byte[]>>as(storeName)
                 .withKeySerde(Serdes.String()).withValueSerde( StoreSerdes.ItemTransactionSerde()));
     ```
+    * The trace for the topology:
+    ```
+    Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [my-input-topic])
+      --> KSTREAM-MAP-0000000001
+    Processor: KSTREAM-MAP-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000004
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000004 (stores: [])
+      --> KSTREAM-SINK-0000000003
+      <-- KSTREAM-MAP-0000000001
+    Sink: KSTREAM-SINK-0000000003 (topic: KSTREAM-TOTABLE-0000000002-repartition)
+      <-- KSTREAM-FILTER-0000000004
 
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000005 (topics: [KSTREAM-TOTABLE-0000000002-repartition])
+      --> KSTREAM-TOTABLE-0000000002
+    Processor: KSTREAM-TOTABLE-0000000002 (stores: [ItemTable])
+      --> none
+      <-- KSTREAM-SOURCE-0000000005
+    ```
+
+### More examples
+
+For your information here are some more test classes that demonstrate some streaming examples:
+
+* [TestAccumulateItemSold](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java) to demonstrate counting item sold event per sku. It groups by sku, and then count and emit events. Without Ktable caching the sequence of output records is emitted for key that represent changes in the resulting aggregation table.
+
+```java
+    KStream<String,ItemTransaction> items = builder.stream(inTopicName, 
+        Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde())); 
+        // 2- to compute aggregate we need to group records by key to create KGroupTable or stream
+        // here we group the records by their current key into a KGroupedStream 
+        KTable<String,Long> countedItems = items
+        .filter((k,v) -> ItemTransaction.SALE.equals(v.type))
+        .groupByKey()
+        // 3- change the stream type from KGroupedStream<String, ItemTransaction> to KTable<String, Long>
+        .count();
+        
+    // Generate to output topic
+    countedItems.toStream().to(outTopicName);
+```
+
+* Same example as above but because of the caching to state store, the results are queriable. The test class is [TestAccumulateItemSoldWithCaching](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java)
+
+```
+```
 ## Final store inventory exercice
 
 ### Problem statement
@@ -306,25 +355,10 @@ The input topic is `items` and the output topic is `store.inventory`. We assume 
 
 * What is the data model you need to use to keep store inventory?
 * What event will be produced to the `store.inventory` topic?
-* Design a Kafka Stream topology to compute those aggregate
-
-## Some more information
-
 * We need to process 5 million messages per day. Day is from 6:00 am to 10 pm every day.
 
 ???- "Some hints"
     * Use [Ktable](./kstream/#ktable) to keep store data.
     * Use [KStream aggregate function](./kstream/#kstream)
 
-## Instructions
-
-* Go to the `lab2/refarch-eda-store-inventory` folder
-* Code organization use the `onion` architecture introduced in the Domain-driven design.
-
-    * `domain` contains the business logic and business entities related to item transaction and store inventory.
-    * `infra` is for infrastructure code, containing JAXRS class, event processing, and ser-des.
-
-* If you have done the [Kstream getting started](./kstream.md) session, you may have use the TopolofyTestDriver and unit testing topology. You will do the same with the 
-
-Most of the work will be in the testing classes so you can progress incrementally, and use a very cool API called TopologyTestDriver to test your topology without any Kafka Broker or Java app, just unit tests. But you could package the application and deploy it to OpenShift.
-
+[Solution review and code explanation>>](./lab2-sol.md)

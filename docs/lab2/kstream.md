@@ -32,6 +32,10 @@ final Topology topology = builder.build();
 1. StreamsBuilder to build a topology and run it
 1. Define a stream from a topic with serialization of the value to a Java Bean
 
+The following figure illustrates the topology concept:
+
+![](./images/topology.jpg)
+
 So let start by learning more about KStream construct.
 
 ???- "More Reading"
@@ -75,12 +79,24 @@ KStreams are in memory, Ktables are also in memory by may be persisted. KTable a
 
 KTable can be created directly from a Kafka topic (using StreamsBuilder.table operator), as a result of transformations on an existing KTable, or aggregations (aggregate, count, and reduce). 
 
+
+Stateful transformations depend on state for processing inputs and producing outputs and require a state store associated with the stream processor. For example, in aggregating operations, a windowing state store is used to collect the latest aggregation results per window.
+
 KTables need to additionally maintain their respective state in between events so that operations like aggregations (e.g., COUNT()) can work properly. 
 
 Every ktable has its own state store. Any operation on the table such as querying, inserting, or updating a row is carried out behind the scenes by a corresponding operation on the table’s state store.
 
 These state stores are being materialized on local disk inside your application instances. 
 
+Kafka Streams uses [RocksDB](https://github.com/facebook/rocksdb/wiki) as the default storage engine for persistent state stores. RockDB is a fast key-value server, especially suited for storing data on flash drives.
+
+The following figure summarizes all those concepts:
+
+![](./images/ktable-rockdb.png)
+
+There are as many caches as there are threads, but no sharing of caches across threads happens. Records are evicted using a simple LRU scheme after the cache size is reached. 
+The semantics of caching is that data is flushed to the state store and forwarded to the next downstream processor node whenever the earliest of `commit.interval.ms` or `cache.max.bytes.buffering` (cache pressure) hits.
+As illustrated in the example [TestAccumulateItemSoldWithCaching]() when using cache, records are output at the end of the commit interval or when reaching max buffer size.
 
 Interesting methods:
 

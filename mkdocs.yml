@@ -12,7 +12,7 @@ nav:
   - Track 1 | 2 - Lab 1 System Design:
     - Problem Statement: lab1/index.md
     - Solution Overview: lab1/lab1-sol.md
-  - Track 2 - Lab 2 Item inventory:
+  - Track 2 - Lab 2 Kafka Streams:
     - Kafka Streams Study: lab2/kstream.md
     - Problem Statement: lab2/index.md
     - Solution Overview: lab2/lab2-sol.md
