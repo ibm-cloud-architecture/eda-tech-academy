@@ -4,9 +4,9 @@
 
 ## Goals
 
-In this lab, you will learn how to deploy the solution by simply using this repository and a minimum set of commands. The approach is to present reusable structure you may want to reuse for your own future proof of concept, so it will be easy to demonstrate your solution.
+In this lab, you will learn how to deploy the real-time solution by simply using this repository and a minimum set of commands. The approach is to present reusable structure you may want to reuse for your own future proof of concept, so it will be easy to demonstrate your solution.
 
-The following diagram illustrates the components we will deploy in the student namespace using this repository.
+The following diagram illustrates the components, you will deploy in your student's namespace using this repository.
 
 ![](./images/context.png)
 

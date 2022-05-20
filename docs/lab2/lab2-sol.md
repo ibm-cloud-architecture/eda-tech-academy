@@ -1,8 +1,9 @@
 # Lab 2 solution
 
+
 ### Developing the Topology in test class
 
-Continuing test with the TopolofyTestDriver, you will implement the topology with the same structure, in the class TestStoreAggregation.java. Here what the topology needs to do
+Continuing test with the TopolofyTestDriver, you will implement the topology with the same structure as before, in the class [TestStoreAggregation.java](). Here what the topology needs to do
 
 * 
 

@@ -1,11 +1,12 @@
 # GitOps deployment with Day 2 operations
 
-In this exercise, you will use GitOps to deploy ArgoCD apps that monitor your git repository for any configuration changes and 
-then apply those changes to the deployed applications.
+In this exercise, you will use GitOps to deploy ArgoCD apps that monitor your git repository for any configuration changes you are doing via Pull Request or Git Commit operations and then apply those changes to the deployed applications.
 
 The figure below illustrates the components involved:
 
 ![](./images/student_env_gitops.png)
+
+In this lab the operators are already installed in the OpenShift cluster under the `openshift-operators` project, and products are already install too. So this lab is aimed to deploy the components of the real-time inventory demo.
 
 As stated before you need to have forked this repository under your own account, as all configurations will be monitored from this git repository.
 ## Preparation
@@ -86,8 +87,7 @@ As we are using GitOps, you need to have the source of the configuration into yo
     ![](./images/argo-apps.png)
 
 
-
-## Clean 
+## Clean up
 
 1. If you plan to do the lab 4 using gitops do not delete anything
 

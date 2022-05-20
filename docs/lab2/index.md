@@ -6,8 +6,9 @@ The figure illustrates what you need to build, the green rectangle, which is a [
 
 ![](../images/store-inv.png)
 
-In fact, most of the code is already done for you, and the lab is to build streaming knowledge by increment and be able to reuse this approach in your future work. All the development is done by running on your local computer, not need to deploy to OpenShift.
+In fact, most of the code is already done for you, and the lab is to help you building event streaming knowledge by increment. At the end of this training you should be able to reuse this approach in your future work. All the development is done by running on your local computer, not need to deploy to OpenShift.
 
+In the global view of the real-time inventory solution presented in the lab 1, the goal is to do the store aggregation processing.
 ## Step by step exercises
 
 Before implementing the store inventory, you need to learn Kafka streams programming with a set of simple exercises. 

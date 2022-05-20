@@ -103,7 +103,7 @@ Interesting methods:
 | Method | What it does | Example |
 | --- | --- | --- | 
 | **filter** | Create a new KTable that consists of all records of this KTable which satisfy the given predicate| |
-| **join** | | | 
+| **join** | join streams with tables or table to table | | 
 | **[Materialized]()** |Materialize a state store as a Ktable. | |
 
 ???- "Read more"

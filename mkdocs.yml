@@ -18,7 +18,7 @@ nav:
     - Solution Overview: lab2/lab2-sol.md
   - Track 2 - Lab 3 Running demo: lab3/index.md
   - Track 2 - Lab 4 GitOps: lab4/index.md
-  - Future: future.md
+  - More...: future.md
 
 theme: 
   name: material
