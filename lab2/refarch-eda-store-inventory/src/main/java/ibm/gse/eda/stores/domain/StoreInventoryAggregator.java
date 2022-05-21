@@ -53,7 +53,7 @@ public class StoreInventoryAggregator {
         // process items and aggregate at the store level 
         KTable<String,StoreInventory> storeItemInventory = items
             // use store name as key, which is what the item event is also using
-            .groupByKey(Grouped.with(Serdes.String(), StoreSerdes.ItemTransactionSerde()))
+            .groupByKey()
             // update the current stock for this <store,item> pair
             // change the value type
             .aggregate(

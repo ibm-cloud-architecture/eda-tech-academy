@@ -1,4 +1,4 @@
-package ut;
+package ut.domain;
 
 import java.util.Properties;
 

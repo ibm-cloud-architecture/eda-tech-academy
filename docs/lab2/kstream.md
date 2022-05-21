@@ -62,6 +62,9 @@ Then Kstream offers a lot of functions to process the records. Below is a quick 
 | **filter** | Create a new KStream with records which satisfy the given predicate. |  .filter((key, value) -> ("BLUE".equalsIgnoreCase(value))) |
 | **split** | Split this stream into different branches. | aStream.split().branch((key, value) -> value.userId == null, Branched.as("no-userid")).defaultBranch(Branched.as("non-null"));|
 | **groupBy** | Group the records of this KStream on a new key  | |
+| **groupByKey** | | |
+| **[KGroupedStream](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html)** | Intermediate representation of a KStream in order to apply an aggregation operation | Ouput of groupByKey |
+| [aggregate](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html#aggregate) | Aggregate the values of records in this stream by the grouped key | |
 
 ### KTable
 
@@ -104,7 +107,7 @@ Interesting methods:
 | --- | --- | --- | 
 | **filter** | Create a new KTable that consists of all records of this KTable which satisfy the given predicate| |
 | **join** | join streams with tables or table to table | | 
-| **[Materialized]()** |Materialize a state store as a Ktable. | |
+
 
 ???- "Read more"
     * [Apache Kafka - TUTORIAL: WRITE A KAFKA STREAMS APPLICATION](https://kafka.apache.org/31/documentation/streams/tutorial)

@@ -281,7 +281,7 @@ Item_3
     * The trace for the topology:
     ```
     Topologies:
-   Sub-topology: 0
+    Sub-topology: 0
     Source: KSTREAM-SOURCE-0000000000 (topics: [my-input-topic])
       --> KSTREAM-MAP-0000000001
     Processor: KSTREAM-MAP-0000000001 (stores: [])
@@ -293,7 +293,7 @@ Item_3
     Sink: KSTREAM-SINK-0000000003 (topic: KSTREAM-TOTABLE-0000000002-repartition)
       <-- KSTREAM-FILTER-0000000004
 
-  Sub-topology: 1
+    Sub-topology: 1
     Source: KSTREAM-SOURCE-0000000005 (topics: [KSTREAM-TOTABLE-0000000002-repartition])
       --> KSTREAM-TOTABLE-0000000002
     Processor: KSTREAM-TOTABLE-0000000002 (stores: [ItemTable])
@@ -324,14 +324,14 @@ For your information here are some more test classes that demonstrate some strea
 
 * Same example as above but because of the caching to state store, the results are queriable. The test class is [TestAccumulateItemSoldWithCaching](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java)
 
-```
-```
 ## Final store inventory exercice
 
+As decided during the system design, you need now to implement the proof of concept around streaming restock or sale transaction.
 ### Problem statement
 
-The [ItemTransaction.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) represents the message structure of the input topic. Below is an extract of this definition:
+How to get the real-time view of the inventory per store?
 
+The [ItemTransaction.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) represents the message structure of the input topic. Below is an extract of this definition:
 
 
 Here is an example of json message you may see in a topic:
@@ -359,7 +359,8 @@ The input topic is `items` and the output topic is `store.inventory`. We assume 
 * We need to process 5 million messages per day. Day is from 6:00 am to 10 pm every day.
 
 ???- "Some hints"
-    * Use [Ktable](./kstream/#ktable) to keep store data.
-    * Use [KStream aggregate function](./kstream/#kstream)
+    * Define a New class to support keeping Store and a Map<String, Lon> for items and current stock value. This class will be the event structure to get to the output topic
+    * Use a method to update the quantity of an existing inventory instance with a new retrieved event
+    * Use [KStream aggregate function](./kstream/#kstream) to create new entry and update existing store entry
 
 [Solution review and code explanation>>](./lab2-sol.md)
