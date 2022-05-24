@@ -1,6 +1,7 @@
 package ibm.gse.eda.stores.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
@@ -20,6 +21,7 @@ public class ItemTransaction   {
         }
 
         public ItemTransaction(String store, String sku, String type, int quantity, double price) {
+                this.id = new Date().getTime();
                 this.storeName = store;
                 this.sku = sku;
                 this.type = type;

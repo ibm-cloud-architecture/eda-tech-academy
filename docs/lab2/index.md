@@ -2,6 +2,15 @@
 
 In this Lab, you will learn simple Kafka Streams exercises using Java APIs, and then finish by implementing on of the proof of concept component to compute the store inventory for each items sold.
 
+## Pre-requisites
+
+This lab is about some Java implementation, if you have no experience in Java you may skip it. 
+
+* Be sure your IDE, like VScode has java extension. For VSCode you can use [Quarkus extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus) and [Red Hat java extension](https://marketplace.visualstudio.com/items?itemName=redhat.java)
+* maven is used to package and run some test. The project has `./mvnw` command that brings maven in the project.
+
+## Context
+
 The figure illustrates what you need to build, the green rectangle, which is a [Java Quarkus](https://quarkus.io) application using Kafka Streams API consuming `items` events and computing `store inventory` events by aggregating at the store level.
 
 ![](../images/store-inv.png)
@@ -98,7 +107,7 @@ See comments in test class for more information. May be you can play with the da
 
 **Problem:** Given item sold transactions, keep transactions with store and sku information populated.
 
-Try to do a topology taking the business class [ItemTransaction](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) as content from the input topic:
+Try to do a topology taking the [ItemTransaction class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) as the code defining the content from the input topic. The following code does not need to be copied/paste. It is here to explain you the structure of the data. The class is in the classpath, so tests run in maven or in the IDE will work.
 
 ```java
 public class ItemTransaction   {
@@ -113,7 +122,7 @@ public class ItemTransaction   {
         public String timestamp;
 ```
 
-and then use filter to select items with sku and storeName.
+So the Stream Topology needs to use the `filter()` function to select items with valid sku and storeName.
 
 You should use the [TestSecondTopology test class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestSecondTopology.java), and implement the Kafka Streams topology in the `buildTopologyFlow()` method:
 
@@ -130,8 +139,10 @@ You should use the [TestSecondTopology test class](https://github.ibm.com/boyerj
     }
 ```
 
-In the first exercice, we used String Deserializer. This time we need Java Bean serializer/deserializer. This is a classical task in any Kafka Streams project to have to define such serdes.
+In the first exercice, we used String Deserializer. This time we need Java Bean serializer/deserializer. This is a classical task in any Kafka Streams projects to have to define such serdes.
 The Serialization and Deserialization are defined in the [StoreSerdes.class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/StoreSerdes.java) which uses a [JSON generic class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/JSONSerde.java) based on Jackson parser. You should be able to reuse this class in all your project.
+
+Do not copy / past the following code. This is just for information so you can see the relationship between Serdes and the Java bean they are supposed to deserialize.
 
 ```java title="JSONSerdes"
 import org.apache.kafka.common.serialization.Deserializer;
@@ -159,7 +170,7 @@ public class StoreSerdes {
 }
 ```
 
-Then the test topic declarations are using the serdes:
+Using the StoreSerdes, the test topic declarations in the TestCase class, are using the serdes like:
 
 
 ```java title="setup method"
@@ -172,6 +183,8 @@ outputTopic = testDriver.createOutputTopic(outTopicName,
         StoreSerdes.ItemTransactionSerde().deserializer());
 ```
 
+Now some guidances of what the Stream topology should look like:
+
 * Think to build a Kstream from the input stream
 * The record should have key and value
 * use filter and predicate to test if value.storeName has no value or value.sku is empty or null then drop the message
@@ -180,20 +193,64 @@ outputTopic = testDriver.createOutputTopic(outTopicName,
 
 Use Test Driven Development to build tests before the topology, but here tests are already defined for you.
 
+```java title="Happy Path Test"
+    @Test
+    public void sendValidRecord(){
+        ItemTransaction item = new ItemTransaction("Store-1","Item-1",ItemTransaction.RESTOCK,5,33.2);
+        inputTopic.pipeInput(item.storeName, item);
+        assertThat(outputTopic.getQueueSize(), equalTo(1L) );
+        ItemTransaction filteredItem = outputTopic.readValue();
+        assertThat(filteredItem.storeName, equalTo("Store-1"));
+        assertThat(filteredItem.sku, equalTo("Item-1"));
+    }
+```
+
+* Here is a typical trace: the id of the transaction is a timestamp as long, so those values will change.
+
+```java title="Expected execution trace"
+Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [my-input-topic])
+      --> KSTREAM-PEEK-0000000001
+    Processor: KSTREAM-PEEK-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000002
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000002 (stores: [])
+      --> KSTREAM-PEEK-0000000003
+      <-- KSTREAM-PEEK-0000000001
+    Processor: KSTREAM-PEEK-0000000003 (stores: [])
+      --> KSTREAM-SINK-0000000004
+      <-- KSTREAM-FILTER-0000000002
+    Sink: KSTREAM-SINK-0000000004 (topic: my-output-topic)
+      <-- KSTREAM-PEEK-0000000003
+
+....
+PRE-FILTER: key=Store-1, value= {id: 1653431482009 Store: Store-1 Item: null Type: RESTOCK Quantity: 5}
+PRE-FILTER: key=Store-1, value= {id: 1653431482107 Store: Store-1 Item: Item-1 Type: RESTOCK Quantity: 5}
+POST-FILTER: key=Store-1, value= {id: 1653431482107 Store: Store-1 Item: Item-1 Type: RESTOCK Quantity: 5}
+PRE-FILTER: key=, value= {id: 1653431482114 Store:  Item: Item-1 Type: RESTOCK Quantity: 5}
+PRE-FILTER: key=Store-1, value= {id: 1653431482116 Store: Store-1 Item:  Type: RESTOCK Quantity: 5}
+PRE-FILTER: key=null, value= {id: 1653431482118 Store: null Item: Item-1 Type: RESTOCK Quantity: 5}
+```
+
 ???- "Solution"
     The topology looks like
     ```java
     KStream<String,ItemTransaction> items = builder.stream(inTopicName, 
-                Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));  
-       items.filter((k,v) -> 
-           (v.storeName != null && ! v.storeName.isEmpty() && v.sku != null && ! v.sku.isEmpty()) 
-       )
-    .to(outTopicName);
+         Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));  
+        items.peek((key, value) -> System.out.println("PRE-FILTER: key=" + key + ", value= {" + value + "}"))
+            .filter((k,v) -> 
+                (v.storeName != null && ! v.storeName.isEmpty() && v.sku != null && ! v.sku.isEmpty())) 
+            .peek((key, value) -> System.out.println("POST-FILTER: key=" + key + ", value= {" + value + "}"))
+            .to(outTopicName);
     ```
 
 ### Exercise 3: Dead letter topic
 
-**Problem:** from the previous example, we would like to route the messages in error to a dead letter topic, for future processing. May be a human intervention?
+**Problem:** from the previous example, we would like to route the messages with errors to a dead letter topic, for future processing. May be a human intervention? The dead letter topic is a classical integration pattern, and when dealing with Kafka and streaming it looks like:
+
+![](./images/dlq.png)
+
 
 Transform the previous topology to support branches and routing the records in error to a dead letter topic. 
 
@@ -204,8 +261,8 @@ Some guidances:
 * Define a dead letter topic
 * Create a [StreamsBuilder]: Builder for Kafka Streams topology
 * Create a KStream with key as string and value as ItemTransaction
-* Use the concept of [branches]() by splitting the input stream
-* Use lambda function for testing condition on sku and storeman attributes
+* Use the concept of [branches](./kstream/#kstream-api) by splitting the input stream
+* Use lambda function for testing condition on `sku` and `storeName` attributes
 * Output the branches to topics
 
 ???- "Solution"

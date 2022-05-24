@@ -19,6 +19,7 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import ibm.gse.eda.stores.domain.ItemTransaction;
@@ -27,6 +28,7 @@ import ibm.gse.eda.stores.infra.events.StoreSerdes;
 /**
  * Filter out items with no store name or no sku
  */
+
 public class TestSecondTopology {
     
     private  static TopologyTestDriver testDriver;
@@ -38,7 +40,7 @@ public class TestSecondTopology {
     public static Topology buildTopologyFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
          // 1- get the input stream
-        
+         
         // 2 filter
 
         // Generate to output topic
@@ -79,11 +81,13 @@ public class TestSecondTopology {
      * If we do not send message to the input topic there is no message to the output topic.
      */
     @Test
+    @Order(1)
     public void isEmpty() {
         assertThat(outputTopic.isEmpty(), is(true));
     }
 
     @Test
+    @Order(2)
     public void sendValidRecord(){
         ItemTransaction item = new ItemTransaction("Store-1","Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
@@ -94,6 +98,7 @@ public class TestSecondTopology {
     }
 
     @Test
+    @Order(3)
     public void nullStoreNameRecordShouldGetNoOutputMessage() {
         ItemTransaction item = new ItemTransaction(null,"Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
@@ -101,6 +106,7 @@ public class TestSecondTopology {
     }
 
     @Test
+    @Order(4)
     public void emptyStoreNameRecordShouldGetNoOutputMessage() {
         ItemTransaction item = new ItemTransaction("","Item-1",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);
@@ -108,6 +114,7 @@ public class TestSecondTopology {
     }
 
     @Test
+    @Order(5)
     public void nullSkuRecordShouldGetNoOutputMessage(){
         //assertThat(outputTopic.getQueueSize(), equalTo(0L) );
 
@@ -117,6 +124,7 @@ public class TestSecondTopology {
     }
 
     @Test
+    @Order(6)
     public void emptySkuRecordShouldGetNoOutputMessage(){
         ItemTransaction item = new ItemTransaction("Store-1","",ItemTransaction.RESTOCK,5,33.2);
         inputTopic.pipeInput(item.storeName, item);

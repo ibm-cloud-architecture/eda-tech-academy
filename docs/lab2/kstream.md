@@ -61,10 +61,12 @@ Then Kstream offers a lot of functions to process the records. Below is a quick 
 | **to** | transform the stream to a topic | aStream.to(outTopicName) |
 | **filter** | Create a new KStream with records which satisfy the given predicate. |  .filter((key, value) -> ("BLUE".equalsIgnoreCase(value))) |
 | **split** | Split this stream into different branches. | aStream.split().branch((key, value) -> value.userId == null, Branched.as("no-userid")).defaultBranch(Branched.as("non-null"));|
-| **groupBy** | Group the records of this KStream on a new key  | |
-| **groupByKey** | | |
+| **groupBy** | Group the records of this KStream on current key  | |
+| **groupByKey** | Group the records of this KStream on a new key | |
 | **[KGroupedStream](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html)** | Intermediate representation of a KStream in order to apply an aggregation operation | Ouput of groupByKey |
-| [aggregate](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html#aggregate) | Aggregate the values of records in this stream by the grouped key | |
+| [aggregate](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html#aggregate) | Aggregate the values of records in this stream by the grouped key | .aggregate(() ->  new StoreInventory(), (store , newItem, existingStoreInventory) -> existingStoreInventory.updateStockQuantity(store,newItem), materializeAsStoreInventoryKafkaStore());        |
+| [split](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KStream.html#split()) | Split a stream into branches| items.split(Named.as("B-")) |
+| [BranchedKStream](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/BranchedKStream.html) | Branches the records in the original stream based on the predicates supplied for the branch definitions. |  .branch((k,v) -> (v.storeName == null), Branched.as("wrong-tx")).defaultBranch(Branched.as("good-tx"));   branches.get("B-good-tx").to(outTopicName); branches.get("B-wrong-tx").to(deadLetterTopicName); |
 
 ### KTable
 
