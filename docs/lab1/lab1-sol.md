@@ -4,7 +4,7 @@ The system design of this proof of concept should be simple, but not the global 
 
 ## Global solution view of real-time inventory
 
-The core principle, is that each components responsible of managing some inventory elements will push events about their own inventory update to a central data hub, that will be used to update back ends, ERP, systems.
+The core principle, is that each components responsible of managing some inventory elements will push events about their own inventory updates to a central data hub, that will be used to update back ends, ERP, systems.
 
 This central event backbone also exposes data so it will be easy to plug and play streaming processing for computing different statistical aggregates.
 
@@ -21,13 +21,13 @@ The system design is based on the lambda architecture, a classical data streamin
 
 ![](./images/hl-arch-ra.png)
 
-Streaming applications work as consuming events, processing them and producing new events in different topic. Those application will guaranty exaclty once delivery, so it will help for inventort consistency.
+Streaming applications work as consuming events, processing them and producing new events in different topic. Those applications will guaranty exaclty once delivery, so it will help for inventory consistency.
 
-IBM MQ and IBM Event Streams are used to support a shared message as a services to support any asynchronous communication between applications.
+IBM MQ and IBM Event Streams are used to support a shared message as a services architecture where any asynchronous communication between applications is supported.
 
-We want to use MQ to get messages from mainframe application and JEE using MDB. MQ Streaming Queue or queue to queue replication will help moving those messages to the OpenShift cluster. 
+We want to use MQ to get messages from mainframe applications or  MDB JEE apps. MQ Streaming Queue or queue to queue replication will help moving those messages to the OpenShift cluster. 
 
-MQ Source kafka connector will be used to inject to Event Streams topic. A `items` topic will be used to receive transaction on the item as a restock or sale event type.
+MQ Source kafka connector will be used to inject to Event Streams topic. A `items` topic will be used to receive transactions about items as a restock or sale events.
 
 Sink connectors, based on Kafka Connect framework, may be used to move data to long persistence storage like s3 bucket, datalake, Database,... or to integrate back to Legacy ERP systems.
 
@@ -44,7 +44,7 @@ Now that you have positionned a high level view, for the proof of concept, you w
 
 You want to demonstrate MQ as a source for message coming from warehouses. Those messages are sent to Event Streams topic via kafka connector.
 
-You may need to simulate store or warehouse events and you can use simple json files for that and the kafka-console-producer.sh shell you can get from any Kafka deployment. You can also leverage the Store Simulator asset that can send to MQ, Kafka or RabbitMQ, random messages, or controlled scenario. This is what we will use in lab 3.
+You may need to simulate store or warehouse events and you can use simple json files for that and the kafka-console-producer.sh shell you can get from any Kafka deployment. You can also leverage the [Store Simulator](https://github.com/ibm-cloud-architecture/refarch-eda-store-simulator) asset that can send messages to MQ, Kafka or RabbitMQ, random messages, or controlled scenario. This is what we will use in lab 3.
 
 You will deploy a kafka connector cluster with MQ source connector and different sink connector like elastic search or cloud object storage bucket.
 

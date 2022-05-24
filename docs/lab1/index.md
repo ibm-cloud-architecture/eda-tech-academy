@@ -43,23 +43,34 @@ Start from a white page, design components that you think will be relevant.
 
 ### Some information you gathered from your framing meeting
 
-* SAP is used to be the final system of record application
+* SAP is used to be the final system of record
 * Company has multiple stores and warehouses
+* Sale and restock transactions are in a TLOG format
 * Stores and warehouses have local view of their own inventory on local servers and cash machines. 
 * Some inventory for warehouses and transactions are done in mainframe and shared with IBM MQ
 * Item has code bar and SKU so people moving stock internally can scan item so local system may have visibility of where items are after some small latency.
 * The volume of transactions is around 5 millions a day
 * Deployment will be between 3 data centers to cover the territory the company work in.
 * Customer has heard about kafka, but they use MQ today, CICS, Java EE applications on WebSphere
-* Architect wants to deploy to the cloud and adopt fleixble microservice based architecture
+* Architect wants to deploy to the cloud and adopt flexible microservice architecture
 * SAP system will stay in enterprise
 * Architect wants to use data lake solution to let data scientists develop statistical and AI  models.
+
 
 ???- "Guidances"
     * Think about enterprise network, cloud providers, stores and warehouses as sources.
     * SAP - Hana is one of the system of record and will get data from it
-    * SAP has database tables that can be used a source of event
+    * It is also possible to get data before it reaches SAP
+    * SAP has database tables that can be used as source of events
     * As warehouse systems are using MQ, queue replication is something to think about
+
+
+???- "What could be a PoC scope?"
+    * You may want to demonstrate Event Streams capabilities as Kafka backbone
+    * You want to demonstrate MQ source connector to get message from MQ to Kafka
+    * You may want to explain how messages are published from a microservice using Microprofile Reactive Messaging
+    * The real-time aggregation to compute store inventory can be done with streaming processing, and Kafka Streams APIs can be used for that.
+    * For Data lake integration, you can illustrates messages landing in S3 buckets in IBM Cloud Object Storage using Kafka Sink connector. 
 
 
 > [See the Solution](./lab1-sol.md)
