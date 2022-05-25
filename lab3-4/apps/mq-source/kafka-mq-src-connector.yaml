@@ -13,7 +13,7 @@ spec:
   tasksMax: 1
   config:
     mq.queue.manager: QM1
-    mq.connection.name.list: store-mq-ibm-mq.std-1-rt-inventory.svc
+    mq.connection.name.list: store-mq-ibm-mq.std-1.svc
     mq.channel.name: DEV.APP.SVRCONN
     mq.queue: ITEMS
     mq.user.name: ""

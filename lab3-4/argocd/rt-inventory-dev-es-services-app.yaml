@@ -6,7 +6,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: std-1-rt-inventory
+    namespace: std-1
     server: https://kubernetes.default.svc
   project: std-1
   source:

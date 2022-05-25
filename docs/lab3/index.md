@@ -25,7 +25,6 @@ A traditional solution may be organized with one git repository per application,
 
 See [Pre-requisites section](../#pre-requisites) in the main page.
 
-
 ## Preparation
 
 Each Student will have received a unique identifier and will modify the current settings in this folder with their student id. 
@@ -65,7 +64,7 @@ The blue components should have been deployed with the Cloud Pak for Integration
     Running the `updateStudent.sh` shell script, will modify all the yaml files used by the solution with your student id. Two main naming conventions are used: `student-XX` for user name id XX, and `finn-XX` prefix. So the namespace for Student-2 will be `finn-2-rt-inventory` namespace. 
 
     ```sh
-    export PREFIX=finn-2
+    export PREFIX=poe10
     ./updateStudent.sh
     ```
 
@@ -97,7 +96,7 @@ The deployment will configure topics in event streams, deploy the three apps, MQ
 1. Verify the solution is up and running
 
     ```sh
-    oc project std-1-rt-inventor
+    oc project $PREFIX
     oc get pods
     oc get routes 
     oc get kafkatopic -n cp4i-eventstreams
@@ -107,7 +106,7 @@ The deployment will configure topics in event streams, deploy the three apps, MQ
 1. Access to the MQ console (replace the namespace and base url)
 
     ```sh
-    chrome   https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/std-1-rt-inventory/store-mq-ibm-mq/
+    chrome   https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/$PREFIX/store-mq-ibm-mq/
     ```
 
 1. Access to the simulator console

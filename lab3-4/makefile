@@ -50,7 +50,7 @@ eventstreams-config:
 prepare-ns:
 	@oc apply -k env/overlays
 	if [ -z $$PREFIX ]; then echo Use $$PREFIX; else export PREFIX=std-1;fi
-	@oc project $$PREFIX-rt-inventory
+	@oc project $$PREFIX
 
 mq-config:
 	@oc apply -k services/ibm-mq/overlays

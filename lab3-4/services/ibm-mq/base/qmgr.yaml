@@ -2,7 +2,7 @@ apiVersion: mq.ibm.com/v1beta1
 kind: QueueManager
 metadata:
   name: std-1-store-mq
-  namespace: std-1-rt-inventory
+  namespace: std-1
 spec:
   license:
     accept: true

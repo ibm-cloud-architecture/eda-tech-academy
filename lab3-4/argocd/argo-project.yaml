@@ -11,7 +11,7 @@ spec:
   - https://github.ibm.com/boyerje/eda-tech-academy.git
   # Only permit applications to deploy to the following namespace in the same cluster
   destinations:
-  - namespace: std-1-rt-inventory
+  - namespace: std-1
     server: https://kubernetes.default.svc
   - namespace: cp4i-eventstreams
     server: https://kubernetes.default.svc
@@ -27,6 +27,6 @@ spec:
   - name: read-only
     description: Read-only privileges to this project
     policies:
-    - p, proj:std-1:read-only, applications, get, std-1-rt-inventory/*, allow
+    - p, proj:std-1:read-only, applications, get, std-1/*, allow
     groups:
     - argocd-admins

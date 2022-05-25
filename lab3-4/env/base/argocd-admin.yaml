@@ -3,7 +3,7 @@ kind: RoleBinding
 metadata:
   creationTimestamp: null
   name: argocd-admin
-  namespace: std-1-rt-inventory
+  namespace: std-1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
