@@ -1,6 +1,7 @@
 #!/bin/zsh
 
 originPrefix="std-1"
+#originPrefix="ahsoka1"
 
 echo "Updating prefix to " $PREFIX
 
@@ -17,6 +18,7 @@ do
     then
         echo "Skip $f"
     else  
+        echo "Modify $f"
         sed -i ''  "s/$originPrefix/$PREFIX/g" $f
     fi
 done 
