@@ -1,15 +1,15 @@
 apiVersion: mq.ibm.com/v1beta1
 kind: QueueManager
 metadata:
-  name: std-1-store-mq
-  namespace: std-1
+  name: qmgr1
+  namespace: cody1
 spec:
   license:
     accept: true
     license: L-RJON-C7QG3S
     use: NonProduction
   queueManager:
-    name: QM1
+    name: MQGR1
     mqsc:
       - configMap:
           name: mq-mqsc-config
@@ -18,15 +18,43 @@ spec:
     resources:
       limits:
         cpu: 250m
+        memory: 1Gi
       requests:
         cpu: 250m
+        memory: 1Gi
     metrics:
-      enabled: false
+      enabled: true
     route:
       enabled: true
+    readinessProbe:
+      failureThreshold: 1
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 3
+    livenessProbe:
+      failureThreshold: 1
+      initialDelaySeconds: 90
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    imagePullPolicy: IfNotPresent
+    debug: false
+    logFormat: Basic
+    availability:
+      type: SingleInstance
+      updateStrategy: RollingUpdate
     storage:
+      defaultClass: ocs-storagecluster-ceph-rbd
+      persistedData:
+        enabled: false
       queueManager:
-        type: ephemeral
+        size: 2Gi
+        type: persistent-claim
+      recoveryLogs:
+        enabled: false
+  securityContext:
+    initVolumeAsRoot: false
   template:
     pod:
       containers:
@@ -34,11 +62,8 @@ spec:
           env:
             - name: MQSNOAUT
               value: 'yes' 
-          envFrom:
-          - configMapRef:
-              name: mq-config
 
-  version: 9.2.5.0-r2
+  version: 9.2.4.0-r1
   web:
     enabled: true
 

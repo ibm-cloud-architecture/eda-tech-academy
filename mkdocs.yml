@@ -8,16 +8,21 @@ nav:
     - Why EDA now?: eda.md
     - Fit for purpose: https://ibm-cloud-architecture.github.io/refarch-eda/concepts/fit-to-purpose/
     - EDA Reference Architecture: https://ibm-cloud-architecture.github.io/refarch-eda/introduction/reference-architecture/#event-driven-architecture
-  - Track 1 - Beginner Lab: lab0/
-  - Track 1 | 2 - Lab 1 System Design:
-    - Problem Statement: lab1/index.md
-    - Solution Overview: lab1/lab1-sol.md
-  - Track 2 - Lab 2 Kafka Streams:
-    - Kafka Streams Study: lab2/kstream.md
-    - Problem Statement: lab2/index.md
-    - Solution Overview: lab2/lab2-sol.md
-  - Track 2 - Lab 3 Running demo: lab3/index.md
-  - Track 2 - Lab 4 GitOps: lab4/index.md
+  - Journey 1:
+    - Beginner Lab: lab0/index.md
+    - System Design Lab:
+      - Problem Statement: lab1/index.md
+      - Solution Overview: lab1/lab1-sol.md
+  - Journey 2:
+    - System Design Lab-:
+      - Problem Statement: lab1/index.md
+      - Solution Overview: lab1/lab1-sol.md
+    - Kafka Streams Lab:
+      - Kafka Streams Study: lab2/kstream.md
+      - Problem Statement: lab2/index.md
+      - Solution Overview: lab2/lab2-sol.md
+    - Running demo lab: lab3/index.md
+    - EDA GitOps lab: lab4/index.md
   - More...: future.md
 
 theme: 

@@ -1,7 +1,7 @@
 apiVersion: eventstreams.ibm.com/v1beta2
 kind: KafkaTopic
 metadata:
-  name: std-1-items
+  name: cody1-items
   namespace: cp4i-eventstreams
   labels:
     eventstreams.ibm.com/cluster: es-demo
@@ -14,7 +14,7 @@ spec:
 apiVersion: eventstreams.ibm.com/v1beta2
 kind: KafkaTopic
 metadata:
-  name: std-1-item.inventory
+  name: cody1-item.inventory
   namespace: cp4i-eventstreams
   labels:
     eventstreams.ibm.com/cluster: es-demo
@@ -31,7 +31,7 @@ spec:
 apiVersion: eventstreams.ibm.com/v1beta2
 kind: KafkaTopic
 metadata:
-  name: std-1-store.inventory
+  name: cody1-store.inventory
   namespace: cp4i-eventstreams
   labels:
     eventstreams.ibm.com/cluster: es-demo

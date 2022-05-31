@@ -12,7 +12,7 @@ At the technical level we can see three adoptions of event-driven solutions:
 
 * **Modern data pipeline** to move the classical batch processing of extract, transform and load job to real-time ingestion, where data are continuously visible in a central messaging backbone. The data sources can be databases, queues, or specific producer applications, while the consumers can be applications, streaming flow, long storage bucket, queues, databases…
 
-* **Adopt asynchronous communivation**, publish-subscribe protocol between cloud-native microservices to help to scale and decoupling: the adoption of microservices for developing business applications, has helped to address maintenance and scalability, but pure RESTful or SOAP based solutions have brought integration and coupling challenges that inhibited the agility promised by microservice architecture. Pub/sub helps to improve decoupling, but design good practices are very important.
+* **Adopt asynchronous communication**, publish-subscribe protocol between cloud-native microservices to help scaling and decoupling: the adoption of microservices for developing business applications, has helped to address maintenance and scalability, but pure RESTful or SOAP based solutions have brought integration and coupling challenges that inhibited the agility promised by microservice architecture. Pub/sub helps to improve decoupling, but design good practices are very important. See more about [EDA advantages for microservices]()
 
 * **Real time analytics**: this embraces pure analytic computations like aggregate on the data streams but also complex event processing, time window-based reasoning, or AI scoring integration on the data streams.
 

@@ -4,7 +4,7 @@
 
 ## Goals
 
-In this lab, you will learn how to deploy the real-time solution by simply using this repository and a minimum set of commands. The approach is to present reusable structure you may want to reuse for your own future proof of concept, so it will be easy to demonstrate your solution.
+In this lab, you will learn how to deploy the real-time solution by simply using this repository and a minimum set of commands. The approach is to present reusable structure you may want to use for your own future proof of concept development, so it will be easy to demonstrate your solution.
 
 The following diagram illustrates the components, you will deploy in your student's namespace using this repository.
 
@@ -28,7 +28,7 @@ See [Pre-requisites section](../#pre-requisites) in the main page.
 ## Preparation
 
 Each Student will have received a unique identifier and will modify the current settings in this folder with their student id. 
-All the current kubernetes configurations are currently set for `student-1`, prefix: `std-1`.
+All the current kubernetes configurations are currently set for `student-1`, with prefix: `std-1`.
 
 We assume the following are pre-set in you OpenShift cluster, which is the same as CoC integration cluster:
 
@@ -42,6 +42,15 @@ We assume the following are pre-set in you OpenShift cluster, which is the same 
     Then copy this line:
 
     ![](./images/ocp-login-cmd.png)
+
+    Accept the insecure connection
+
+    ```sh
+    oc login --token=sha256~q......pw --server=https://api.cody.coc-ibm.com:6443
+    The server uses a certificate signed by an unknown authority.
+    You can bypass the certificate check, but any data you send to the server could be intercepted by others.
+    Use insecure connections? (y/n): y
+    ```
     
 1. Verify your `oc` cli works
 

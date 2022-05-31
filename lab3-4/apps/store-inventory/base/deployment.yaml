@@ -61,7 +61,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: user.password
-              name: std-1-tls-user
+              name: cody1-tls-user
         envFrom:
         - configMapRef:
             name: store-inventory-cm
@@ -110,4 +110,4 @@ spec:
       - name: user-cert
         secret:
           optional: true
-          secretName: std-1-tls-user
+          secretName: cody1-tls-user

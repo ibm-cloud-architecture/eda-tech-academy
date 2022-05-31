@@ -14,13 +14,19 @@ What a typical demonstration script will include are:
 
 ## Pre-requisites
 
-We suppose Event Streams is installed on OpenShift cluster, and you have access to the OpenShift Console to demonstrate Operators. Adapt the content according to the audience and the level of their Kafka knowledge.
+You will need access to an Event Streams instance installed on an OpenShift cluster with access to the OpenShift Console to demonstrate Operators. 
 
-Be sure to have a `git` client, `oc` cli and `docker` or `podman` installed on your computer.
+You’ll need the following as well:
 
-### cloudctl and es CLIs
+* git client 
+* oc cli 
+* docker or podman  
+* cloudctl 
+* es CLIs - Go to the Event Streams UI > Toolbox > CLI section
 
-Be sure to keep `cloudctl` cli up to date:
+### `cloudctl` and `es` CLIs Verification
+
+Check to ensure your `cloudctl` cli is up to date:
 
 ```sh
 oc get route -n ibm-common-services
@@ -29,7 +35,7 @@ curl -kLo cloudctl https://cp-console.apps.an.os.example.abc.com:443/api/cli/clo
 chmod +x cloudctl
 ```
 
-Verify and install `es cli`: Go to the Event Streams UI > Toolbox > CLI section.
+Install and Verify `es cli`: For help go  to the Event Streams UI > Toolbox > CLI section in the Event Streams Console.
 
 ```sh
 cloudctl plugin install ./es-plugin
@@ -61,18 +67,18 @@ Narative: Event Streams is the IBM packaging of different Open Source projects t
 
 ## Concepts
 
-If needed there are some important concepts around Kafka to present to your audiance. [See this kafka technolog overview](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/).
+If needed there are some important concepts around Kafka to present to your audience. [See this kafka technology overview](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/).
 
 ## High Availability
 
-High availability is ensured by avoiding single point of failure, parallel processing and replications. The following figure is a golden topology for OpenShift with Event Streams components deployed to it. Event Streams Brokers run in OpenShift worker nodes, and it may be relevant to use one broker per worker nodes using zone affinity policies. 
+High availability is ensured by avoiding single point of failure, parallel, and replications. The following figure is a golden topology for OpenShift with Event Streams components deployed to it. Event Streams Brokers run in OpenShift worker nodes, and it may be relevant to use one broker per worker nodes using zone affinity policies. 
 
 ![](./images/es-golden-topo.png)
 **[src for this diagram is here](https://github.com/ibm-cloud-architecture/eda-gitops-catalog/blob/main/docs/diagrams/es-golden-topo.drawio)**
 
 Kafka connectors, or streaming applications runs in worker node too and access brokers via mutual TLS authentication and SSL encryption.
 
-Kafka brokers are spread accross worker nodes using anti-affinity policies.
+Kafka brokers are spread across worker nodes using anti-affinity policies.
 
 ???- "Read more"
     * [Kafka High availability deeper dive](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/advance/#high-availability)
@@ -81,12 +87,13 @@ Kafka brokers are spread accross worker nodes using anti-affinity policies.
     * [Product documentation on planning installation](https://ibm.github.io/event-streams/installing/planning/)
 ## Operator based deployment
 
-1. Explain the concept of **Operator Hub** and search for Event Streams, to explain this is one way to install the operator to manage all cluster instances deployed to the OpenShift environment. Operator can automatically
-deploys new product version once released by IBM.
+There are several ways to install Event Streams. We are going to look at this, with Operator Hub. 
+
+1. Go to your Openshift console, select Operator Hub and search for Event Streams. Here you can install the operator to manage all cluster instances deployed to the OpenShift environment. Operator can automatically deploy new product version once released by IBM.
 
     ![](./images/operatorHub.png)
 
-1. Use the OpenShift Console, and select the project where Event Streams is deployed. On left menu select `Operators > Installed Operators`, scroll to select IBM Event Streams, you are now in the Operator user interface, from where you can see local resources and create new one.
+1. In the OpenShift Console, select the project where Event Streams is deployed. On left menu select `Operators > Installed Operators`, scroll to select IBM Event Streams, you are now in the Operator user interface, from where you can see local resources and create new one.
 
     ![](./images/es-operator-home.png)
 
@@ -94,20 +101,18 @@ deploys new product version once released by IBM.
 
     ![](./images/es-demo-operands.png)
 
-1. This is now the view of the cluster definition as it is deployed. Select the `YAML` choice and see the `spec` elements. 
+1. You are now viewing the cluster definition as it is deployed. Select the `YAML` choice and see the `spec` elements. 
 
     ![](./images/es-yaml-view.png)
 
-    You can highlight that it will be easy to add a broker by changing the `spec.strimziOverrides.kafka.replicas` value. Also in this view, the `Samples` menu presents some examples of cluster definitions. You can more discussion in a GitOps approach for Day1 and Day 2 operations as a demonstration extension. (See later [GitOps section](#day-2-operations))
-
-    Kafka brokers, Zookeeper nodes or other components like Apicurio can all be scaled to meet your needs: 
+    You can see how easy it would be simple to add a broker by changing the `spec.strimziOverrides.kafka.replicas` value. Also in this view, the `Samples` menu presents some examples of cluster definitions. Kafka brokers, Zookeeper nodes or other components like Apicurio can all be scaled to meet your needs: 
 
     * Number of replicas
     * CPU request or limit settings
     * Memory request or limit settings
     * JVM settings
 
-1. Broker, zookeepers, user interface, schema registry, ... are pods in a namespace:
+1. On the left side menu select Workloads->Pods. Here you see pods that are in the Event Streams namespace like  Broker, zookeepers, user interface, schema registry:
 
     ![](./images/pods.png)
 
@@ -115,21 +120,26 @@ deploys new product version once released by IBM.
 
     ![](./images/persistance.png)
 
-    Going to the Storage > PersistenceVolumesClaims in OpenShift console, you can explain that each broker has its own claim, OpenShift allocated Persistence Volumes with expected capacity. The Storage class was defined by OpenShift administrator, and in the example above, it use CEPH storage.
+    On the left side menu select, `Storage > PersistenceVolumesClaims` in the OpenShift console, each broker has its own claim, OpenShift allocated Persistence Volumes with expected capacity. The Storage class was defined by OpenShift administrator, and in the example above, it use CEPH storage.
 
 ???- "Read more"
     * [Cepth and block devise](https://docs.ceph.com/en/latest/rbd/rbd-kubernetes/)
     * [Kafka Brokers](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/#kafka-components) and architecture
+    *  [GitOps approach for Day1 and Day 2 operations](#day-2-operations)
 
 ## Review Event Stream user interface features
 
-1. Go to the user interface by selecting the Admin UI URL in the Event Streams details view, or by getting the exposed routes, with a command like: (change the event stream cluster name from `es-demo`)
+There are a number of ways to navigate to Event Streams Console by getting the exposed routes
+
+1. Using Routes in Openshift: On the left side menu select `Networking > Routes` in the OpenShift console. Find `es-demo-ibm-es-ui` and then go to Location. Select that link and it will take you to the Event Streams Console.  
+
+1. Using the cli:  (replace es-demo with the name of your cluster)
 
     ```sh
     chrome $(oc get eventstreams es-demo -o jsonpath='{.status.adminUiUrl}')
     ```
 
-    you should reach the home page
+    Once you logged in using the LDAP credentials provided, you should reach the home page.
 
     ![](./images/es-console.png)
 
@@ -137,14 +147,14 @@ deploys new product version once released by IBM.
 
 ### Topic management
 
-Topics are append log, producer applications publish records to, and consumer applications subscribe too. Kafka messages themselves are immutable. Deletion and compaction of data are administrative operations.
+Topics are append log, producer applications publish records to topics, and consumer applications subscribe to topics. Kafka messages themselves are immutable. Deletion and compaction of data are administrative operations.
 
 
-1. Navigate to the topic main page: if some topics are present, explain the replicas and partitions concepts.
+1. Navigate to the topic main page by using the Event Streams left side menu and select Topics.
 
     ![](./images/topic-main-page.png)
 
-    * **replicas** is to support record replication and ensure high availability. Producer can wait to get acknowledgement of replication. Replicas needs to be set to 3 to supports 2 broker failures at the same time. 
+    * **replicas** are to support record replication and to ensure high availability. Producer can wait to get acknowledgement of replication. Replicas needs to be set to 3 to supports 2 broker failures at the same time. 
     * **partition** defines the number of append logs managed by the broker. Each partition has a leader, and then follower brokers that replicate records from the leader. Partitions are really done to do parallel processing at the consumer level. 
     * The following diagram can be used to explain those concepts. 
 
@@ -154,7 +164,7 @@ Topics are append log, producer applications publish records to, and consumer ap
 
     ![](./images/topic-name.png)
 
-    Use only one partition, if needed explain that having one partition is easier to keep messages in their order of publish.
+    Use only one partition.
 
     ![](./images/topic-partitions.png)
 
@@ -163,11 +173,11 @@ Topics are append log, producer applications publish records to, and consumer ap
 
     ![](./images/topic-message-retention.png)
 
-    Finally the replicas for high availability. 3 Is the production deployment, and in-sync replicas = 2, means producer get full acknowledge when there is 2 replicas done. Broker partition leader keeps information of in-sync replicas.
+    Finally the replicas for high availability. 3 is the production deployment, and in-sync replicas = 2, means producer get full acknowledge when there are 2 replicas done. Broker partition leader keeps information of in-sync replicas.
 
     ![](./images/topic-replicas.png)
 
-1. Explain that topic can be created via yaml file. Go to the [rt-inventory GitOps - es-topics.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/es-topics.yaml) and explain some of the parameters.
+1. Just as an important note, topic may be created via yaml file or using CLI command. Go to the [rt-inventory GitOps - es-topics.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/es-topics.yaml) and explain some of the parameters.
 
 1. We will go over the process of adding new topic by using GitOps in [this section](/#topic-management-with-gitops)
 
@@ -181,11 +191,11 @@ Topics are append log, producer applications publish records to, and consumer ap
 
 ### Run the Starter Application
 
-1. Go to the `Toolbox` and explain, that there is a **Starter** application developer or SRE may use to test producing  and consuming events. You may have already downloaded this application. It will take time to do it during any live demonstration, so better to be prepared. Also we have packaged a [docker image](https://quay.io/repository/ibmcase/es-demo), for you. The starter application runs on your local laptop and is remote connected to the Event Streams cluster via a OCP route: 
+1. Go to the `Toolbox` and explain, that there is a **Starter** application, developer or SRE may use to test producing  and consuming events. You may have already downloaded this application. It will take time to do it during any live demonstration, so better to be prepared. Also we have packaged a [docker image](https://quay.io/repository/ibmcase/es-demo), for you, so it can be easy to deploy it in OpenShift or run locally without any java dependencies. The starter application runs on your local laptop and is remote connected to the Event Streams cluster via a OCP route: 
 
     ![](./images/toolbox-starter-app.png)
    
-   * Download `es-cert.p12` and `kafka.properties` from the toolbox > Generate properties:
+   * Download `truststore.p12` and `kafka.properties` from the toolbox > Generate properties:
 
     ![](./images/download-properties.png)
 
@@ -251,7 +261,7 @@ There is an alternate of running this application on your laptop, it can be depl
 
 ## Back to the Cluster configuration
 
-Event Streams cluster can be configured with Yaml and you can review the following cluster definition to explain some of the major properties
+Event Streams cluster can be configured with Yaml and you can review the following cluster definition to explain some of the major properties: 
 [EDA GitOps Catalog - example of production cluster.yaml](https://github.com/ibm-cloud-architecture/eda-gitops-catalog/blob/main/cp4i-operators/event-streams/operands/prod-small/eventstreams-prod.yaml):
 
 | Property | Description |
@@ -272,14 +282,14 @@ For Kafka, the following aspects of a deployment can impact the resources you ne
 * The number of topics and partitions
 ## Producing messages
 
-The [product documentation - producing message section goes into details](https://ibm.github.io/event-streams/about/producing-messages/) of the concepts. 
+The [product documentation - producing message section](https://ibm.github.io/event-streams/about/producing-messages/) goes into details of the concepts. 
 For a demonstration purpose, you need to illustrate that you can have multiple types of Kafka producer:
 
 * Existing Queuing apps, which are using IBM MQ, and get their messages transparently sent to Event Streams, using [IBM MQ Streaming Queue](https://www.ibm.com/docs/en/ibm-mq/9.2?topic=scenarios-streaming-queues) and [MQ Source Kafka Connector](https://github.com/ibm-messaging/kafka-connect-mq-source).
 
     ![](./images/streaming_queuesa.jpeg)
 
-* Microservice application publishing events using Kafka producer API, or reactive messaging in Java Microprofile. For Nodejs, Python there is a C library which supports the Kafka APIs. We have code template for that.
+* Microservice applications publishing events using Kafka producer API, or reactive messaging in Java Microprofile. For Nodejs, Python there is a C library which supports the Kafka APIs. We have code template for that.
 * Change data capture product, like [Debezium](https://debezium.io/), that gets database updates and maps records to events in topic. One topic per table. Some data transformation can be done on the fly.
 * Streaming applications, that do stateful computing, real-time analytics, consuming - processing - publishing events from one to many topics and produce to one topic. 
 * App connect flow can also being source for events to Events Streams, via connectors.
@@ -288,7 +298,7 @@ The following diagram illustrates those event producers.
 
 ![](./images/different-producers.png)
 
-Each producer needs to get URL to the broker, defines the protocol to authenticate, and gets server side TLS certificate, the topic name, and that's it to start sending messages.
+Each producer needs to get a URL to the broker, defines the protocol to authenticate, and gets server side TLS certificate, the topic name, and that's it to start sending messages.
 
 For production deployment, event structures are well defined and schema are used to ensure consumer can understand how to read messages from the topic/partition. Event Streams offers a schema registry to manage those schema definitions.
 
@@ -347,7 +357,7 @@ enforce avoiding record duplication, producer can do message buffering and send 
     * [Event Streams product documentation](https://ibm.github.io/event-streams/about/producing-messages/)
 ## Consumer application - consumer group
 
-If you need to explain the concept of consumer group, and how consumer gets data from Topic/partition, the following figure will help supporting the discussion:
+Let’s take a look at consumer group and how consumer gets data from Topic/partition. The following figure will help supporting the discussion:
 
 ![](./images/consumer-groups.png)
 
@@ -568,8 +578,7 @@ The solution can be deployed using few commands or using GitOps. Here are the si
 *  [EDA GitOps Catalog to deploy Cloud Pak for Integration operators](https://github.com/ibm-cloud-architecture/eda-gitops-catalog)
 ## Geo-replication
 
-Two main concepts to talk about: replication to a passive Event Streams cluster, or to an active cluster.
-Geo Replication is the IBM packaging of Mirror Maker 2. 
+We will go over two main concepts: replication to a passive and active Event Streams cluster. Geo Replication is the IBM packaging of Mirror Maker 2. 
 
 ### Demonstrating Geo Replication
 
