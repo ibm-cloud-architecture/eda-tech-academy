@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 originPrefix="std-1"
-#originPrefix="ahsoka1"
+#originPrefix="cody1"
 
 echo "Updating prefix to " $PREFIX
 

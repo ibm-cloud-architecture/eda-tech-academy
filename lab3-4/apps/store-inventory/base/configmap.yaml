@@ -4,9 +4,9 @@ metadata:
   name: store-inventory-cm
 data:
   APP_VERSION: 0.0.10
-  APP_STORE_INVENTORY_TOPIC: cody1-store.inventory
+  APP_STORE_INVENTORY_TOPIC: std-1-store.inventory
   KAFKA_APPLICATION_ID: std1-store-inventory
-  APP_ITEMS_TOPIC: cody1-items
+  APP_ITEMS_TOPIC: std-1-items
   KAFKA_SECURITY_PROTOCOL: SSL
   KAFKA_BOOTSTRAP_SERVERS: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
 

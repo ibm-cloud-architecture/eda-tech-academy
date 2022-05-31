@@ -29,7 +29,7 @@ spec:
     jsonPointers:
     - /spec/host
     kind: Route
-  project: cody1
+  project: std-1
   source:
     path: lab3/argocd
     repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git

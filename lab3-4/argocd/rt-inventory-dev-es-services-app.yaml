@@ -6,9 +6,9 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: cody1
+    namespace: std-1
     server: https://kubernetes.default.svc
-  project: cody1
+  project: std-1
   source:
     path: lab3/services/ibm-eventstreams/overlays
     repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git
