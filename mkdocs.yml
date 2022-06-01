@@ -14,15 +14,15 @@ nav:
       - Problem Statement: lab1/index.md
       - Solution Overview: lab1/lab1-sol.md
   - Journey 2:
-    - System Design Lab-:
+    - System Design Lab:
       - Problem Statement: lab1/index.md
       - Solution Overview: lab1/lab1-sol.md
     - Kafka Streams Lab:
       - Kafka Streams Study: lab2/kstream.md
       - Problem Statement: lab2/index.md
       - Solution Overview: lab2/lab2-sol.md
-    - Running demo lab: lab3/index.md
-    - EDA GitOps lab: lab4/index.md
+    - Running demo Lab: lab3/index.md
+    - EDA GitOps Lab: lab4/index.md
   - More...: future.md
 
 theme: 
@@ -38,9 +38,11 @@ theme:
       - content.tooltips
       # - navigation.tabs
       - navigation.instant
-      - navigation.indexes
-      - navigation.tracking
-      - navigation.tabs.sticky
+      # - navigation.indexes
+      - navigation.sections
+      - navigation.expand
+      #- navigation.tracking
+      #- navigation.tabs.sticky
 
 extra_css: ["extra.css"]
 plugins:
