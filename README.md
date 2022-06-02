@@ -1,4 +1,4 @@
-# [Event-driven architecture - Tech Academy Workshop](https://pages.github.ibm.com/boyerje/eda-tech-academy)
+# [Event-driven architecture - Tech Academy Workshop](https://ibm-cloud-architecture.github.com/eda-tech-academy)
 
 ## Goals
 
@@ -15,13 +15,13 @@ The overall tutorial should be around 4 hours.
 * OCP access with CP4I installed, we are using [CoC environment](https://cmc.coc-ibm.com/cluster/biggs) as a based for our deployments.
 
 
-You can read the tutorial content using the [BOOK VIEW](https://pages.github.ibm.com/boyerje/eda-tech-academy)
+You can read the tutorial content using the [BOOK VIEW](https://ibm-cloud-architecture.github.com/eda-tech-academy)
 
 
 ## Clone this git repository
 
 ```sh
-git clone  https://github.ibm.com/boyerje/eda-tech-academy.git
+git clone  https://github.com/ibm-cloud-architecture/eda-tech-academy.git
 ```
 
 ## Notes for contributors

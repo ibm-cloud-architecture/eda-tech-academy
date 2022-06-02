@@ -33,7 +33,7 @@ To do the hands-on exerices, go to the `/lab2/refarch-eda-store-inventory` folde
 
 **Goal:** Test a basic topology inside unit test.
 
-In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java "Link to apache doc"). The most important elements of this test are:
+In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java "Link to apache doc"). The most important elements of this test are:
 
 * The `TopologyTestDriver` is a class to test a Kafka Streams topology without Kafka. It uses dummy configuration.
 * the `TestInputTopic` class is used to pipe test records to a topic in TopologyTestDriver. This is used to send test messages. The creation of this instance needs to specify the serializer or deserialer used.
@@ -107,7 +107,7 @@ See comments in test class for more information. May be you can play with the da
 
 **Problem:** Given item sold transactions, keep transactions with store and sku information populated.
 
-Try to do a topology taking the [ItemTransaction class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) as the code defining the content from the input topic. The following code does not need to be copied/paste. It is here to explain you the structure of the data. The class is in the classpath, so tests run in maven or in the IDE will work.
+Try to do a topology taking the [ItemTransaction class](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) as the code defining the content from the input topic. The following code does not need to be copied/paste. It is here to explain you the structure of the data. The class is in the classpath, so tests run in maven or in the IDE will work.
 
 ```java
 public class ItemTransaction   {
@@ -124,7 +124,7 @@ public class ItemTransaction   {
 
 So the Stream Topology needs to use the `filter()` function to select items with valid sku and storeName.
 
-You should use the [TestSecondTopology test class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestSecondTopology.java), and implement the Kafka Streams topology in the `buildTopologyFlow()` method:
+You should use the [TestSecondTopology test class](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestSecondTopology.java), and implement the Kafka Streams topology in the `buildTopologyFlow()` method:
 
 ```java title="Build filtering"
    public static Topology buildTopologyFlow(){
@@ -140,7 +140,7 @@ You should use the [TestSecondTopology test class](https://github.ibm.com/boyerj
 ```
 
 In the first exercice, we used String Deserializer. This time we need Java Bean serializer/deserializer. This is a classical task in any Kafka Streams projects to have to define such serdes.
-The Serialization and Deserialization are defined in the [StoreSerdes.class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/StoreSerdes.java) which uses a [JSON generic class](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/JSONSerde.java) based on Jackson parser. You should be able to reuse this class in all your project.
+The Serialization and Deserialization are defined in the [StoreSerdes.class](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/StoreSerdes.java) which uses a [JSON generic class](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/JSONSerde.java) based on Jackson parser. You should be able to reuse this class in all your project.
 
 Do not copy / past the following code. This is just for information so you can see the relationship between Serdes and the Java bean they are supposed to deserialize.
 
@@ -158,7 +158,7 @@ public class JSONSerde<T> implements Serializer<T>, Deserializer<T>, Serde<T> {
     //..
 ```
 
-An example of specific usage for this class is the [StoreSerdes](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/StoreSerdes.java) class.
+An example of specific usage for this class is the [StoreSerdes](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/StoreSerdes.java) class.
 
 ```java
 public class StoreSerdes {
@@ -254,7 +254,7 @@ PRE-FILTER: key=null, value= {id: 1653431482118 Store: null Item: Item-1 Type: R
 
 Transform the previous topology to support branches and routing the records in error to a dead letter topic. 
 
-You should use the [TestDeadLetterTopic](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestDeadLetterTopic.java) test class, and implement the Kafka Streams topology in the buildTopologyFlow() method:
+You should use the [TestDeadLetterTopic](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestDeadLetterTopic.java) test class, and implement the Kafka Streams topology in the buildTopologyFlow() method:
 
 Some guidances:
 
@@ -362,7 +362,7 @@ Item_3
 
 For your information here are some more test classes that demonstrate some streaming examples:
 
-* [TestAccumulateItemSold](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java) to demonstrate counting item sold event per sku. It groups by sku, and then count and emit events. Without Ktable caching the sequence of output records is emitted for key that represent changes in the resulting aggregation table.
+* [TestAccumulateItemSold](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java) to demonstrate counting item sold event per sku. It groups by sku, and then count and emit events. Without Ktable caching the sequence of output records is emitted for key that represent changes in the resulting aggregation table.
 
 ```java
     KStream<String,ItemTransaction> items = builder.stream(inTopicName, 
@@ -379,7 +379,7 @@ For your information here are some more test classes that demonstrate some strea
     countedItems.toStream().to(outTopicName);
 ```
 
-* Same example as above but because of the caching to state store, the results are queriable. The test class is [TestAccumulateItemSoldWithCaching](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java)
+* Same example as above but because of the caching to state store, the results are queriable. The test class is [TestAccumulateItemSoldWithCaching](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java)
 
 ## Final store inventory exercice
 
@@ -388,7 +388,7 @@ As decided during the system design, you need now to implement the proof of conc
 
 How to get the real-time view of the inventory per store?
 
-The [ItemTransaction.java](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) represents the message structure of the input topic. Below is an extract of this definition:
+The [ItemTransaction.java](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/ItemTransaction.java) represents the message structure of the input topic. Below is an extract of this definition:
 
 
 Here is an example of json message you may see in a topic:
