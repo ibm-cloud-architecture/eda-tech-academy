@@ -1,4 +1,4 @@
-# [Event-driven architecture - Tech Academy Workshop](https://ibm-cloud-architecture.github.com/eda-tech-academy)
+# [Event-driven architecture - Tech Academy Workshop](https://ibm-cloud-architecture.github.io/eda-tech-academy)
 
 ## Goals
 

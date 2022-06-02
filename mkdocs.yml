@@ -1,7 +1,8 @@
 site_name: EDA technical academy
 site_author: Jerome Boyer
-repo_url: https://github.ibm.com/boyerje/eda-tech-academy
-
+repo_url: https://github.com/ibm-cloud-architecture/eda-tech-academy
+remote_branch: gh-pages
+remote_name: upstream
 nav:
   - Introduction: index.md
   - Information:
@@ -36,13 +37,13 @@ theme:
   features:
       - content.code.annotate
       - content.tooltips
-      # - navigation.tabs
+      - navigation.tabs
       - navigation.instant
       # - navigation.indexes
       - navigation.sections
       - navigation.expand
       #- navigation.tracking
-      #- navigation.tabs.sticky
+      - navigation.tabs.sticky
 
 extra_css: ["extra.css"]
 plugins:

@@ -5,15 +5,15 @@ The general objective of this academy training is to develop deeper technical sk
 In this Event-driven solution workshop, you will learn how to use of Event-Driven/Near Real-time Integration Patterns, Technologies and Implementation Strategies which should help you developing simple Streaming 
 applications and proof of concepts. 
 
-## Two tracks
+## Two possible journeys
 
 We recognize that not every student will have the same level of knowledge of Event Streams and integration capability or even Java development background. We propose two different tracks depending of your current skill level:
 
-1. **Beginner track**: do the lab 0, which is about being confortable to demonstrate Event Streams from "A to Z": this is a good 3 hours run thru exercise that will give you access to a lot of content you should be able to leverage overtime. You may also do the lab 1 as this is a system design mockup exercise, that should help you in the future. [Go to **Track 1** - lab 0 >>](./lab0/)
+1. **Beginner journey**: do the lab 0, which is about being confortable to demonstrate Event Streams from "A to Z": this is a good 3 hours run thru exercise that will give you access to a lot of content you should be able to leverage overtime. You may also do the lab 1 as this is a system design mockup exercise, that should help you in the future. [Go to **Track 1** - lab 0 >>](./lab0/)
 
-1. **To Level 4 track**: Perform labs 1 to 4, this is about learning Kafka Stream, Quarkus application, using Configuration as Code for OpenShift deployment and GitOps approach. A full story and a set of reusable assets you may want to reuse to build you future proof of concepts. You can also review quickly the lab 0, as it could be helpful, as a script to answer specific customer's questions.  [Continue to the goals section below >>](#track-2-goals)
+1. **Advance journey**: Perform labs 1 to 4, this is about learning Kafka Stream, Quarkus application, using Configuration as Code for OpenShift deployment and GitOps approach. A full story and a set of reusable assets you may want to reuse to build you future proof of concepts. You can also review quickly the lab 0, as it could be helpful, as a script to answer specific customer's questions.  [Continue to the goals section below >>](#advance-journey-goals)
 
-## Track 2 Goals:
+## Advance Journey Goals:
 
 * Solidify a full body of knowledge in the near real-time / event driven architecture domain 
 * Design and create an initial prototype solution that addresses the DOU goals and objectives.
