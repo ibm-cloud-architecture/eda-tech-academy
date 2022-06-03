@@ -1,23 +1,5 @@
 version: '3.7'
 services:
-  ibmmq:
-    image: ibmcom/mq
-    container_name: ibmmq
-    hostname: ibmmq
-    ports:
-        - '1414:1414'
-        - '9443:9443'
-        - '9157:9157'
-    volumes:
-        - qm1data:/mnt/mqm
-    stdin_open: true
-    tty: true
-    restart: always
-    environment:
-        LICENSE: accept
-        MQ_QMGR_NAME: QM1
-        MQ_APP_PASSWORD: passw0rd
-        MQ_ENABLE_METRICS: "true"
   zookeeper:
     image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
     container_name: zookeeper
@@ -47,6 +29,7 @@ services:
     ports:
       - "9092:9092"
       - "29092:9092"
+      - "7071:7071"
     environment:
       LOG_DIR: "/tmp/logs"
       KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
@@ -65,15 +48,11 @@ services:
       - "8080:8080"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      APP_TARGET_MESSAGING: IBMMQ,Kafka
+      APP_TARGET_MESSAGING: Kafka
       KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_SASL_MECHANISM: PLAIN
       KAFKA_CERT_PWD: ""
       USER_CERT_PWD: ""
-      MQ_QMGR: QM1
-      MQ_HOST: ibmmq
-      MQ_PORT: 1414
-      MQ_QUEUE_NAME: DEV.QUEUE.1
-      MQ_CHANNWL: DEV.APP.SVRCONN
   itemInventory:
     image: quay.io/ibmcase/item-aggregator
     container_name: item-aggregator
@@ -84,22 +63,9 @@ services:
       - "8081:8080"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      KAFKA_SECURITY_PROTOCOL: PLAINTEXT
       KAFKA_CERT_PWD: ""
       USER_CERT_PWD: ""
-  storeInventory:
-    image: quay.io/ibmcase/store-aggregator
-    container_name: store-aggregator
-    depends_on:
-      - kafka
-    hostname: saggregator
-    ports:
-      - "8082:8080"
-    environment:
-      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       KAFKA_SECURITY_PROTOCOL: PLAINTEXT
-      KAFKA_CERT_PWD: ""
-      USER_CERT_PWD: ""
   addTopics:
     image:  cp.icr.io/cp/ibm-eventstreams-kafka:11.0.0
     depends_on:
@@ -107,29 +73,26 @@ services:
     entrypoint: [ "bash",  "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic items 
             && /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic store.inventory 
             && /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic item.inventory"]
-  kafdrop:
-    image: obsidiandynamics/kafdrop
-    container_name: kafdrop
-    restart: "no"
+  prometheus:
+    image: prom/prometheus
     ports:
-      - "9000:9000"
-    environment:
-      KAFKA_BROKERCONNECT: "kafka:29092"
-    depends_on:
-      - kafka
-  kconnect:
-    container_name: kconnect
-    image: quay.io/ibmcase/eda-kconnect-cluster-image
-    ports:
-      - 8083:8083
+      - "9090:9090"
+    container_name: prometheus
     volumes:
-      - ./kconnect:/tmp
-    command: [
-      "sh", "-c",
-      "export LOG_DIR=/tmp &&
-       bin/connect-distributed.sh /tmp/distributed.properties"
-    ]
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+  kexporter:
+    image: danielqsj/kafka-exporter
+    ports:
+     - "9308:9308"
+    container_name: kexporter
+    command:
+      - '--kafka.server=kafka:29092'
     depends_on:
       - kafka
+      
 volumes:
-  qm1data:
+  prometheus_data: {}

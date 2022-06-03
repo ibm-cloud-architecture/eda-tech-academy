@@ -29,9 +29,10 @@ We recognize that not every student will have the same level of knowledge of Eve
 
     * For Mac: `brew install make`
     * For Windows: See [this note](https://www.technewstoday.com/install-and-use-make-in-windows/)
-* Have [oc cli] installed.
+
+* Have [oc cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html) installed.
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/)
-* OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster/biggs) as a base for our deployments.
+* OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster) as a base for our deployments.
 
 **Fork** this repository to your own git account so you can modify content and deploy code from your repository when using GitOps.
 

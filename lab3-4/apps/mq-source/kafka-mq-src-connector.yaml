@@ -12,8 +12,8 @@ spec:
   class: com.ibm.eventstreams.connect.mqsource.MQSourceConnector
   tasksMax: 1
   config:
-    mq.queue.manager: MQGR1
-    mq.connection.name.list: qmgr1-ibm-mq.std-1.svc
+    mq.queue.manager: std-1MQ
+    mq.connection.name.list: std-1-mq-ibm-mq.std-1.svc
     mq.channel.name: DEV.APP.SVRCONN
     mq.queue: ITEMS
     mq.user.name: ""

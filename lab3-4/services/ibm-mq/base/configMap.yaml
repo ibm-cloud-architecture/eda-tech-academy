@@ -8,7 +8,7 @@ data:
   LICENSE: accept
   MQ_APP_PASSWORD: passw0rd
   MQ_ENABLE_METRICS: "true"
-  MQ_QMGR_NAME: QM1
+  MQ_QMGR_NAME: std-1MQ
 
 ---
 apiVersion: v1

@@ -28,7 +28,7 @@ See [Pre-requisites section](../#pre-requisites) in the main page.
 ## Preparation
 
 Each Student will have received a unique identifier and will modify the current settings in this folder with their student id. 
-All the current kubernetes configurations are currently set for `student-1`, with prefix: `std-1`.
+All the current kubernetes configurations are currently set for `std-1`.
 
 We assume the following are pre-set in you OpenShift cluster, which is the same as CoC integration cluster:
 
@@ -58,7 +58,7 @@ We assume the following are pre-set in you OpenShift cluster, which is the same 
     oc get nodes
     ```
 
-1. Work under the `lab3-4` folder.
+1. Work under the `lab3-4` folder of this repository.
 
 ## Modify existing configuration
 
@@ -70,7 +70,7 @@ The blue components should have been deployed with the Cloud Pak for Integration
 
 1. The demonstration will run on its own namespace. The `env/base` folder includes the definition of the namespace, roles, role binding needed to deploy the demonstration. This is a classical way to isolate apps in kubernetes. 
 
-    Running the `updateStudent.sh` shell script, will modify all the yaml files used by the solution with your student id. Two main naming conventions are used: `student-XX` for user name id XX, and `finn-XX` prefix. So the namespace for Student-2 will be `finn-2-rt-inventory` namespace. 
+    Running the `updateStudent.sh` shell script, will modify all the yaml files used by the solution with your student id. As an example we will be student `poe10` and the deployment will be done in `poe10` namespace. 
 
     ```sh
     export PREFIX=poe10
@@ -79,7 +79,7 @@ The blue components should have been deployed with the Cloud Pak for Integration
 
 ## Folder structure
 
-This folder is a reduced version of what the Red Hat's [Kubernetes Application Management](https://github.com/redhat-developer/kam) tool is creating normally. If you want to see a full fledge GitOps version of this demonstration see the [eda-rt-inventory-gitops repository](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops).
+This `lab3-4 `folder is a reduced version of what the Red Hat's [Kubernetes Application Management](https://github.com/redhat-developer/kam) tool is creating normally. If you want to see a full fledge GitOps version for this demonstration see the [eda-rt-inventory-gitops repository](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops).
 
 | Folder | Intent |
 | --- | --- |
@@ -90,11 +90,11 @@ This folder is a reduced version of what the Red Hat's [Kubernetes Application M
 
 ## Deploy
 
-The deployment will configure topics in event streams, deploy the three apps, MQ broker and Kafka Connect cluster with the MQ source connector.
+The deployment will configure topics in event streams using a naming convention to avoid conflicts between students, deploy the three apps, deploy MQ broker and Kafka Connect cluster with the MQ source connector configured.
 
 ![](../images/mq-es-demo.png)
 
-*Event Gateway, schema registry, and Cloud Object Storage sink connector are not used*
+*Event Gateway, schema registry, and Cloud Object Storage sink connector are not used in this lab*
 
 1. Start the deployment
 
@@ -115,28 +115,142 @@ The deployment will configure topics in event streams, deploy the three apps, MQ
 1. Access to the MQ console (replace the namespace and base url)
 
     ```sh
-    chrome   https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/$PREFIX/store-mq-ibm-mq/
+    # change poe to another server name if needed
+    chrome https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/$PREFIX/$PREFIX-mq-ibm-mq/
     ```
+
+1. Verify the queue manager has the ITEMS queue 
+
+    ![](./images/qmgr-queue-view.png)
 
 1. Access to the simulator console
 
     ```sh
+    
     chrome http://$(oc get route store-simulator -o jsonpath='{.status.ingress[].host}')
     ```
 
-    Go to the SIMULATOR tab and select IBMMQ backen, and controlled scenario 
+    Go to the SIMULATOR tab. If you want to test with the MQ source connector, select IBMMQ backend, and starts the `Controlled scenario` to send predefined messages: 
 
     ![](./images/simulator-ctl.png)
 
-    You should get a set of predefined messages sent to MQ, and then to Kafka items topic
+    Normally you should not see the messages in the ITEMS queue as they are immediatly processed by the Kafka Connector. 
+
+    You should get a set of predefined messages sent to MQ, and then to Kafka `$PREFIX-items` topic
 
     ![](./images/msgs-sent.png)
 
-    Go to the Event Streams console
+    Go to the Event Streams console.
+
+    If you select `Kafka` as backend, then the simulator sends directly the messages to Kafka `$PREFIX-items` topic.
+
+1. The two other options for the Store simulator is to send from 1 to 100 random messages (left choice in the controller view), or continuously send messages (start / stop control in the middle of the page).
+
+1. Access the Event Stream console to look at topic content:
+
+```sh
+# change poe to the OCP cluster name
+chrome https://cpd-cp4i.apps.poe.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/
+```
+
+The `items` topic content the store transactions:
+
+![](./images/item-topic.png)
+
+The `item.inventory` topic has the aggregates cross stores, as illustrates in figure below:
+
+![](./images/item-inv-topic.png)
+
+And the `store.inventory` includes events on current inventory per store:
+
+ ![](./images/store-inv-topic.png)
+
 
 ???- "Read more on the demonstration script"
     [The demonstration instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing) as this is a demonstration available in the public git and shareable with customers and prospects.
 
+## Kafka connector configuration
+
+The Kafka connect cluster is defined in [the kafka-connect.yam file](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab3-4/services/kconnect/kafka-connect.yaml) in the `services/kconnect` folder. The important part of this file is the Event Streams bootstrap server URL, the kafka version used, and the name of the topic used to persist states of the connector. Each student has its own topic names for offsets, config and status topics.
+
+```yaml
+  version: 3.0.0
+  replicas: 2
+  bootstrapServers: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
+  image: quay.io/ibmcase/eda-kconnect-cluster-image:latest
+  # ... 
+  config:
+    group.id: poe10-connect-cluster
+    offset.storage.topic: poe10-connect-cluster-offsets
+    config.storage.topic: poe10-connect-cluster-configs
+    status.storage.topic: poe10-connect-cluster-status
+    config.storage.replication.factor: 3
+    offset.storage.replication.factor: 3
+    status.storage.replication.factor: 3
+```
+
+Recall that the kafka connect cluster runs connectors in parallel and use Kafka consumer and producer API to do the data transfer.
+
+![](./images/connector-tasks.png)
+
+The `image` references a custom image we built to have the MQ source connector and some sink. The Dockerfile for this image is in [this repository](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/tree/main/kconnect), you can start from it to add more connector.
+
+To set the status of the kafka connect cluster runs the following command:
+
+```sh
+oc get kafkaconnect
+# example of results
+NAME                    DESIRED REPLICAS   READY
+poe10-connect-cluster   2                  True
+```
+
+* The MQ source connector is defined as an app, in the `apps/mq-source` folder. Below are the important parts to consider:
+
+```yaml
+  config:
+    mq.queue.manager: poe10MQ
+    mq.connection.name.list: poe10-mq-ibm-mq.poe10.svc
+    mq.channel.name: DEV.APP.SVRCONN
+    mq.queue: ITEMS
+    topic: poe10-items
+    key.converter: org.apache.kafka.connect.storage.StringConverter
+    value.converter: org.apache.kafka.connect.storage.StringConverter
+    mq.record.builder: com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder
+    mq.connection.mode: client
+    mq.message.body.jms: true
+    mq.record.builder.key.header: JMSCorrelationID
+  
+```
+
+We do not need to apply any logic on the value conversion. As the messages in MQ are json, we can just consider them as String. The `mq.record.builder.key.header: JMSCorrelationID` is very important to get the key from the MQ message header. This is a trick here to avoid having a kafks streams program to extract the key from the message and write to another topic, as it could be in real life. The [store simulator uses the JMSCorrelationID](https://github.com/ibm-cloud-architecture/refarch-eda-store-simulator/blob/22feb2baa4c57f2e8954acc7415f5d47f88130c7/backend/src/main/java/ibm/gse/eda/stores/infra/mq/MQItemGenerator.java#L120) to post the "StoreName" value as a a future key. The Kafka connector use this to write a kafka Producer Record with this key. 
+
+```java
+ public void sendMessage(Item item) {
+    try {
+      String msg = parser.toJson(item);
+      TextMessage message = jmsContext.createTextMessage(msg);
+      message.setJMSCorrelationID(item.storeName);
+      producer.send(destination, message);
+      ...
+```
+
+If you want to see the status of the connectors
+
+```sh
+oc get kafkaconnectors
+# example of results
+NAME        CLUSTER                 CONNECTOR CLASS                                           MAX TASKS   READY
+mq-source   poe10-connect-cluster   com.ibm.eventstreams.connect.mqsource.MQSourceConnector   1           True
+```
+
+
+???- "Read more on Kafka connector"
+    * [Techno overview](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-connect/)
+    * [Event Streams Product documentation](https://ibm.github.io/event-streams/connecting/connectors/)
+    * [Strimzi configuration](https://strimzi.io/docs/operators/latest/configuring.html#assembly-kafka-connect-str)
+    * [Kafka documentation](https://kafka.apache.org/documentation/#connect)
+    * [Kafka connector sink to cloud object storage](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/connect-cos/)
+    * [Kafka connector sink to aws S3 with Camel connector](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/connect-s3/)
 ## Troubleshooting
 
 ### Message not sent to MQ
@@ -150,7 +264,7 @@ oc logs <pod_id>
 
 ## Running locally
 
-During proof of concept development you can run Event Streams, MQ and your code locally. We give you a docker compose file to do so. Here are the commands to run the same demonstration locally:
+During proof of concept development you can run Event Streams, MQ and your code on your own laptop with docker engine. We give you a docker compose file to do so. Here are the commands to run the same demonstration locally:
 
 ```sh
 cd local
@@ -158,8 +272,8 @@ docker-compose up -d
 ./listTopics.sh
 ```
 
-* Access simulator user interface at [http://localhost:8080](http://localhost:8080)
-* Access MQ UI at [https://localhost:9443](https://localhost:9443)
-* Access Kafdrop UI [http://localhost:9000](http://localhost:9000)
+* Access simulator user interface at [http://localhost:8080](http://localhost:8080).
+* Access MQ UI at [https://localhost:9443](https://localhost:9443).
+* Access Kafdrop UI [http://localhost:9000](http://localhost:9000) to look at the topic content.
 
 > [Next >> deploy with GitOps](../lab4)

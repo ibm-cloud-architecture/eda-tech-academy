@@ -9,9 +9,9 @@ data:
   KAFKA_TOPIC_NAME: std-1-items
   KAFKA_SECURITY_PROTOCOL: SSL
   USER_CERT_PWD: none
-  MQ_HOST: qmgr1-ibm-mq.std-1.svc
+  MQ_HOST: std-1-mq-ibm-mq.std-1.svc
   # external: mq1-cp4i-ibm-mq-qm-cp4i-mq1.apps.biggs.coc-ibm.com
   MQ_PORT: "1414"
-  MQ_QMGR: MQGR1 
+  MQ_QMGR: std-1MQ 
   MQ_QUEUE_NAME: ITEMS
   MQ_CHANNEL: DEV.APP.SVRCONN

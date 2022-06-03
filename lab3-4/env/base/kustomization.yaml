@@ -1,5 +1,5 @@
 resources:
 - role.yaml
-#- service-account.yaml
-#- cp-secret.yaml
+- service-account.yaml
+- cp-secret.yaml
 - argocd-admin.yaml
