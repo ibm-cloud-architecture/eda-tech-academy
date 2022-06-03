@@ -2,7 +2,7 @@ site_name: EDA technical academy
 site_author: Jerome Boyer
 repo_url: https://github.com/ibm-cloud-architecture/eda-tech-academy
 remote_branch: gh-pages
-remote_name: upstream
+remote_name: origin
 nav:
   - Introduction: index.md
   - Information:
