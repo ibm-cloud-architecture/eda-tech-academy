@@ -6,7 +6,7 @@ data:
   APP_VERSION: 0.0.10
   APP_ITEM_INVENTORY_TOPIC: poe1-item.inventory
   APP_ITEMS_TOPIC: poe1-items
-  KAFKA_APPLICATION_ID: std1-item-inventory
+  KAFKA_APPLICATION_ID: poe1-item-inventory
   KAFKA_SECURITY_PROTOCOL: SSL
   KAFKA_BOOTSTRAP_SERVERS: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
   
