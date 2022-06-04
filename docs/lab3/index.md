@@ -12,15 +12,15 @@ The following diagram illustrates the components, you will deploy in your studen
 
 ### More context
 
-A traditional solution may be organized with one git repository per application, and at least one GitOps repository to define the deployment artifacts. If you look at the demonstration you are running in this lab, the source code is in the public git account [ibm-cloud-architecture](https://github.com/ibm-cloud-architecture) with other repositories the following structure:
+A traditional solution may be organized with one git repository per application, and at least one GitOps repository to define the deployment artifacts. If you look at the demonstration you are running in this lab, the source code is in the public git account [ibm-cloud-architecture](https://github.com/ibm-cloud-architecture) with other repositories with following structure:
 
 ![](./images/structure.png)
 
-* [eda-rt-inventory-gitops](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops): this gitops repo, built with [kam cli](https://github.com/redhat-developer/kam) and includes everything to use ArgoCD apps to deploy the solution
-* [eda-gitops-catalog](https://github.com/ibm-cloud-architecture/eda-gitops-catalog): a git repositiry to define the Cloud Pak for Integration operator version.
-* [store simulator application](https://github.com/ibm-cloud-architecture/refarch-eda-store-simulator)
-* [store aggregator / inventory application](https://github.com/ibm-cloud-architecture/refarch-eda-store-inventory)
-* [item aggregator / inventory application](https://github.com/ibm-cloud-architecture/refarch-eda-item-inventory)
+* [eda-rt-inventory-gitops](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops): the solution gitops repo, built with [kam cli](https://github.com/redhat-developer/kam) which includes everything to declare ArgoCD apps and deployment descriptors
+* [eda-gitops-catalog](https://github.com/ibm-cloud-architecture/eda-gitops-catalog): a git repository to define the different Cloud Pak for Integration operator versions.
+* [store simulator application](https://github.com/ibm-cloud-architecture/refarch-eda-store-simulator) the simulator to send messages to different middleware
+* [store aggregator / inventory application](https://github.com/ibm-cloud-architecture/refarch-eda-store-inventory) to compute store inventory aggregates with Kafka Streams
+* [item aggregator / inventory application](https://github.com/ibm-cloud-architecture/refarch-eda-item-inventory) same for item inventory cross store.
 ## pre-requisites
 
 See [Pre-requisites section](../#pre-requisites) in the main page.
@@ -251,6 +251,14 @@ mq-source   poe10-connect-cluster   com.ibm.eventstreams.connect.mqsource.MQSour
     * [Kafka documentation](https://kafka.apache.org/documentation/#connect)
     * [Kafka connector sink to cloud object storage](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/connect-cos/)
     * [Kafka connector sink to aws S3 with Camel connector](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/connect-s3/)
+
+## Cleaning your OpenShift project
+
+Run the following command
+
+```sh
+make clean
+```
 ## Troubleshooting
 
 ### Message not sent to MQ

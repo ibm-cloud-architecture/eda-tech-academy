@@ -27,14 +27,15 @@ ensure_operator_installed = \
 # GitOps targets
 # ---------------------------------------------------
 verify-argocd-available:
-	@$(call ensure_operator_installed,"openshift-gitops-operator","../../../bootstrap/openshift-gitops-operator")
+	@$(call ensure_operator_installed,"openshift-gitops-operator","./argocd/bootstrap/openshift-gitops-operator")
 
 # Create a project in ArgoCD to isolate student
 def-argocd-project:
 	@oc apply -f argocd/argo-project.yaml
 
 prepare-argocd: 
-	@echo $$PREFIX $$GIT_REPO_NAME
+	@echo $$PREFIX $$GIT_ACCOUNT 
+	@cd argocd && ./updateStudent.sh && cd ..
 
 argocd: verify-argocd-available def-argocd-project
 	@oc apply -k argocd/
@@ -82,7 +83,7 @@ all-no-gitops:  prepare-ns\
 	mq-kconnector \
 	apps
 
-clean-all:
+clean:
 	@oc delete -k ./apps/item-inventory/
 	@oc delete -k ./apps/store-inventory/
 	@oc delete -k ./apps/store-simulator/
@@ -92,5 +93,4 @@ clean-all:
 	@oc delete kafkatopic $$PREFIX-connect-cluster-configs -n cp4i-eventstreams
 	@oc delete kafkatopic $$PREFIX-connect-cluster-offsets -n cp4i-eventstreams
 	@oc delete kafkatopic $$PREFIX-connect-cluster-status -n cp4i-eventstreams
-	@oc delete -k env/overlays
 	

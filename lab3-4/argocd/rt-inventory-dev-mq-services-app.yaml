@@ -10,8 +10,8 @@ spec:
     server: https://kubernetes.default.svc
   project: std-1
   source:
-    path: lab3/services/ibm-mq/overlays
-    repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git
+    path: lab3-4/services/ibm-mq/overlays
+    repoURL: https://github.com/jbcodeforce/eda-tech-academy.git
   syncPolicy:
     automated:
       prune: true

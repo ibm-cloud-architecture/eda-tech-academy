@@ -6,16 +6,14 @@ The figure below illustrates the components involved:
 
 ![](./images/student_env_gitops.png)
 
-In this lab the operators are already installed in the OpenShift cluster under the `openshift-operators` project, and products are already install too. So this lab is aimed to deploy the components of the real-time inventory demo.
+In this lab the operators are already installed in the OpenShift cluster under the `openshift-operators` project, and products are already install too. So this lab is aimed to deploy the components of the real-time inventory demo (the green components in figure above).
 
-As stated before you need to have forked this repository under your own account, as all configurations will be monitored from this git repository.
+As stated before you need to fork this repository under your own public git account, as all configurations will be monitored from your own git repository.
 ## Preparation
 
-As we are using GitOps, you need to have the source of the configuration into your own account.
+1. Verify the OpenShift GitOps Operator is installed on your OpenShift cluster. In fact it should be installed, but this command may be helpful to you in your future proof of concepts.
 
-1. Verify the OpenShift GitOps Operator is installed on your OpenShift cluster.
-
-    Work in the `eda-tech-academy/lab3` folder.
+    Work in the `eda-tech-academy/lab3-4` folder.
 
     ```sh
     make verify-argocd-available
@@ -39,7 +37,8 @@ As we are using GitOps, you need to have the source of the configuration into yo
     * **Automatic way:**
 
     ```sh
-    export $PREFIX=std-1
+    # should have being done in lab 3.
+    export $PREFIX=poe10
     export $GIT_ACCOUNT=yourname
     # same exported variables as before
     make prepare-argocd
