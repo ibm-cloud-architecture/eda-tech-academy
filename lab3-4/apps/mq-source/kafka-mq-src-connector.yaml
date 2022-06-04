@@ -7,18 +7,18 @@ metadata:
     # in which to create this connector. That KafkaConnect instance
     # must have the eventstreams.ibm.com/use-connector-resources annotation
     # set to true.
-    eventstreams.ibm.com/cluster: std-1-connect-cluster
+    eventstreams.ibm.com/cluster: poe1-connect-cluster
 spec:
   class: com.ibm.eventstreams.connect.mqsource.MQSourceConnector
   tasksMax: 1
   config:
-    mq.queue.manager: std-1MQ
-    mq.connection.name.list: std-1-mq-ibm-mq.std-1.svc
+    mq.queue.manager: poe1MQ
+    mq.connection.name.list: poe1-mq-ibm-mq.poe1.svc
     mq.channel.name: DEV.APP.SVRCONN
     mq.queue: ITEMS
     mq.user.name: ""
     mq.password: ""
-    topic: std-1-items
+    topic: poe1-items
     key.converter: org.apache.kafka.connect.storage.StringConverter
     value.converter: org.apache.kafka.connect.storage.StringConverter
     mq.record.builder: com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder

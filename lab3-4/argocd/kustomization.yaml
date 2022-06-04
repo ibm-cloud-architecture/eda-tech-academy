@@ -4,3 +4,6 @@ resources:
 - rt-inventory-dev-mq-services-app.yaml
 - rt-inventory-dev-es-services-app.yaml
 - rt-inventory-dev-kconnect-app.yaml
+- rt-inventory-dev-store-simulator-app.yaml
+- rt-inventory-dev-store-inventory-app.yaml
+- rt-inventory-dev-item-inventory-app.yaml

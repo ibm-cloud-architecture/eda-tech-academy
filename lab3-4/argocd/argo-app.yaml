@@ -29,7 +29,7 @@ spec:
     jsonPointers:
     - /spec/host
     kind: Route
-  project: std-1
+  project: poe1
   source:
     path: lab3-4/argocd
     repoURL: https://github.com/jbcodeforce/eda-tech-academy.git

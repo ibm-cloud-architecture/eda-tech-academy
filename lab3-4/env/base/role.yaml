@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: secret-mgr
-  namespace: std-1
+  namespace: poe1
 rules:
 - apiGroups:
   - ''

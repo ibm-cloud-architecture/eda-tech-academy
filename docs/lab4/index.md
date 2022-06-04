@@ -66,25 +66,36 @@ As stated before you need to fork this repository under your own public git acco
 
     ![](./images/select-project.png)
 
-1. Commit and push your changes to your gitops repository
+1. Commit and push your changes to your gitops repository (The fork for eda-tech-academy)
+
+    * You can add a remote URl by replacing with your username in git.
+
+    ```sh
+    git remote add mine https://github.com/<yourusername>/eda-tech-academy.git
+    ```
 
     ```sh
     git commit -am "update configuration for my student id"
-    git push 
+    git push -u mine
     ```
 
 1. Bootstrap Argocd:  
 
     ```sh
-    make argocd
-    # Or use 
-    oc apply -k argocd/
+    make gitops
     ```
 
 1. Verify in the ArgoCD console the apps are started and process the synchronization.
 
     ![](./images/argo-apps.png)
 
+## Demonstration
+
+You should be in the same state as in Lab 3 with the Simulator, the two kafka streams app, MQ and Kafka Connect
+
+```sh
+oc get pods
+```
 
 ## Clean up
 
@@ -95,5 +106,5 @@ As stated before you need to fork this repository under your own public git acco
     If you want to stop working and clean the OpenShift cluster and event streams elements
 
     ```sh
-    make clean-all
+    make clean-gitops
     ```

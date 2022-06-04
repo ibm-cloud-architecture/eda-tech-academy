@@ -37,9 +37,12 @@ prepare-argocd:
 	@echo $$PREFIX $$GIT_ACCOUNT 
 	@cd argocd && ./updateStudent.sh && cd ..
 
-argocd: verify-argocd-available def-argocd-project
+gitops: def-argocd-project
 	@oc apply -k argocd/
 
+clean-gitops: 
+	@oc delete -k argocd/
+	@oc delete -f argocd/argo-project.yaml
 # ------------------------------------------------------
 # Solution deployment targets
 # ------------------------------------------------------

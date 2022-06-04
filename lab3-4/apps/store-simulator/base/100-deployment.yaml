@@ -52,7 +52,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: user.password
-                  name: std-1-tls-user
+                  name: poe1-tls-user
           envFrom:
             - configMapRef:
                 name: store-simulator-cm
@@ -101,4 +101,4 @@ spec:
       - name: user-cert
         secret:
           optional: true
-          secretName: std-1-tls-user
+          secretName: poe1-tls-user
