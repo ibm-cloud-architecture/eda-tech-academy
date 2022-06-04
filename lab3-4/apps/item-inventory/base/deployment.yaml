@@ -53,7 +53,7 @@ spec:
         - name: KAFKA_SECURITY_PROTOCOL
           value: SSL
         - name: KAFKA_USER
-          value: std-1-tls-user
+          value: poe1-tls-user
         - name: KAFKA_CERT_PWD
           valueFrom:
             secretKeyRef:
@@ -63,7 +63,7 @@ spec:
           valueFrom:
             secretKeyRef:
               key: user.password
-              name: std-1-tls-user
+              name: poe1-tls-user
         envFrom:
         - configMapRef:
             name: item-inventory-cm
@@ -112,4 +112,4 @@ spec:
       - name: user-cert
         secret:
           optional: true
-          secretName: std-1-tls-user
+          secretName: poe1-tls-user

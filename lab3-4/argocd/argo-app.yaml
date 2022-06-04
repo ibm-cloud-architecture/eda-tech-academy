@@ -29,10 +29,10 @@ spec:
     jsonPointers:
     - /spec/host
     kind: Route
-  project: std-1
+  project: poe1
   source:
-    path: lab3/argocd
-    repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git
+    path: lab3-4/argocd
+    repoURL: https://github.com/jbcodeforce/eda-tech-academy.git
   syncPolicy:
     automated:
       prune: true

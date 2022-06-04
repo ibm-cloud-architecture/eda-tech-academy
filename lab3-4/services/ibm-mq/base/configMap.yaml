@@ -3,19 +3,19 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mq-config
-  namespace: std-1
+  namespace: poe1
 data:
   LICENSE: accept
   MQ_APP_PASSWORD: passw0rd
   MQ_ENABLE_METRICS: "true"
-  MQ_QMGR_NAME: std-1MQ
+  MQ_QMGR_NAME: poe1MQ
 
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mq-mqsc-config
-  namespace: std-1
+  namespace: poe1
 data:
   example.mqsc: |
     DEFINE QLOCAL('ITEMS') REPLACE

@@ -6,12 +6,12 @@ data:
   APP_VERSION: 0.0.13
   APP_TARGET_MESSAGING: kafka,IBMMQ
   KAFKA_BOOTSTRAP_SERVERS: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
-  KAFKA_TOPIC_NAME: std-1-items
+  KAFKA_TOPIC_NAME: poe1-items
   KAFKA_SECURITY_PROTOCOL: SSL
   USER_CERT_PWD: none
-  MQ_HOST: std-1-mq-ibm-mq.std-1.svc
+  MQ_HOST: poe1-mq-ibm-mq.poe1.svc
   # external: mq1-cp4i-ibm-mq-qm-cp4i-mq1.apps.biggs.coc-ibm.com
   MQ_PORT: "1414"
-  MQ_QMGR: std-1MQ 
+  MQ_QMGR: poe1MQ 
   MQ_QUEUE_NAME: ITEMS
   MQ_CHANNEL: DEV.APP.SVRCONN

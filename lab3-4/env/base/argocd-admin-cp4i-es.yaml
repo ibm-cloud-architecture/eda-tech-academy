@@ -3,7 +3,7 @@ kind: RoleBinding
 metadata:
   creationTimestamp: null
   name: argocd-admin
-  namespace: poe1
+  namespace: cp4i-eventstreams
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

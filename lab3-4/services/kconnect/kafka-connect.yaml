@@ -1,7 +1,7 @@
 apiVersion: eventstreams.ibm.com/v1beta2
 kind: KafkaConnect
 metadata:
-  name: std-1-connect-cluster
+  name: poe1-connect-cluster
   annotations:
     eventstreams.ibm.com/use-connector-resources: "true"
 spec:
@@ -21,7 +21,7 @@ spec:
       imagePullSecrets: []
       metadata:
         annotations:
-          productChargedContainers: std-1-connect-cluster-connect
+          productChargedContainers: poe1-connect-cluster-connect
           eventstreams.production.type: CloudPakForIntegrationNonProduction
           productID: 2a79e49111f44ec3acd89608e56138f5
           productName: IBM Event Streams for Non Production
@@ -32,10 +32,10 @@ spec:
           cloudpakVersion: 2022.1.1
           productCloudpakRatio: "2:1"
   config:
-    group.id: std-1-connect-cluster
-    offset.storage.topic: std-1-connect-cluster-offsets
-    config.storage.topic: std-1-connect-cluster-configs
-    status.storage.topic: std-1-connect-cluster-status
+    group.id: poe1-connect-cluster
+    offset.storage.topic: poe1-connect-cluster-offsets
+    config.storage.topic: poe1-connect-cluster-configs
+    status.storage.topic: poe1-connect-cluster-status
     config.storage.replication.factor: 3
     offset.storage.replication.factor: 3
     status.storage.replication.factor: 3
@@ -48,7 +48,7 @@ spec:
      certificateAndKey:
        certificate: user.crt
        key: user.key
-       secretName: std-1-tls-user
+       secretName: poe1-tls-user
 #    username: my-connect-user
 #    passwordSecret:
 #      secretName: my-connect-user

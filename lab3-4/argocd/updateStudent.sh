@@ -1,9 +1,11 @@
 #!/bin/zsh
 
-originPrefix="std-1"
-#originPrefix="poe1"
+#originPrefix="std-1"
+originPrefix="poe1"
+originGitAccount=jbcodeforce
 
 echo "Updating prefix to " $PREFIX
+echo "Updating prefix to " $GIT_ACCOUNT
 
 contains() {
     string="$1"
@@ -20,5 +22,6 @@ do
     else  
         echo "Modify $f"
         sed -i ''  "s/$originPrefix/$PREFIX/g" $f
+        sed -i ''  "s/$originGitAccount/$GIT_ACCOUNT/g" $f
     fi
 done 

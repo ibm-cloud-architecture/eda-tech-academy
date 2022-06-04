@@ -8,12 +8,12 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: std-1
+    namespace: poe1
     server: https://kubernetes.default.svc
-  project: std-1
+  project: poe1
   source:
-    path: lab3/apps/store-simulator/overlays
-    repoURL: https://github.ibm.com/boyerje/eda-tech-academy.git
+    path: lab3-4/apps/store-simulator/overlays
+    repoURL: https://github.com/jbcodeforce/eda-tech-academy.git
   syncPolicy:
     automated:
       prune: true
