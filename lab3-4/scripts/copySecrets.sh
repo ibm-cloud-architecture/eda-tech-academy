@@ -9,7 +9,7 @@ else
 	NAME=$1
 	echo "create secret $NAME from $NSSRC to $NSTGT"
 	oc get secret $1 --namespace=$NSSRC -o json \
-	| jq  'del(.metadata.uid, .metadata.selfLink, .metadata.creationTimestamp, .metadata.ownerReferences)' \
+	| jq  'del(.metadata.uid, .metadata.selfLink, .metadata.creationTimestamp, .metadata.resourceVersion, .metadata.ownerReferences)' \
 	| jq -r '.metadata.namespace="'${NSTGT}'"' \
 	| oc apply --namespace=$NSTGT -f -
 fi
