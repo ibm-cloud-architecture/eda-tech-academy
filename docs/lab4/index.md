@@ -38,7 +38,7 @@ As stated before you need to fork this repository under your own public git acco
 
     ```sh
     # should have being done in lab 3.
-    export $PREFIX=poe10
+    export $PREFIX=poe1
     export $GIT_ACCOUNT=yourname
     # same exported variables as before
     make prepare-argocd
