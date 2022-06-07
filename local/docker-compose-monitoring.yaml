@@ -67,7 +67,7 @@ services:
       USER_CERT_PWD: ""
       KAFKA_SECURITY_PROTOCOL: PLAINTEXT
   addTopics:
-    image:  cp.icr.io/cp/ibm-eventstreams-kafka:11.0.0
+    image:  cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
     depends_on:
       - kafka
     entrypoint: [ "bash",  "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic items 
