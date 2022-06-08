@@ -1,6 +1,7 @@
 #!/bin/zsh
 originPrefix="std-1"
 #originPrefix="poe1"
+#originPrefix="cody20"
 echo "Updating prefix to " $PREFIX
 contains() {
     string="$1"
@@ -15,6 +16,10 @@ do
         echo "Skip $f"
     else
         echo "Modify $f"
-        sed -i "s/$originPrefix/$PREFIX/g" $f
+	if [[ $OSTYPE == 'darwin'* ]]; then
+     	   sed -i ''  "s/$originPrefix/$PREFIX/g" $f
+	else
+           sed -i "s/$originPrefix/$PREFIX/g" $f
+	fi
     fi
 done
