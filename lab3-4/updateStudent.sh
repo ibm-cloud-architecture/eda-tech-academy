@@ -1,6 +1,6 @@
 #!/bin/zsh
-originPrefix="std-1"
-#originPrefix="poe1"
+
+originPrefix="poe1"
 #originPrefix="cody20"
 echo "Updating prefix to " $PREFIX
 contains() {

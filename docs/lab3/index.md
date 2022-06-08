@@ -24,18 +24,17 @@ A traditional solution may be organized with one git repository per application,
 ## pre-requisites
 
 See [Pre-requisites section](../#pre-requisites) in the main page.
-
 ## Preparation
 
 Each Student will have received a unique identifier and will modify the current settings in this folder with their student id. 
-All the current kubernetes configurations are currently set for `std-1`.
+All the current kubernetes configurations are currently set for `poe1`.
 
 We assume the following are pre-set in you OpenShift cluster, which is the same as CoC integration cluster:
 
 * Platform navigator is deployed in `cp4i` project.
 * Event Streams is installed under `cp4i-eventstreams` project.
 
-1. Login to your OpenShift cluster using the login command from the OpenShift Console
+1. Login to the OpenShift cluster assigned to you (poe or ashoka) using the login command from the OpenShift Console
 
     ![](./images/ocp-login.png)
 
@@ -72,10 +71,18 @@ The blue components should have been deployed with the Cloud Pak for Integration
 
     Running the `updateStudent.sh` shell script, will modify all the yaml files used by the solution with your student id. As an example we will be student `poe10` and the deployment will be done in `poe10` namespace. 
 
-    ```sh
-    export PREFIX=poe10
-    ./updateStudent.sh
-    ```
+    * Mac User:
+
+        ```sh
+        export PREFIX=poe10
+        ./updateStudent.sh
+        ```
+    * Windows user in the Linux
+
+        ```sh
+        export PREFIX=poe10
+        sudo dos2unix updateStudent.sh
+        ```
 
 ## Folder structure
 

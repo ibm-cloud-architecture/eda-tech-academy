@@ -32,6 +32,7 @@ We recognize that not every student will have the same level of knowledge of Eve
 
 * Have [oc cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html) installed.
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/)
+* Install [Java Coding Pack for Visual Studio](https://aka.ms/vscode-java-installer-win). This will download JDK and the necessary plugins.
 * OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster) as a base for our deployments.
 
 **Fork** this repository to your own git account so you can modify content and deploy code from your repository when using GitOps.
@@ -43,6 +44,66 @@ and then clone it to your local laptop:
 ```sh
 git clone ...
 ```
+
+### Mac user
+
+All the scripts and configurations were developed from a Mac so no problem for you.
+
+### Windows user
+
+Need to enable Windows Subsystem for Linux.
+
+1. Open a PowerShell screen and run this command.
+
+    ```sh
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+    ```
+
+    This step will require a Reboot of the machine. Proceed to reboot.
+
+1. Enable Virtual Machine Feature
+
+    ```sh
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    ```
+
+1. Download and install the Linux kernel update package [https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+
+1. Download and install Ubuntu Linux distribution from Microsoft Store. https://aka.ms/wslstore. Search for Ubuntu and click on ‘Get’. This will download and install Ubuntu terminal environment with WSL. Once installed Click on ‘Open’.
+
+    The first time, it will take some time to decompress some files. Wait for this step to complete. At the end, you’ll be asked to create a username and password to be used to login. Finally, you will be in the Linux shell prompt.
+
+1. Subsequently, open a CMD (or PowerShell) terminal and enter ‘bash’ to get access to the Linux shell.
+
+1. Setup a few tools in the Ubuntu system. Run these in the Shell screen of Ubuntu.
+
+    1. Install dos2unix.
+
+        ```sh
+        sudo apt-get update
+        sudo apt-get install dos2unix
+        ```
+
+    1. Install ‘oc’ CLI. Download and extract the tool. 
+    
+        ```sh
+        wget https://downloads-openshift-console.apps.cody.coc-ibm.com/amd64/linux/oc.tar --no-check-certificate
+        tar -xvf oc.tar
+        mv oc /usr/local/bin
+        ```
+
+    1. Install ‘make’
+
+        ```sh
+        sudo apt install make
+        ```
+
+    1. Install ‘zsh’ shell
+
+        ```sh
+        sudo apt install zs
+        ```
+
 ## Study [Optional] - Lecture: Review key EDA patterns, use cases and usage scenarios.
 
 * **Duration:** 20 minutes.

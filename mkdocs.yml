@@ -15,15 +15,15 @@ nav:
       - Problem Statement: lab1/index.md
       - Solution Overview: lab1/lab1-sol.md
   - Journey 2:
-    - System Design Lab:
+    - Lab 1 - System Design Lab:
       - Problem Statement: lab1/index.md
       - Solution Overview: lab1/lab1-sol.md
     - Kafka Streams Lab:
       - Kafka Streams Study: lab2/kstream.md
-      - Problem Statement: lab2/index.md
+      - Lab 2 exercises: lab2/index.md
       - Solution Overview: lab2/lab2-sol.md
-    - Running demo Lab: lab3/index.md
-    - EDA GitOps Lab: lab4/index.md
+    - Lab 3 - Real Time Inventory demo: lab3/index.md
+    - Lab 4 - EDA GitOps: lab4/index.md
   - More...: future.md
 
 theme: 
