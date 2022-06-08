@@ -5,7 +5,7 @@ You can run on your own OpenShift cluster with existing assets and more assets a
 
 The Event Streams demonstration introduced the Kafka Connect framework, 
 
-![](./lab0/images/connector-tasks.png)
+![](./demo/images/connector-tasks.png)
 
 The real time inventory solution uses MQ source connector, with the Kafka connector cluster defined in [this kafka-connect.yaml file](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab3-4/services/kconnect/kafka-connect.yaml) as:
 

@@ -509,7 +509,7 @@ The IBM Event Streams UI provides information about the health of your environme
 * Using the JMX exporter, you can collect JMX metrics from Kafka brokers, ZooKeeper nodes, and Kafka Connect nodes, and export them to Prometheus
 
 !!! Warning
-    Be aware IBM Cloud Pak foundational services 3.8 and later does not include Prometheus so you will get [Event Streams metrics not available](https://ibm.github.io/event-streams/troubleshooting/metrics-not-available/). On Biggs as of 04/19/22, the cluster configuration was done. If you need to do it on your cluster see those files: [cluster-monitoring-cm.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/cluster-monitoring-cm.yaml) and [pod-monitors.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/pod-monitors.yaml)
+    Be aware IBM Cloud Pak foundational services 3.8 and later does not include Prometheus so you will get [Event Streams metrics not available](https://ibm.github.io/event-streams/troubleshooting/metrics-not-available/) error message. On Biggs as of 04/19/22, the cluster configuration was done. If you need to do it on your cluster see those two files: [cluster-monitoring-cm.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/cluster-monitoring-cm.yaml) to enable user workload monitoring with Prometheus and [pod-monitors.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/pod-monitors.yaml) to declare the [PodMonitor](https://docs.openshift.com/container-platform/4.9/rest_api/monitoring_apis/podmonitor-monitoring-coreos-com-v1.html) to define scrapeable endpoints of a Kubernetes Pod serving Prometheus metrics.
 
 1. Assess Event Streams cluster state: Go to the project where the cluster runs, select one of the Kafka Pod. You can see the pod via the OpenShift workloads menu, or by using the Event Streams Operator > Resources and then filter on pods:
 
@@ -534,6 +534,7 @@ The IBM Event Streams UI provides information about the health of your environme
 1. In the Grafana dashboard select the namespace for event streams  (e.g. `cp4i-eventstreams`), the cluster name (`es-demo`), the brokers, and the topic to monitor.  
 
     ![](./images/es-grafana-dashboard.png)
+
 
 ???- "More reading"
     * [Product documentation](https://ibm.github.io/event-streams/administering/deployment-health/)
