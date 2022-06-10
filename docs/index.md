@@ -11,7 +11,7 @@ We recognize that not every student will have the same level of knowledge of Eve
 
 1. **Beginner journey**: do the demonstration lab, which is about being confortable to demonstrate Event Streams from "A to Z": this is a good 3 hours run thru exercise that will give you access to a lot of content you should be able to leverage overtime. You may also do the lab 1 as this is a system design mockup exercise, that should help you in the future. [Go to **Track 1** - demonstration lab >>](./demo/)
 
-1. **Advance journey**: Perform labs 1 to 4, this is about learning Kafka Stream, Quarkus application, using Configuration as Code for OpenShift deployment and GitOps approach. A full story and a set of reusable assets you may want to reuse to build you future proof of concepts. You can also review quickly the demonstration lab, as it could be helpful, as a script to answer specific customer's questions.  [Continue to the goals section below >>](#advance-journey-goals)
+1. **Advance journey**: Perform labs 1 to 4, this is about learning Kafka Stream, Open Liberty application, using Configuration as Code for OpenShift deployment and GitOps approach. A full story and a set of reusable assets you may want to reuse to build you future proof of concepts. You can also review quickly the demonstration lab, as it could be helpful, as a script to answer specific customer's questions.  [Continue to the goals section below >>](#advance-journey-goals)
 
 ## Advance Journey Goals:
 
@@ -134,7 +134,7 @@ Review the Client provided requirements, and elaborate a system design for an ED
     * [Demonstration of Event Streams product](https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/)
 ## Lab 2: Implement a simple item sell or restock event stream processing with Kafka Streams API
 
-Learning the basic of Kafka Streams, and implement a store aggregation processing with Quarkus and Java. The code and environment should be self efficient. 
+Learning the basic of Kafka Streams, and implement a store aggregation processing with Java. The code and environment should be self efficient. 
 
 * **Optional**: if you really hate programming you can skip this lab, or at least read the first few exercices so you can understand some of the streaming concepts.
 * **Duration**: 90 minutes

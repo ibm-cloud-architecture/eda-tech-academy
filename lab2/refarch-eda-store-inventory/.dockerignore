@@ -1,5 +1,3 @@
-*
-!target/*-runner
-!target/*-runner.jar
-!target/lib/*
-!target/quarkus-app/*
+target/
+!target/*.war
+!target/liberty/wlp/usr/shared/resources/*

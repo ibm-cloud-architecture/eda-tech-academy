@@ -72,7 +72,7 @@ The stream topology looks like:
 
 ## The full application code analysis
 
-In fact the topology creation is defined in a business service. The microservice application is using the Quarkus runtime and API and the code organization uses the `onion` architecture introduced in the Domain-driven design:
+In fact the topology creation is defined in a business service. The microservice application is using the Liberty runtime and API and the code organization uses the `onion` architecture introduced in the Domain-driven design:
 
     * `domain` contains the business logic and business entities related to item transaction and store inventory.
     * `infra` is for infrastructure code, containing JAXRS class, event processing, and ser-des.

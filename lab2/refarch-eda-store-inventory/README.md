@@ -14,7 +14,7 @@ For development purpose the following pre-requisites need to be installed on you
 
 **Java**
 - For the purposes of this lab we suggest Java 11+
-- Quarkus (on version 2.7.x)
+- Open Liberty 
 
 **Git client**
 
@@ -26,18 +26,12 @@ our application.
 
 This project uses the Store Inventory Simulator to produce item sold events to kafka topic.
 
-## Run it with quarkus dev and compose.
+## Run it with Liberty server in dev and compose.
 
 * Start local Kafka: `docker-compose  up -d` to start one Kafka broker, zookeeper, and the simulator. 
-* Created the `items` and `store.inventory` topics on your Kafka instance
+* Verify the `items` and `store.inventory` topics on your Kafka instance
  
  ```shell
- ./scripts/createTopics.sh 
-######################
- create Topics
-Created topic items.
-Created topic store.inventory.
-
 ./scripts/listTopics.sh 
 ######################
  List Topics
@@ -51,14 +45,14 @@ items
 CONTAINER ID   IMAGE                                      PORTS                     NAMES
 f31e4364dec9   quay.io/ibmcase/eda-store-simulator        0.0.0.0:8082->8080/tcp    storesimulator
 2c2959bbda15   obsidiandynamics/kafdrop                   0.0.0.0:9000->9000/tcp    kafdrop
-3e569f205f6f   quay.io/strimzi/kafka:latest-kafka-2.8.1   0.0.0.0:29092->9092/tcp   kafka
-0cf09684b675   quay.io/strimzi/kafka:latest-kafka-2.8.1   0.0.0.0:2181->2181/tcp    zookeeper
+f9d578ffdd91   cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1  0.0.0.0:9092->9092/tcp, 0.0.0.0:29092->9092/tcp   kafka
+ee496675c570   cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1   0.0.0.0:2181->2181      zookeeper
 ```
 
 * Start the app in dev mode: 
 
 ```sh
-quarkus dev
+mvn liberty:dev
 ```
 
 Then [see the demonstration](#demonstration-script) script section below to test the application.
@@ -66,7 +60,7 @@ Then [see the demonstration](#demonstration-script) script section below to test
 * Build locally
 
 ```
-quarkus build
+mvn package
 # or use the script
 ./scripts/buildAll.sh
 ```
@@ -131,7 +125,7 @@ curl -X GET "http://localhost:8080/api/v1/stores/inventory/Store_2" -H  "accept:
 
 Details:
 
-Once started go to one of the Store Aggregator API: [swagger-ui/](http://localhost:8080/q/swagger-ui/) and select
+Once started go to one of the Store Aggregator API: [swagger-ui/](http://localhost:9080/openapi/ui) and select
 the `​/api​/v1​/stores​/inventory​/{storeID}` end point. Using the `Store_1` as storeID you should get an empty response.
 
 * Using the user interface at [http://localhost:8082/](http://localhost:8082/)
@@ -142,7 +136,7 @@ the `​/api​/v1​/stores​/inventory​/{storeID}` end point. Using the `St
 
   ![](./docs/kafdrop_items.png)
 
-* Verify the store inventory is updated: `curl -X GET "http://localhost:8080/api/v1/stores/inventory/Store_2" -H  "accept: application/json"`
+* Verify the store inventory is updated: `curl -X GET "http://localhost:9080/api/v1/stores/inventory/Store_2" -H  "accept: application/json"`
 * Verify messages are sent to `store.inventory` topic by 
 
   ![](./docs/kafdrop_store_inventory.png)

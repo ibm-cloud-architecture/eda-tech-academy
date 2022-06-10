@@ -2,15 +2,14 @@ package ibm.gse.eda.stores.infra.api;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import io.quarkus.runtime.StartupEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
 
 @Path("/api/v1/version")
 @ApplicationScoped
@@ -18,14 +17,14 @@ public class VersionResource {
     private static final Logger logger = Logger.getLogger(VersionResource.class.getName());
     @Inject
     @ConfigProperty(name="app.version")
-    public String version;
+    private String version;
 
     @GET
     public String getVersion(){
         return "{ \"version\": \"" + version + "\"}";
     }
 
-    void onStart(@Observes StartupEvent ev){
+    public void onStart(@Observes @Initialized(ApplicationScoped.class)Object context ){
 		logger.info(getVersion());
 	}
 }

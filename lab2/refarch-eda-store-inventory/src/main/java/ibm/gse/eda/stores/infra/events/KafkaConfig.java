@@ -3,20 +3,19 @@ package ibm.gse.eda.stores.infra.events;
 import java.util.Optional;
 import java.util.Properties;
 
-import javax.inject.Singleton;
-
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import io.quarkus.runtime.annotations.ConfigItem;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  * Keep Kafka Configuration loaded from properties or env. variable
  */
-@Singleton
+@ApplicationScoped
 public class KafkaConfig {
 
     /**
@@ -28,33 +27,35 @@ public class KafkaConfig {
      * A unique identifier for this Kafka Streams application.
      * If not set, defaults to quarkus.application.name.
      */
-    @ConfigItem(defaultValue = "${quarkus.application.name}")
-    public String applicationId;
-
+    @Inject
     @ConfigProperty(name="kafka.bootstrap.servers")
-    protected  String bootstrapServers; 
-    @ConfigProperty(name="application.id",defaultValue = "StoreAggregator")
-    protected Optional<String> applicationID;
-    @ConfigItem(defaultValue = "schema.registry.url")
-    public String schemaRegistryKey;
+    private  String bootstrapServers; 
+    @Inject
+    @ConfigProperty(name="application.id")
+    private Optional<String> applicationID;
+    @Inject
+    @ConfigProperty(name = "schema.registry.key")
+    private Optional<String> schemaRegistryKey;
 
     /**
      * The schema registry URL.
      */
-    @ConfigItem
-    public Optional<String> schemaRegistryUrl;
+    @Inject
+    @ConfigProperty(name = "schema.registry.url")
+    private Optional<String> schemaRegistryUrl;
 
     /**
      * A unique identifier of this application instance, typically in the form host:port.
      */
-    @ConfigItem
-    public Optional<String> applicationServer;
+    @Inject
+    @ConfigProperty
+    private Optional<String> applicationServer;
     
     public KafkaConfig(){}
 
     public Properties getKafkaProperties(){
         Properties properties = KafkaPropertiesUtil.appKafkaProperties();
-        properties.putAll(KafkaPropertiesUtil.quarkusKafkaProperties());
+        properties.putAll(KafkaPropertiesUtil.appKafkaProperties());
         properties.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         //properties.put(StreamsConfig.APPLICATION_ID_CONFIG,properties.get(key));

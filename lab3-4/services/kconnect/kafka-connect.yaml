@@ -18,6 +18,7 @@ spec:
       memory: 2Gi
   template:
     pod:
+      tmpDirSizeLimit: 100Mi
       imagePullSecrets: []
       metadata:
         annotations:

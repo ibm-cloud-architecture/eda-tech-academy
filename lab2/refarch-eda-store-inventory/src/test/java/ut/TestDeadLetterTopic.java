@@ -31,61 +31,64 @@ import ibm.gse.eda.stores.infra.events.StoreSerdes;
  * Route input message with data issue to a dead letter topic
  */
 public class TestDeadLetterTopic {
-    
-    private  static TopologyTestDriver testDriver;
-    private  static TestInputTopic<String, ItemTransaction> inputTopic;
-    private  static TestOutputTopic<String, ItemTransaction> outputTopic;
+
+    private static TopologyTestDriver testDriver;
+    private static TestInputTopic<String, ItemTransaction> inputTopic;
+    private static TestOutputTopic<String, ItemTransaction> outputTopic;
     private static String inTopicName = "my-input-topic";
     private static String outTopicName = "my-output-topic";
-    // 0 add dead letter topic 
-    private  static TestOutputTopic<String, ItemTransaction> dlTopic;
+    // 0 add dead letter topic
+
 
     /**
      * Using split and branches to separate good from wrong records
+     * 
      * @return Kafka Streams topology
      */
-    public static Topology buildTopologyFlow(){
+    public static Topology buildTopologyFlow() {
+        
         final StreamsBuilder builder = new StreamsBuilder();
-         // 1- get the input stream
+        
 
-        // 2 build branches
 
-        // 3 Generate to output topics
-
-        return builder.build();  
+        return builder.build();
     }
 
-
     @BeforeAll
-    public static void setup() { 
+    public static void setup() {
         Topology topology = buildTopologyFlow();
         System.out.println(topology.describe());
         testDriver = new TopologyTestDriver(topology, getStreamsConfig());
-        inputTopic = testDriver.createInputTopic(inTopicName, new StringSerializer(), StoreSerdes.ItemTransactionSerde().serializer());
-        outputTopic = testDriver.createOutputTopic(outTopicName, new StringDeserializer(),  StoreSerdes.ItemTransactionSerde().deserializer());
+        inputTopic = testDriver.createInputTopic(inTopicName, new StringSerializer(),
+                StoreSerdes.ItemTransactionSerde().serializer());
+        outputTopic = testDriver.createOutputTopic(outTopicName, new StringDeserializer(),
+                StoreSerdes.ItemTransactionSerde().deserializer());
         // 4 create the output dead letter topic to test record
+
+        StoreSerdes.ItemTransactionSerde().deserializer());
     }
 
-    public  static Properties getStreamsConfig() {
+    public static Properties getStreamsConfig() {
         final Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kstream-labs");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "dummmy:1234");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,  StoreSerdes.ItemTransactionSerde().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, StoreSerdes.ItemTransactionSerde().getClass());
         return props;
     }
 
     @AfterAll
-    public  static void tearDown() {
+    public static void tearDown() {
         try {
             testDriver.close();
         } catch (final Exception e) {
-             System.out.println("Ignoring exception, test failing due this exception:" + e.getLocalizedMessage());
-        } 
+            System.out.println("Ignoring exception, test failing due this exception:" + e.getLocalizedMessage());
+        }
     }
 
     /**
-     * If we do not send message to the input topic there is no message to the output topic.
+     * If we do not send message to the input topic there is no message to the
+     * output topic.
      */
     @Test
     public void isEmpty() {
@@ -93,18 +96,17 @@ public class TestDeadLetterTopic {
     }
 
     @Test
-    public void sendValidRecord(){
-        ItemTransaction item = new ItemTransaction("Store-1","Item-1",ItemTransaction.RESTOCK,5,33.2);
+    public void sendValidRecord() {
+        ItemTransaction item = new ItemTransaction("Store-1", "Item-1", ItemTransaction.RESTOCK, 5, 33.2);
         inputTopic.pipeInput(item.storeName, item);
-        assertThat(outputTopic.getQueueSize(), equalTo(1L) );
+        assertThat(outputTopic.getQueueSize(), equalTo(1L));
         ItemTransaction filteredItem = outputTopic.readValue();
         assertThat(filteredItem.storeName, equalTo("Store-1"));
     }
 
-
     @Test
     public void nullStoreNameRecordShouldGetNoOutputMessageButDeadLetterMessage() {
-        ItemTransaction item = new ItemTransaction(null,"Item-1",ItemTransaction.RESTOCK,5,33.2);
+        ItemTransaction item = new ItemTransaction(null, "Item-1", ItemTransaction.RESTOCK, 5, 33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
         assertThat(dlTopic.isEmpty(), is(false));
@@ -114,7 +116,7 @@ public class TestDeadLetterTopic {
 
     @Test
     public void emptyStoreNameRecordShouldGetNoOutputMessage() {
-        ItemTransaction item = new ItemTransaction("","Item-1",ItemTransaction.RESTOCK,5,33.2);
+        ItemTransaction item = new ItemTransaction("", "Item-1", ItemTransaction.RESTOCK, 5, 33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
         assertThat(dlTopic.isEmpty(), is(false));
@@ -123,10 +125,10 @@ public class TestDeadLetterTopic {
     }
 
     @Test
-    public void nullSkuRecordShouldGetNoOutputMessage(){
-        //assertThat(outputTopic.getQueueSize(), equalTo(0L) );
+    public void nullSkuRecordShouldGetNoOutputMessage() {
+        // assertThat(outputTopic.getQueueSize(), equalTo(0L) );
 
-        ItemTransaction item = new ItemTransaction("Store-1",null,ItemTransaction.RESTOCK,5,33.2);
+        ItemTransaction item = new ItemTransaction("Store-1", null, ItemTransaction.RESTOCK, 5, 33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
         assertThat(dlTopic.isEmpty(), is(false));
@@ -135,8 +137,8 @@ public class TestDeadLetterTopic {
     }
 
     @Test
-    public void emptySkuRecordShouldGetNoOutputMessage(){
-        ItemTransaction item = new ItemTransaction("Store-1","",ItemTransaction.RESTOCK,5,33.2);
+    public void emptySkuRecordShouldGetNoOutputMessage() {
+        ItemTransaction item = new ItemTransaction("Store-1", "", ItemTransaction.RESTOCK, 5, 33.2);
         inputTopic.pipeInput(item.storeName, item);
         assertThat(outputTopic.isEmpty(), is(true));
         assertThat(dlTopic.isEmpty(), is(false));

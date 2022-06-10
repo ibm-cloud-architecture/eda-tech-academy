@@ -9,6 +9,7 @@ import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
@@ -20,6 +21,8 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
+import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +42,7 @@ public class TestAccumulateItemSoldWithCaching {
     private  static TestOutputTopic<String, Long> outputTopic;
     private static String inTopicName = "my-input-topic";
     private static String outTopicName = "my-output-topic";
-    private static String storeItemTableName;
+    private static String storeItemTableName = "CountsKeyValueStore";
 
     public static Topology buildTopologyFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
@@ -55,8 +58,7 @@ public class TestAccumulateItemSoldWithCaching {
          .groupBy((k,v) -> {return new KeyValue<String,ItemTransaction>(v.sku,v);},
             Grouped.with(Serdes.String(), StoreSerdes.ItemTransactionSerde()))
          // 3- change the stream type from KGroupedTable<String, ItemTransaction> to KTable<String, Long>
-         .count();
-        storeItemTableName = countedItems.queryableStoreName();
+         .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(storeItemTableName));
         return builder.build();  
     }
 
@@ -102,6 +104,9 @@ public class TestAccumulateItemSoldWithCaching {
     }
 
     @Test
+    /**
+     * Count the number of sale event per SKU
+     */
     public void shouldExpectCountingSaleEventsPerSKU(){
         ItemTransaction item = new ItemTransaction("Store-1","Item-1",ItemTransaction.RESTOCK,25,33.2);
         inputTopic.pipeInput(item.storeName, item);

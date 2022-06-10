@@ -80,20 +80,20 @@ you may need to go deeper with labs and best practices:
 
 Event-driven microservices adopt the [reactive manifesto](https://ibm-cloud-architecture.github.io/refarch-eda/advantages/reactive/#reactive-systems), which means use messaging as a way to communicate between components. When the components are distributed, Kafka or MQ are used as broker.
 
-Microprofile Reactive Messaging is a very elegant and easier way to integrate with Kafka / Event Streams. The best support for it is in Quarkus and [this reactive with kafka guide is a first read](https://quarkus.io/guides/kafka-reactive-getting-started).
+Microprofile Reactive Messaging is a very elegant and easier way to integrate with Kafka / Event Streams. The best support for it, is in Quarkus and [this reactive with kafka guide is a first read](https://quarkus.io/guides/kafka-reactive-getting-started). The Microprofile Reactive Messaging 1.0 is supported in OpenLiberty with Microprofile 3.0.
 
 The code template in the [EDA quickstart repository](https://github.com/ibm-cloud-architecture/eda-quickstarts/) includes reactive messaging code template.
 ## The SAGA implementation
 
 Long running process between microservice is addressed by the adoption of the SAGA pattern. You can read about the pattern in [this note](https://ibm-cloud-architecture.github.io/refarch-eda/patterns/saga/)
 
-And visit the [Choreography implementation done with, Event Streams, Reactive Programming and Quarkus here](https://ibm-cloud-architecture.github.io/eda-saga-choreography/)
+And visit the [Choreography implementation done with, Event Streams, Reactive Programming here](https://ibm-cloud-architecture.github.io/eda-saga-choreography/)
 
 * [Order microservice keeping SAGA coherence - git repository](https://github.com/ibm-cloud-architecture/refarch-kc-order-cmd-ms)
 * [Reefer microservice participant to the SAGA - git repo](https://github.com/ibm-cloud-architecture/refarch-kc-reefer-ms)
 * [Voyage microservice SAGA participant - git repo](https://github.com/ibm-cloud-architecture/refarch-kc-voyage-ms)
 
-The [orchestration implementation with, Event Streams, Reactive Programming and Quarkus here](https://ibm-cloud-architecture.github.io/eda-saga-orchestration/)
+The [orchestration implementation with, Event Streams, Reactive Programming here](https://ibm-cloud-architecture.github.io/eda-saga-orchestration/)
 
 ## Change data capture with Debezium and Outbox pattern
 

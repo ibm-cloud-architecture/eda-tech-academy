@@ -1,13 +1,10 @@
 package ibm.gse.eda.stores.domain;
 
-import javax.inject.Singleton;
-
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
@@ -17,22 +14,25 @@ import org.apache.kafka.streams.state.KeyValueStore;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import ibm.gse.eda.stores.infra.events.StoreSerdes;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  * Stream processing to compute the store inventory for all items
  */
-@Singleton
+@ApplicationScoped
 public class StoreInventoryAggregator {
      // Kafka store construct to keep item stocks per store-id
      public static String STORE_INVENTORY_KAFKA_STORE_NAME = "StoreInventoryStock";
 
     // Input stream is item transaction from the store machines
     @ConfigProperty(name="app.items.topic", defaultValue = "items")
-    public String itemSoldInputStreamName;
+    private String itemSoldInputStreamName;
     // output to store inventory
     @ConfigProperty(name="app.store.inventory.topic", defaultValue = "store.inventory")
-    public String storeInventoryOutputStreamName= "store.inventory";
+    private String storeInventoryOutputStreamName;
 
+
+    
 
     public StoreInventoryAggregator(){}
 
@@ -75,5 +75,20 @@ public class StoreInventoryAggregator {
         inventories.print(Printed.toSysOut());
         inventories.to(storeInventoryOutputStreamName, Produced.with(Serdes.String(), StoreSerdes.StoreInventorySerde()));
     }
+
+    public void setItemSoldInputStreamName(String value) {
+        itemSoldInputStreamName = value;
+    }
+
+    public void setStoreInventoryOutputStreamName(String value) {
+        storeInventoryOutputStreamName = value;
+    }
     
+    public String getItemSoldInputStreamName() {
+        return itemSoldInputStreamName;
+    }
+
+    public String getStoreInventoryOutputStreamName() {
+        return storeInventoryOutputStreamName;
+    }
 }

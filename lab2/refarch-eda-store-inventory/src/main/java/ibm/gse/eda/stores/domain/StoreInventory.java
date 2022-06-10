@@ -3,13 +3,11 @@ package ibm.gse.eda.stores.domain;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
 /**
  * Represents the store inventory in the form
  * Store -> [<item_id,quantity>,....]
  */
-@RegisterForReflection
+
 public class StoreInventory  {
     
     public String storeName;

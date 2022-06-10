@@ -6,14 +6,14 @@ In this Lab, you will learn simple Kafka Streams exercises using Java APIs, and 
 
 This lab is about some Java implementation, if you have no experience in Java you may skip it. 
 
-* Be sure your IDE, like VScode has java extension. For VSCode you can use [Quarkus extension](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus) and [Red Hat java extension](https://marketplace.visualstudio.com/items?itemName=redhat.java)
+* Be sure your IDE, like VScode has java extension. For VSCode you can use [Red Hat java extension](https://marketplace.visualstudio.com/items?itemName=redhat.java)
 * maven is used to package and run some test. The project has `./mvnw` command that brings maven in the project.
 * Open Visual Code. Click on “Open Java Project” and pick the refarch-eda-store-inventory from the `eda-tech-academy\lab2\` folder 
 
 From there, select / modify the java code and run it from Visual Code.
 ## Context
 
-The figure illustrates what you need to build, the green rectangle, which is a [Java Quarkus](https://quarkus.io) application using Kafka Streams API consuming `items` events and computing `store inventory` events by aggregating at the store level.
+The figure illustrates what you need to build, the green rectangle, which is a Java application using Kafka Streams API consuming `items` events and computing `store inventory` events by aggregating at the store level.
 
 ![](../images/store-inv.png)
 

@@ -57,6 +57,7 @@ spec:
     initVolumeAsRoot: false
   template:
     pod:
+      tmpDirSizeLimit: 100Mi
       containers:
         - name: qmgr
           env:

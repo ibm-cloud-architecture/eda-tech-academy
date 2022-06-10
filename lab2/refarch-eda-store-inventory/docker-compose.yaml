@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   zookeeper:
-    image: cp.icr.io/cp/ibm-eventstreams-kafka:10.5.0
+    image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
     container_name: zookeeper
     command: [
       "sh", "-c",
@@ -12,7 +12,7 @@ services:
     environment:
       LOG_DIR: /tmp/logs
   kafka:
-    image: cp.icr.io/cp/ibm-eventstreams-kafka:10.5.0
+    image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
     container_name: kafka
     command: [
       "sh", "-c",
@@ -37,7 +37,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
   addTopics:
-    image:  cp.icr.io/cp/ibm-eventstreams-kafka:10.5.0
+    image:  cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
     depends_on:
       - kafka
     entrypoint: [ "bash",  "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --if-not-exists --replication-factor 1 --partitions 1 --topic items 
@@ -65,3 +65,4 @@ services:
       APP_TARGET_MESSAGING: Kafka
       USER_CERT_PWD: ""
       KAFKA_CERT_PWD: ""
+      KAFKA_TOPIC_NAME: "items"

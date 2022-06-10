@@ -40,7 +40,7 @@ public class TestSecondTopology {
     public static Topology buildTopologyFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
          // 1- get the input stream
-         
+
         // 2 filter
 
         // Generate to output topic

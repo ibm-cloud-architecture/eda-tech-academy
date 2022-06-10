@@ -3,25 +3,24 @@ package ibm.gse.eda.stores.infra.events;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import java.util.logging.Logger;
 
 import org.apache.kafka.streams.KafkaStreams;
-import org.jboss.logging.Logger;
+import org.eclipse.microprofile.health.Startup;
 
 import ibm.gse.eda.stores.domain.StoreInventoryAggregator;
-import io.quarkus.arc.Unremovable;
-import io.quarkus.runtime.ShutdownEvent;
-import io.quarkus.runtime.Startup;
-import io.quarkus.runtime.StartupEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.BeforeDestroyed;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.ws.rs.Produces;
 
 /**
  * The agent is here to do the execution of the aggregator
  */
-@Singleton
+@ApplicationScoped
 public class ItemProcessingAgent {
     private static final Logger logger = Logger.getLogger(ItemProcessingAgent.class.getName());
     private static volatile boolean shutdown = false;
@@ -29,11 +28,12 @@ public class ItemProcessingAgent {
     
     
    
-    public KafkaStreams kafkaStreams;
+    private KafkaStreams kafkaStreams;
+
     @Inject
-    KafkaConfig kafkaConfig;
+    private KafkaConfig kafkaConfig;
     @Inject
-    StoreInventoryAggregator aggregator;
+    private StoreInventoryAggregator aggregator;
 
     public ItemProcessingAgent() {  
         this.executorService = Executors.newSingleThreadExecutor();
@@ -43,27 +43,25 @@ public class ItemProcessingAgent {
     public synchronized void stop() {
        
     }
-
     
 
-    void onStart(@Observes StartupEvent ev){
+    void onStart(@Observes @Initialized(ApplicationScoped.class)Object context){
         this.kafkaStreams = initializeKafkaStreams();
 		logger.info("ItemProcessingAgent started");
      }
  
-     void onStop(@Observes ShutdownEvent ev){
+     void onStop(@Observes @BeforeDestroyed(ApplicationScoped.class)  Object ev){
         shutdown = true;
         if (executorService != null) {
             executorService.shutdown();
         }
-        if ( kafkaStreams == null ) {
+        if ( kafkaStreams != null ) {
             kafkaStreams.close();
         }
       }
 
       @Produces
       @Singleton
-      @Unremovable
       @Startup
       public KafkaStreams getKafkaStreams() {
           return kafkaStreams;
@@ -78,7 +76,7 @@ public class ItemProcessingAgent {
             @Override
             public void run() {
                 if (!shutdown) {
-                    logger.debug("Starting Kafka Streams pipeline");
+                    logger.info("Starting Kafka Streams pipeline");
                     kafkaStreams.start();
                 }
             }

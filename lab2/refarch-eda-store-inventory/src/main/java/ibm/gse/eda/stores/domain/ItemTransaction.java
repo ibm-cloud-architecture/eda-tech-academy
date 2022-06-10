@@ -3,9 +3,7 @@ package ibm.gse.eda.stores.domain;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@RegisterForReflection
 public class ItemTransaction   {
         public static String RESTOCK = "RESTOCK";
         public static String SALE = "SALE";

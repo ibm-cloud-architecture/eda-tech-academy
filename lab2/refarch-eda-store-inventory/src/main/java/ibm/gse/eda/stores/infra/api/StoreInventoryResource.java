@@ -2,21 +2,20 @@ package ibm.gse.eda.stores.infra.api;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.MediaType;
-
 import ibm.gse.eda.stores.infra.api.dto.InventoryQueryResult;
 import ibm.gse.eda.stores.infra.api.dto.ItemCountQueryResult;
 import ibm.gse.eda.stores.infra.api.dto.PipelineMetadata;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.MediaType;
 
 
 @ApplicationScoped
@@ -27,7 +26,7 @@ public class StoreInventoryResource {
     private final Client client = ClientBuilder.newBuilder().build();
 
     @Inject
-    public StoreInventoryQueries inventoryQueries;
+    private StoreInventoryQueries inventoryQueries;
     
     @GET
     @Path("/inventory/{storeID}")

@@ -2,8 +2,6 @@ package ut.domain;
 
 import java.util.Properties;
 
-import javax.inject.Inject;
-
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -25,16 +23,18 @@ import ibm.gse.eda.stores.domain.ItemTransaction;
 import ibm.gse.eda.stores.domain.StoreInventory;
 import ibm.gse.eda.stores.domain.StoreInventoryAggregator;
 import ibm.gse.eda.stores.infra.events.StoreSerdes;
-import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 
 
 /**
  * Use TestDriver to test the Kafka streams topology without kafka brokers
  */
-@QuarkusTest
+
 @TestMethodOrder(OrderAnnotation.class)
 public class TestItemStreamTopology {
      
+    
+    
     private  TopologyTestDriver testDriver;
 
     private  TestInputTopic<String, ItemTransaction> inputTopic;
@@ -60,12 +60,15 @@ public class TestItemStreamTopology {
      */
     @BeforeEach
     public void setup() { 
+        aggregator = new StoreInventoryAggregator();
+        aggregator.setItemSoldInputStreamName("items");
+        aggregator.setStoreInventoryOutputStreamName("store.inventory");
         Topology topology = aggregator.buildProcessFlow();
         testDriver = new TopologyTestDriver(topology, getStreamsConfig());
-        inputTopic = testDriver.createInputTopic(aggregator.itemSoldInputStreamName, 
+        inputTopic = testDriver.createInputTopic(aggregator.getItemSoldInputStreamName(), 
                                 new StringSerializer(),
                                 StoreSerdes.ItemTransactionSerde().serializer());
-        storeInventoryOutputTopic = testDriver.createOutputTopic(aggregator.storeInventoryOutputStreamName, 
+        storeInventoryOutputTopic = testDriver.createOutputTopic(aggregator.getStoreInventoryOutputStreamName(), 
                                 new StringDeserializer(), 
                                 StoreSerdes.StoreInventorySerde().deserializer());
     }
