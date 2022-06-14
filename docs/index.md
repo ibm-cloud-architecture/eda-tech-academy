@@ -31,6 +31,8 @@ We recognize that not every student will have the same level of knowledge of Eve
     * For Windows: See [this note](https://www.technewstoday.com/install-and-use-make-in-windows/)
 
 * Have [oc cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html) installed. It can be done once connected to the OpenShift cluster using the <?> icon on the top-right and "Command Line Tool" menu.
+    ![](./images/access-oc-cli.png)
+    
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/) in our group.
 * Install [Java Coding Pack for Visual Studio](https://aka.ms/vscode-java-installer-win). This will download JDK and the necessary plugins.
 * OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster) as a base for our deployments [See environment section for your assigned cluster](#environments)
