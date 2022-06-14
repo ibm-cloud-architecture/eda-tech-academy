@@ -45,6 +45,16 @@ and then clone it to your local laptop:
 git clone ...
 ```
 
+### Environments
+
+We have two OpenShift clusters available with 25 userids each.
+
+* [Poe cluster is console-openshift-console.apps.poe.coc-ibm.com](https://console-openshift-console.apps.poe.coc-ibm.com/dashboards)
+* [Ahsoka cluster is console-openshift-console.apps.ahsoka.coc-ibm.com](https://console-openshift-console.apps.ahsoka.coc-ibm.com/dashboards)
+
+* Userids will be poe1 to poe25 for Poe cluster
+* Userids will be ahsoka1 to ahsoka25 for the Ahsoka cluster. 
+
 ### Mac user
 
 All the scripts and configurations were developed from a Mac so no problem for you.
