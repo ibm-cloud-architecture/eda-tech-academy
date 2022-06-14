@@ -21,27 +21,8 @@ You’ll need the following as well:
 * git client 
 * oc cli 
 * docker or podman  
-* cloudctl 
-* es CLIs - Go to the Event Streams UI > Toolbox > CLI section
 
-### `cloudctl` and `es` CLIs Verification
 
-Check to ensure your `cloudctl` cli is up to date:
-
-```sh
-oc get route -n ibm-common-services
-# on mac
-curl -kLo cloudctl https://cp-console.apps.an.os.example.abc.com:443/api/cli/cloudctl-darwin-amd64
-chmod +x cloudctl
-```
-
-Install and Verify `es cli`: For help go  to the Event Streams UI > Toolbox > CLI section in the Event Streams Console.
-
-```sh
-cloudctl plugin install ./es-plugin
-# initialize the plugin 2to your connected cluster
-cloudctl es init
-```
 ## Review Event Streams components
 
 Narative: Event Streams is the IBM packaging of different Open Source projects to support in integrated user experience to deploy and manage Kafka  on OpenShift cluster. The following figure illustrates such components:
