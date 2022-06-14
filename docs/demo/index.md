@@ -556,7 +556,7 @@ It is possible to propose a more complex solution to illustrate modern data pipe
 MQ source Kafka Connector, Kafka Streams implementation and Cloud Object Storage sink, Elastic Search and Pinot.
 
 This scenario implements a simple real-time inventory management solution based on some real life MVPs we developed in 2020. 
-For a full explanation of the use case and scenario demo go to [this chapter](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#use-case-overview) in EDA reference architecture.
+For a full explanation of the use case and scenario demo go to [this chapter](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/demo-script/#real-time-inventory-scenario-presentation) in EDA reference architecture.
 
 ![](./images/mq-es-demo.png)
 
@@ -574,9 +574,9 @@ The solution can be deployed using few commands or using GitOps. Here are the si
     make multi-tenants
     ```
 
-* [Description of the scenario and demo script](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/)
+* [Description of the scenario and demo script](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/demo-script/#real-time-inventory-scenario-presentation)
 * [GitOps project to deploy the solution](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops)
-*  [EDA GitOps Catalog to deploy Cloud Pak for Integration operators](https://github.com/ibm-cloud-architecture/eda-gitops-catalog)
+* [EDA GitOps Catalog to deploy Cloud Pak for Integration operators](https://github.com/ibm-cloud-architecture/eda-gitops-catalog)
 ## Geo-replication
 
 We will go over two main concepts: replication to a passive and active Event Streams cluster. Geo Replication is the IBM packaging of Mirror Maker 2. 
@@ -594,6 +594,8 @@ The following diagram can be used to present the MM2 topology
 ![](./images/mm2-topology.png)
 ### Active - Passive
 
+See a demonstration for the real time inventory and replication in [this article](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/mm2/)
+
 ![](./images/mm2-dr.png)
 
 ### Active - Active
@@ -604,6 +606,7 @@ The following diagram can be used to present the MM2 topology
 ???- "Read more"
     * [Geo Replication - Product documentation](https://ibm.github.io/event-streams/georeplication/about/)
     * [EDA techno overview for Mirror Maker 2](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-mirrormaker/)
+    * [Demonstration in the context of real-time inventory](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/mm2/)
     * [EDA lab on mirror maker 2](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/kafka-mm2/)
 ## Day 2 operations
 
