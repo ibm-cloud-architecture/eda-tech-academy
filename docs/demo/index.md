@@ -112,12 +112,14 @@ There are several ways to install Event Streams. We are going to look at this, w
 
 There are a number of ways to navigate to Event Streams Console by getting the exposed routes
 
-1. Using Routes in Openshift: On the left side menu select `Networking > Routes` in the OpenShift console. Find `es-demo-ibm-es-ui` and then go to Location. Select that link and it will take you to the Event Streams Console.  
+1. Using Routes in Openshift: On the left side menu select `Networking > Routes` in the OpenShift console. Find `es-demo-ibm-es-ui` and then go to Location. Select that link and it will take you to the Event Streams Console. Depending to your installation, you may reach Cloud Pak for Integration console, in this case, select Entreprise LDAP, and enter your userid and password.
 
-1. Using the cli:  (replace es-demo with the name of your cluster)
+    ![](./images/cpi-prompt.png)
+
+1. Using the cli:  (replace `es-demo` with the name of your cluster, and `cp4i-eventstreams` with the name of the project where Event Streams runs into )
 
     ```sh
-    chrome $(oc get eventstreams es-demo -o jsonpath='{.status.adminUiUrl}')
+    chrome $(oc get eventstreams es-demo -n cp4i-eventstreams -o jsonpath='{.status.adminUiUrl}')
     ```
 
     Once you logged in using the LDAP credentials provided, you should reach the home page.
@@ -142,6 +144,9 @@ Topics are append log, producer applications publish records to topics, and cons
     ![](./images/topic-concept.png)
 
 1. Create a topic for the **Starter** app, using the user interface:
+
+    !!! Warning
+        When running on a multi-tenant Event Streams cluster you need to modify the name of the topic, to avoid conflicting with other topic name, use your userid as prefix.
 
     ![](./images/topic-name.png)
 
@@ -181,6 +186,10 @@ Topics are append log, producer applications publish records to topics, and cons
     ![](./images/download-properties.png)
 
    * Enter the name of the application (e.g. starter-app), select the topic created previously, and download the generated properties. 
+
+    !!! Warning
+        When running on a multi-tenant Event Streams cluster you need to modify the name of the starter app, to avoid conflicting with other application name in the consumer group.
+
    
 1. Unzip somewhere and open a Terminal window on your laptop, go to the folder you have unzipped the file and start the app:
 
@@ -295,7 +304,7 @@ You can introduce the schema processing with the figure below:
     * (4) So each message in a topic/partition may have a different schema ID, which help consumer to be able to process old messages
     * (5) Consumers get message definitions from the central schema registry.
 
-### Schema registry 
+## Schema registry 
 
 This is really an introduction to the schema management, a deeper demo will take around 35 minutes and is described in [this EDA lab](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/schema-registry-on-ocp/)
 
@@ -304,6 +313,9 @@ This is really an introduction to the schema management, a deeper demo will take
     ```sh
         curl https://raw.githubusercontent.com/ibm-cloud-architecture/eda-quickstarts/main/quarkus-reactive-kafka-producer/src/main/avro/OrderEvent.avsc > OrderEvent.avsc
     ```
+
+    !!! Warning
+        When running on a multi-tenant Event Streams cluster you need to modify the name of the schema name, to avoid conflicting with other schema name in the registry.
 
 1. Go to the Schema registry in the Event Streams console, and click to `Add Schema`
 
