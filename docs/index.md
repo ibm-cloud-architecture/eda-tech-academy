@@ -22,7 +22,7 @@ We recognize that not every student will have the same level of knowledge of Eve
 ## Pre-requisites
 
 * Have a [git client installed](https://github.com/git-guides/install-git)
-* Have a git account into [IBM Internal github](https://github.ibm.com/). 
+* Have a git account into [IBM Internal github](https://github.ibm.com/) or public [github](https://github.com).
 * Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
 * A JDK 11.
 * Install the make tool:

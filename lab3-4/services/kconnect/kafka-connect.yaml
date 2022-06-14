@@ -5,7 +5,7 @@ metadata:
   annotations:
     eventstreams.ibm.com/use-connector-resources: "true"
 spec:
-  version: 3.0.0
+  version: 3.0.1
   replicas: 2
   bootstrapServers: es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9093
   image: quay.io/ibmcase/eda-kconnect-cluster-image:latest
