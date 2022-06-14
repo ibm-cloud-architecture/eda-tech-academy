@@ -24,6 +24,7 @@ nav:
       - Solution Overview: lab2/lab2-sol.md
     - Lab 3 - Real Time Inventory demo: lab3/index.md
     - Lab 4 - EDA GitOps: lab4/index.md
+    - Lab 5 - Monitoring with Instana: lab5/index.md
   - More...: future.md
 
 theme: 
