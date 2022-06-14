@@ -19,7 +19,7 @@ We recognize that not every student will have the same level of knowledge of Eve
 * Design and create an initial prototype solution that addresses the DOU goals and objectives.
 * Establish an initial point of view for adopting GitOps methods and practices for event streams implementations.
 * Give you foundational knowledge to deeply address event-driven solution design 
-## Pre-requisites
+## Pre-requisites for journey 2
 
 * Have a [git client installed](https://github.com/git-guides/install-git)
 * Have a git account into [IBM Internal github](https://github.ibm.com/) or public [github](https://github.com).
