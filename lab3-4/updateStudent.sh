@@ -2,7 +2,15 @@
 
 originPrefix="poe1"
 #originPrefix="cody20"
+if [ -z "$PREFIX" ]
+then
+    echo $PREFIX
+    echo "do the following command: export PREFIX=<allocated-userid>"
+    exit
+fi
+
 echo "Updating prefix to " $PREFIX
+
 contains() {
     string="$1"
     substring="$2"
