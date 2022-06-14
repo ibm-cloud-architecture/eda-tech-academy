@@ -34,7 +34,7 @@ We recognize that not every student will have the same level of knowledge of Eve
     ![](./images/access-oc-cli.png)
 
 * Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/) in our group.
-* Install [Java Coding Pack for Visual Studio](https://aka.ms/vscode-java-installer-win). This will download JDK and the necessary plugins.
+* Install [Java Coding Pack for Visual Studio](https://code.visualstudio.com/docs/languages/java#_install-visual-studio-code-for-java). This will download JDK and the necessary plugins.
 * OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster) as a base for our deployments [See environment section for your assigned cluster](#environments)
 
 * To access to the git repository click on the top right icon from the documentation page:
