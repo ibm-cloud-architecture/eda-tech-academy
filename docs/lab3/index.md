@@ -174,7 +174,7 @@ And the `store.inventory` includes events on current inventory per store:
 
 
 ???- "Read more on the demonstration script"
-    [The demonstration instructions are in a separate note](https://ibm-cloud-architecture.github.io/refarch-eda/scenarios/realtime-inventory/#demonstrate-the-real-time-processing) as this is a demonstration available in the public git and shareable with customers and prospects.
+    [The demonstration instructions are in a separate note](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/demo-script/) as this is a demonstration available in the public git and shareable with anyone.
 
 ## Kafka connector configuration
 
