@@ -568,7 +568,7 @@ The solution can be deployed using few commands or using GitOps.
 
 See [Lab3-4](../lab3/)
 
-???- "More Reading"
+???-mk "More Reading"
     * [Description of the scenario and demo script](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/demo-script/#real-time-inventory-scenario-presentation)
     * [GitOps project to deploy the solution](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops)
     * [EDA GitOps Catalog to deploy Cloud Pak for Integration operators](https://github.com/ibm-cloud-architecture/eda-gitops-catalog)
