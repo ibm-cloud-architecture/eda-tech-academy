@@ -115,7 +115,7 @@ There are several ways to install Event Streams. We are going to look at this, w
     * [Kafka Brokers](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/#kafka-components) and architecture
     *  [GitOps approach for Day1 and Day 2 operations](#day-2-operations)
 
-## Review Event Stream user interface features
+## Review Event Streams user interface features
 
 There are a number of ways to navigate to Event Streams Console by getting the exposed routes
 
@@ -182,7 +182,7 @@ Topics are append log, producer applications publish records to topics, and cons
     * [Replication and partition leadership](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/advance/#replication-and-partition-leadership)
 
 
-### Run the Starter Application
+## Run the Starter Application
 
 1. Go to the `Toolbox` and explain, that there is a **Starter** application, developer or SRE may use to test producing  and consuming events. You may have already downloaded this application. It will take time to do it during any live demonstration, so better to be prepared. Also we have packaged a [docker image](https://quay.io/repository/ibmcase/es-demo), for you, so it can be easy to deploy it in OpenShift or run locally without any java dependencies. The starter application runs on your local laptop and is remote connected to the Event Streams cluster via a OCP route: 
 
@@ -197,8 +197,12 @@ Topics are append log, producer applications publish records to topics, and cons
     !!! Warning
         When running on a multi-tenant Event Streams cluster you need to modify the name of the starter app, to avoid conflicting with other application name in the consumer group.
 
-   
+
+
 1. Unzip somewhere and open a Terminal window on your laptop, go to the folder you have unzipped the file and start the app:
+
+    !!! Warning
+        When using Windows laptop, be sure to have done the [windows pre-requisites](../#windows-user) for getting your environment ready.
 
     ```sh
     docker run -ti -p 8080:8080 -v  $(pwd)/kafka.properties:/deployments/kafka.properties -v  $(pwd)/truststore.p12:/deployments/truststore.p12  quay.io/ibmcase/es-demo
