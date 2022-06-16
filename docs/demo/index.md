@@ -172,7 +172,7 @@ Topics are append log, producer applications publish records to topics, and cons
 
 1. Just as an important note, topic may be created via yaml file or using CLI command. Go to the [rt-inventory GitOps - es-topics.yaml](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops/blob/main/environments/rt-inventory-dev/services/ibm-eventstreams/base/es-topics.yaml) and explain some of the parameters.
 
-1. We will go over the process of adding new topic by using GitOps in [this section](/#topic-management-with-gitops)
+1. We will go over the process of adding new topic by using GitOps in [this section](./#topic-management-with-gitops)
 
 ???- "Read more"
     * [Topic summary](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/#topics)
