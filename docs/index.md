@@ -50,7 +50,7 @@ We recognize that not every student will have the same level of knowledge of Eve
 and then clone it to your local laptop:
 
 ```sh
-git clone ...
+git clone https://github.com/ibm-cloud-architecture/eda-tech-academy/
 ```
 
 ### Environments
@@ -150,7 +150,7 @@ Review the Client provided requirements, and elaborate a system design for an ED
 
 ???- "Read more"
     * [Demonstration of Event Streams product](https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/)
-## Lab 2: Implement a simple item sell or restock event stream processing with Kafka Streams API
+## Lab 2 [Optional]: Implement a simple item sell or restock event stream processing with Kafka Streams API
 
 Learning the basic of Kafka Streams, and implement a store aggregation processing with Java. The code and environment should be self efficient. 
 
@@ -158,7 +158,7 @@ Learning the basic of Kafka Streams, and implement a store aggregation processin
 * **Duration**: 90 minutes
 * **Delivery**: Pair programming.
 
-* [Lab's instructions](./lab2) includes a set of progressing exercise to learn basic Kafka Streams programming.
+* [Lab's instructions](./lab2/index.md) includes a set of progressing exercise to learn basic Kafka Streams programming.
 * [Last exercise solution](./lab2/lab2-sol.md)
 ## Lab 3: Deploy the real time inventory solution in one Click
 
@@ -166,7 +166,7 @@ Learning the basic of Kafka Streams, and implement a store aggregation processin
 
 This is a simple of the end to end solution, you will be able to deploy in few commands. It is also important to review some deployment definition content:
 
-[20 minutes lab](./lab3)
+[20 minutes lab](./lab3/index.md)
 
 ## Lab 4: Deploy the solution with OpenShift GitOps
 
@@ -175,4 +175,7 @@ This is a simple of the end to end solution, you will be able to deploy in few c
 In this lab, you will deploy the ArgoCD applications that monitor your git repository for any change to the configuration
 and deploy the different services and MQ broker in your own namespace.
 
-[Lab 4 GitOps deployment](./lab4)
+[Lab 4 GitOps deployment](./lab4/index.md)
+
+## Lab 5 [Optional]: [Monitor with Instana](./lab5/index.md)
+

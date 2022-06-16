@@ -37,8 +37,9 @@ public class TestDeadLetterTopic {
     private static TestOutputTopic<String, ItemTransaction> outputTopic;
     private static String inTopicName = "my-input-topic";
     private static String outTopicName = "my-output-topic";
+    private  static TestOutputTopic<String, ItemTransaction> dlTopic;
+    private static String deadLetterTopicName = "dl-topic";
     // 0 add dead letter topic
-
 
     /**
      * Using split and branches to separate good from wrong records
@@ -46,10 +47,20 @@ public class TestDeadLetterTopic {
      * @return Kafka Streams topology
      */
     public static Topology buildTopologyFlow() {
-        
-        final StreamsBuilder builder = new StreamsBuilder();
-        
 
+        final StreamsBuilder builder = new StreamsBuilder();
+
+        // 1- get the input stream
+        KStream<String, ItemTransaction> items = builder.stream(inTopicName,
+                Consumed.with(Serdes.String(), StoreSerdes.ItemTransactionSerde()));
+        // 2 build branches
+        Map<String, KStream<String, ItemTransaction>> branches = items.split(Named.as("B-"))
+                .branch((k, v) -> (v.storeName == null || v.storeName.isEmpty() || v.sku == null || v.sku.isEmpty()),
+                        Branched.as("wrong-tx"))
+                .defaultBranch(Branched.as("good-tx"));
+        // Generate to output topic
+        branches.get("B-good-tx").to(outTopicName);
+        branches.get("B-wrong-tx").to(deadLetterTopicName);
 
         return builder.build();
     }
@@ -64,8 +75,8 @@ public class TestDeadLetterTopic {
         outputTopic = testDriver.createOutputTopic(outTopicName, new StringDeserializer(),
                 StoreSerdes.ItemTransactionSerde().deserializer());
         // 4 create the output dead letter topic to test record
-
-        StoreSerdes.ItemTransactionSerde().deserializer());
+        dlTopic = testDriver.createOutputTopic(deadLetterTopicName, new StringDeserializer(),  StoreSerdes.ItemTransactionSerde().deserializer());
+        StoreSerdes.ItemTransactionSerde().deserializer();
     }
 
     public static Properties getStreamsConfig() {

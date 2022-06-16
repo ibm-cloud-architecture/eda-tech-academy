@@ -1,6 +1,6 @@
 # Demonstrating Event Streams from A to Z
 
-What a typical demonstration script will include are:
+A typical demonstration script will include at least the following subjects (See right navigation bar to go to a specific sections):
 
 * Review Event Streams Components
 * Operator based deployment and Day 2 operations
@@ -12,20 +12,27 @@ What a typical demonstration script will include are:
 * Event Streaming
 * Geo-replication
 
+As education enablement you can go step by step following the current structure. As a reusable asset for your future demonstration, you can pick and choose from the right navigation bar the items to highlight in front of your audiance.
+
+All the demonstration can be done on IBM CoC clusters: see the [environments](../#environments) section in the EDA labs introduction.
+
 ## Pre-requisites
 
 You will need access to an Event Streams instance installed on an OpenShift cluster with access to the OpenShift Console to demonstrate Operators. 
 
 You’ll need the following as well:
 
-* git client 
-* oc cli 
-* docker or podman  
+* git client
+* Have [oc cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html) installed. It can be done once connected to the OpenShift cluster using the <?> icon on the top-right and "Command Line Tool" menu.
+
+    ![](./images/access-oc-cli.png)
+
+* Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
 
 
 ## Review Event Streams components
 
-Narative: Event Streams is the IBM packaging of different Open Source projects to support in integrated user experience to deploy and manage Kafka  on OpenShift cluster. The following figure illustrates such components:
+Narative: Event Streams is the IBM packaging of different Open Source projects to support in integrated user experience deploying and managing Kafka on OpenShift cluster. The following figure illustrates such components:
 
 ![](./images/es-components.png)
 
@@ -37,9 +44,9 @@ Narative: Event Streams is the IBM packaging of different Open Source projects t
 * The schema management is done via schema registry and the feature is integrated in Event Streams user interface but in the back end, is supported by [Apicur.io registry](http://apicur.io/registry)
 * External event sources can be integrated via the [Kafka Connector framework](https://kafka.apache.org/documentation/#connect) and Event Streams offers [a set of connectors](https://ibm.github.io/event-streams/connectors/) and can partner to other companies to get specific connectors.
 * External sinks can be used to persist messages for longer time period that the retention settings done at the topic level. S3 buckets can be use, IBM Cloud object storage, and Kafka Sink connectors. There is [this cloud object storage lab](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/connect-cos/), or [S3 sink with Apache Camel lab](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/connect-s3/) to present such integrations.
-* Event Streams monitoring is done using Dashboards in Event Streams user interface but also in OpenShift monitoring and Kibana dashboard.
-* Green components are application specifics, and represent event-driven microservices (see [eda-quickstart templates](https://github.com/ibm-cloud-architecture/eda-quickstarts)) or Kafka Streaming apps, or [Apache Flink](https://flink.apache.org/) apps.
-* For cluster optimization, Event Streams integrate Cruise Control, with goal constraints, to act on cluster resource usage.
+* Event Streams monitoring is done using Dashboards in Event Streams user interface but also within OpenShift monitoring and Kibana dashboards.
+* Green components are application specifics, and represent event-driven microservices (see [eda-quickstart project for code templates](https://github.com/ibm-cloud-architecture/eda-quickstarts)) or Kafka Streaming apps, or [Apache Flink](https://flink.apache.org/) apps.
+* For cluster optimization, Event Streams integrates Cruise Control, with goal constraints, to act on cluster resource usage.
 
 ???- "More argumentations"
     * Kafka is essentially a distributed platform to manage append log with a pub/sub protocol to get streams of events. Messages are saved for a long period of time.

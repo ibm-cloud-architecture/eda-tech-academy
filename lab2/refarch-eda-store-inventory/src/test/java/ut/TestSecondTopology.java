@@ -40,7 +40,13 @@ public class TestSecondTopology {
     public static Topology buildTopologyFlow(){
         final StreamsBuilder builder = new StreamsBuilder();
          // 1- get the input stream
-
+         KStream<String,ItemTransaction> items = builder.stream(inTopicName, 
+         Consumed.with(Serdes.String(),  StoreSerdes.ItemTransactionSerde()));  
+        items.peek((key, value) -> System.out.println("PRE-FILTER: key=" + key + ", value= {" + value + "}"))
+            .filter((k,v) -> 
+                (v.storeName != null && ! v.storeName.isEmpty() && v.sku != null && ! v.sku.isEmpty())) 
+            .peek((key, value) -> System.out.println("POST-FILTER: key=" + key + ", value= {" + value + "}"))
+            .to(outTopicName);
         // 2 filter
 
         // Generate to output topic
