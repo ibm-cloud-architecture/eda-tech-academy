@@ -564,23 +564,15 @@ For a full explanation of the use case and scenario demo go to [this chapter](ht
 
 ![](./images/mq-es-demo.png)
 
-The solution can be deployed using few commands or using GitOps. Here are the simplest steps if you are using the [CMC CoC environment with CP4I already installed](https://cmc.coc-ibm.com/). The Event streams cluster is under `cp4i-eventstreams` project:
+The solution can be deployed using few commands or using GitOps. 
 
-1. Clone the gitops repo:
+See [Lab3-4](../lab3/)
 
-    ```sh
-    git clone https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops
-    ```
+???- "More Reading"
+    * [Description of the scenario and demo script](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/demo-script/#real-time-inventory-scenario-presentation)
+    * [GitOps project to deploy the solution](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops)
+    * [EDA GitOps Catalog to deploy Cloud Pak for Integration operators](https://github.com/ibm-cloud-architecture/eda-gitops-catalog)
 
-1. Login to OpenShift console and then start the deployment of the solution, under the namespace `rt-inventory-dev` namespace
-
-    ```sh
-    make multi-tenants
-    ```
-
-* [Description of the scenario and demo script](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/demo-script/#real-time-inventory-scenario-presentation)
-* [GitOps project to deploy the solution](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops)
-* [EDA GitOps Catalog to deploy Cloud Pak for Integration operators](https://github.com/ibm-cloud-architecture/eda-gitops-catalog)
 ## Geo-replication
 
 We will go over two main concepts: replication to a passive and active Event Streams cluster. Geo Replication is the IBM packaging of Mirror Maker 2. 
