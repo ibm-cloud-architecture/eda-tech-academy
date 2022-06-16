@@ -1,6 +1,15 @@
 # Next steps
 
 You can run on your own OpenShift cluster with existing assets and more assets available on the public Git repositories.
+
+## EDA Community Call
+
+IBM - Internal: Register in Your Learning for a [community call every Wednesday at 1:00 PM PST](https://ec.yourlearning.ibm.com/w3/series/10236394?layout=grid) (Webex boyerje). We will organize the calls in different scope:
+
+* Week 1 of every month: Beginner sessions for Kafka
+* Week 2 of every month: Bring you own opportunity so we can share trick on how to make it progresses
+* Week 3 of every month: Deeper dive: asset presentation, architecture, coding discussions
+* Week 4 of event month: Project success story, opportunity success story, product roadmap update.
 ## Kafka Connector World
 
 The Event Streams demonstration introduced the Kafka Connect framework, 
