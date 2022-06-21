@@ -4,7 +4,7 @@ You can run on your own OpenShift cluster with existing assets and more assets a
 
 ## EDA Community Call
 
-IBM - Internal: Register in Your Learning for a [community call every Wednesday at 1:00 PM PST](https://ec.yourlearning.ibm.com/w3/series/10236394?layout=grid) (Webex boyerje). We will organize the calls in different scope:
+IBM - Internal: Register in Your Learning for a [community call every Wednesday at 1:00 PM PST](https://ec.yourlearning.ibm.com/w3/enrollment/meeting/10281824) (Webex boyerje). We will organize the calls in different scope:
 
 * Week 1 of every month: Beginner sessions for Kafka
 * Week 2 of every month: Bring you own opportunity so we can share trick on how to make it progresses

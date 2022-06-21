@@ -1,0 +1,116 @@
+version: '3.7'
+services:
+  zookeeper:
+    image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
+    container_name: zookeeper
+    hostname: zookeeper
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+  kafka:
+    image: cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
+    container_name: kafka
+    hostname: kafka
+    command: [
+      "sh", "-c",
+      "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} \
+      --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} \
+      --override listener.security.protocol.map=$${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP} \
+      --override inter.broker.listener.name=$${KAFKA_INTER_BROKER_LISTENER_NAME} \
+      --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+    ]
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:9092"
+    environment:
+      LOG_DIR: "/tmp/logs"
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:29092,EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: EXTERNAL://0.0.0.0:9092,INTERNAL://kafka:29092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  simulator:
+    image: quay.io/ibmcase/eda-store-simulator
+    container_name: simulator
+    depends_on:
+      - kafka
+    hostname: storeapp
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      APP_TARGET_MESSAGING: Kafka
+      KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_CERT_PWD: ""
+      USER_CERT_PWD: ""
+      KAFKA_TOPIC_NAME: items
+      MQ_QMGR: QM1
+      MQ_HOST: ibmmq
+      MQ_PORT: 1414
+      MQ_QUEUE_NAME: DEV.QUEUE.1
+      MQ_CHANNWL: DEV.APP.SVRCONN
+      ES_APICURIO_URL: http://apicurio:8083/apis/registry/v2
+  itemInventory:
+    image: quay.io/ibmcase/item-aggregator
+    container_name: item-aggregator
+    depends_on:
+      - kafka
+    hostname: iaggregator
+    ports:
+      - "8081:8080"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_CERT_PWD: ""
+      USER_CERT_PWD: ""
+  storeInventory:
+    image: quay.io/ibmcase/store-aggregator
+    container_name: store-aggregator
+    depends_on:
+      - kafka
+    hostname: saggregator
+    ports:
+      - "8082:8080"
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      KAFKA_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_CERT_PWD: ""
+      USER_CERT_PWD: ""
+  addTopics:
+    image:  cp.icr.io/cp/ibm-eventstreams-kafka:11.0.1
+    depends_on:
+      - kafka
+    entrypoint: [ "bash",  "-c", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic items 
+            && /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic store.inventory 
+            && /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --create  --replication-factor 1 --partitions 1 --topic item.inventory"]
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    restart: "no"
+    ports:
+      - "9000:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:29092"
+    depends_on:
+      - kafka
+  apicurio:
+    image: apicurio/apicurio-registry-mem:2.2.0.Final
+    container_name: apicurio
+    hostname: apicurio
+    ports:
+      - "8083:8080"
+      - "9001:9000"
+    depends_on:
+      - kafka
+    environment:
+      QUARKUS_PROFILE: prod
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      APPLICATION_ID: registry_id
