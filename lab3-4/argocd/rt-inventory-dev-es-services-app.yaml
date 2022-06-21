@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  name: es-service-app
+  name: poe1-es-service-app
   namespace: openshift-gitops
 spec:
   destination:

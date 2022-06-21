@@ -226,7 +226,7 @@ Topics are append log, producer applications publish records to topics, and cons
 
 There is an alternate of running this application on your laptop, it can be deployed directly to the same OpenShift cluster, we have defined `deployment and config map` to do so.
 
-???- "Deploy starter app on OpenShit"
+???- "Deploy starter app on OpenShift"
     * Use the same `kafka.properties` and `truststore.p12` files you have downloaded with the starter application to create two kubernetes secrets holding these files in your OpenShift cluster
 
     ```sh

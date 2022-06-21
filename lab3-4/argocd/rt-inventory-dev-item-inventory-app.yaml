@@ -4,7 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: item-inventory
-  name: item-inventory-app
+  name: poe1-item-inventory-app
   namespace: openshift-gitops
 spec:
   destination:
