@@ -69,6 +69,7 @@ services:
       KAFKA_SECURITY_PROTOCOL: PLAINTEXT
       KAFKA_CERT_PWD: ""
       USER_CERT_PWD: ""
+      KAFKA_TOPIC_NAME: items
       MQ_QMGR: QM1
       MQ_HOST: ibmmq
       MQ_PORT: 1414

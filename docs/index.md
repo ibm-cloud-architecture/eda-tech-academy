@@ -119,7 +119,7 @@ Need to enable Windows Subsystem for Linux.
     1. Install ‘zsh’ shell
 
         ```sh
-        sudo apt install zs
+        sudo apt install zsh
         ```
 
 ## Study [Optional] - Lecture: Review key EDA patterns, use cases and usage scenarios.

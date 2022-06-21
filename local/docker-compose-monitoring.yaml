@@ -53,6 +53,7 @@ services:
       KAFKA_SASL_MECHANISM: PLAIN
       KAFKA_CERT_PWD: ""
       USER_CERT_PWD: ""
+      KAFKA_TOPIC_NAME: items
   itemInventory:
     image: quay.io/ibmcase/item-aggregator
     container_name: item-aggregator

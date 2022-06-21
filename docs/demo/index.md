@@ -32,7 +32,7 @@ You’ll need the following as well:
 
 ## Review Event Streams components
 
-Narative: Event Streams is the IBM packaging of different Open Source projects to support in integrated user experience deploying and managing Kafka on OpenShift cluster. The following figure illustrates such components:
+Narative: Event Streams is the IBM packaging of different Open Source projects to support an integrated user experience deploying and managing Kafka on OpenShift cluster. The following figure illustrates such components:
 
 ![](./images/es-components.png)
 
