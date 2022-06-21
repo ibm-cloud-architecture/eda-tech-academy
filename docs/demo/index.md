@@ -281,6 +281,7 @@ For Kafka, the following aspects of a deployment can impact the resources you ne
 * The number of network threads handling messages
 * The number of producers and consumers
 * The number of topics and partitions
+
 ## Producing messages
 
 The [product documentation - producing message section](https://ibm.github.io/event-streams/about/producing-messages/) goes into details of the concepts. 
@@ -319,34 +320,34 @@ You can introduce the schema processing with the figure below:
 
 This is really an introduction to the schema management, a deeper demo will take around 35 minutes and is described in [this EDA lab](https://ibm-cloud-architecture.github.io/refarch-eda/use-cases/schema-registry-on-ocp/)
 
-1. Get the OrderEvent schema definition using the command below:
+1. Get the ItemEvent schema definition (Defined in the context of the real-time inventory demo) using the command below:
 
     ```sh
-        curl https://raw.githubusercontent.com/ibm-cloud-architecture/eda-quickstarts/main/quarkus-reactive-kafka-producer/src/main/avro/OrderEvent.avsc > OrderEvent.avsc
+        curl https://raw.githubusercontent.com/ibm-cloud-architecture/refarch-eda-store-simulator/master/backend/src/main/avro/ItemEvent.avsc > ItemEvent.avsc
     ```
 
     !!! Warning
-        When running on a multi-tenant Event Streams cluster you need to modify the name of the schema name, to avoid conflicting with other schema name in the registry.
+        When running on a multi-tenant Event Streams cluster you need to modify the name of the schema name, to avoid conflicting with other schema name in the registry. In the context of the `IBM Tech Academy`, we propose you prefix the name with your assigned user-id.
 
 1. Go to the Schema registry in the Event Streams console, and click to `Add Schema`
 
     ![](./images/es-schema-registry.png)
 
-1. In the `Add schema` view, select `Upload definition`, select the `OrderEvent.avsc`
+1. In the `Add schema` view, select `Upload definition`, select the `ItemEvent.avsc`
 
     ![](./images/add-schema.png)
 
-1. The first OrderEvent schema is validated, 
+1. The first ItemEvent schema is validated, 
 
-    ![](./images/order-schema-1.png)
+    ![](./images/item-schema-1.png)
 
 1. You can see its definition too
 
-    ![](./images/order-schema-2.png)
+    ![](./images/item-schema-2.png)
 
 1. Do not forget to press `Add schema` to save your work. Now the schema is visible in the registry
 
-    ![](./images/order-schema-3.png)
+    ![](./images/item-schema-3.png)
 
 
 Now any future producer application discussions should be around level of control of the exactly once, at most once delivery, failover and back preasure.
