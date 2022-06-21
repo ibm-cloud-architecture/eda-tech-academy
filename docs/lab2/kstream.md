@@ -80,7 +80,7 @@ The figure below is a simplication of both concepts:
 
 A **Kstream** is first connect to a topic and will receive events with Key,Value structure, as unbounded stream. You can chain Kstream to build a topology, and to a Ktable, which will keep only the last value of a given key. To ouput to a Kafka topic, the final construct is a KStream.
 
-KStreams are in memory, Ktables are also in memory by may be persisted. KTable assumes that records from the source topic that have null keys are simply dropped.
+KStreams are in memory, Ktables are also in memory but may be persisted. KTable assumes that records from the source topic that have null keys are simply dropped.
 
 KTable can be created directly from a Kafka topic (using StreamsBuilder.table operator), as a result of transformations on an existing KTable, or aggregations (aggregate, count, and reduce). 
 

@@ -10,6 +10,10 @@ IBM - Internal: Register in Your Learning for a [community call every Wednesday 
 * Week 2 of every month: Bring you own opportunity so we can share trick on how to make it progresses
 * Week 3 of every month: Deeper dive: asset presentation, architecture, coding discussions
 * Week 4 of event month: Project success story, opportunity success story, product roadmap update.
+
+## Internal site
+
+[IBM internal site](https://pages.github.ibm.com/boyerje/eda-internal/)
 ## Kafka Connector World
 
 The Event Streams demonstration introduced the Kafka Connect framework, 
