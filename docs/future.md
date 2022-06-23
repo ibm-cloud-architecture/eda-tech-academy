@@ -14,6 +14,7 @@ IBM - Internal: Register in Your Learning for a [community call every Wednesday 
 ## Internal site
 
 [IBM internal site](https://pages.github.ibm.com/boyerje/eda-internal/)
+
 ## Kafka Connector World
 
 The Event Streams demonstration introduced the Kafka Connect framework, 

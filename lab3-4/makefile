@@ -86,14 +86,22 @@ all-no-gitops:  prepare-ns\
 	mq-kconnector \
 	apps
 
-clean:
-	@oc delete -k ./apps/item-inventory/
-	@oc delete -k ./apps/store-inventory/
-	@oc delete -k ./apps/store-simulator/
+clean-serv: 
 	@oc delete -k ./services/kconnect
 	@oc delete -k ./services/ibm-mq/overlays
 	@oc delete -k ./services/ibm-eventstreams/overlays
+
+clean:
+	@oc project $$PREFIX
+	@oc delete -k ./apps/item-inventory/
+	@oc delete -k ./apps/store-inventory/
+	@oc delete -f ./apps/mq-source/kafka-mq-src-connector.yaml
+	@oc delete -k ./services/kconnect
+	@oc delete -k ./services/ibm-mq/overlays
+	@oc delete -k ./services/ibm-eventstreams/overlays
+	@oc delete -k ./apps/store-simulator/
 	@oc delete kafkatopic $$PREFIX-connect-cluster-configs -n cp4i-eventstreams
 	@oc delete kafkatopic $$PREFIX-connect-cluster-offsets -n cp4i-eventstreams
 	@oc delete kafkatopic $$PREFIX-connect-cluster-status -n cp4i-eventstreams
+	@oc delete -k ./env/overlays
 	

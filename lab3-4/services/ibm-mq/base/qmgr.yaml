@@ -1,15 +1,15 @@
 apiVersion: mq.ibm.com/v1beta1
 kind: QueueManager
 metadata:
-  name: poe1-mq
-  namespace: poe1
+  name: ahsoka20-mq
+  namespace: ahsoka20
 spec:
   license:
     accept: true
     license: L-RJON-C7QG3S
     use: NonProduction
   queueManager:
-    name: poe1MQ
+    name: ahsoka20MQ
     mqsc:
       - configMap:
           name: mq-mqsc-config

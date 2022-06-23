@@ -4,13 +4,13 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: item-inventory
-  name: poe1-item-inventory-app
+  name: ahsoka20-item-inventory-app
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: poe1
+    namespace: ahsoka20
     server: https://kubernetes.default.svc
-  project: poe1
+  project: ahsoka20
   source:
     path: lab3-4/apps/item-inventory/overlays
     repoURL: https://github.com/jbcodeforce/eda-tech-academy.git

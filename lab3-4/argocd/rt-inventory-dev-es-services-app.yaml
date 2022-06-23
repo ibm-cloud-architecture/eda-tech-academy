@@ -2,13 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  name: poe1-es-service-app
+  name: ahsoka20-es-service-app
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: poe1
+    namespace: ahsoka20
     server: https://kubernetes.default.svc
-  project: poe1
+  project: ahsoka20
   source:
     path: lab3-4/services/ibm-eventstreams/overlays
     repoURL: https://github.com/jbcodeforce/eda-tech-academy.git

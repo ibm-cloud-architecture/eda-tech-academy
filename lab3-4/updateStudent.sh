@@ -1,10 +1,10 @@
 #!/bin/zsh
 
-originPrefix="poe1"
+originPrefix="ahsoka20"
 #originPrefix="cody20"
 if [ -z "$PREFIX" ]
 then
-    echo $PREFIX
+    echo
     echo "do the following command: export PREFIX=<allocated-userid>"
     exit
 fi

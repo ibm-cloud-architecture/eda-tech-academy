@@ -4,13 +4,13 @@ metadata:
   creationTimestamp: null
   labels:
     app.kubernetes.io/name: store-simulator
-  name: poe1-store-simulator-app
+  name: ahsoka20-store-simulator-app
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: poe1
+    namespace: ahsoka20
     server: https://kubernetes.default.svc
-  project: poe1
+  project: ahsoka20
   source:
     path: lab3-4/apps/store-simulator/overlays
     repoURL: https://github.com/jbcodeforce/eda-tech-academy.git

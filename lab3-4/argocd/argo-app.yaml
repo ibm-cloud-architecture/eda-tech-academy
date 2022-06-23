@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   creationTimestamp: null
-  name: poe1-argo-app
+  name: ahsoka20-argo-app
   namespace: openshift-gitops
 spec:
   destination:
@@ -29,7 +29,7 @@ spec:
     jsonPointers:
     - /spec/host
     kind: Route
-  project: poe1
+  project: ahsoka20
   source:
     path: lab3-4/argocd
     repoURL: https://github.com/jbcodeforce/eda-tech-academy.git

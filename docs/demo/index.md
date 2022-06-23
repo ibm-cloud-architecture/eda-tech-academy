@@ -1,5 +1,8 @@
 # Demonstrating Event Streams from A to Z
 
+!!! Warning
+    This exercise is not a step by step lab, but more an explanation of all the concepts and components involved in an event-driven solution with Event Streams. We have provided scripts that can be leveraged (see the table of content on the right to get scripts) to demonstrate and talk about those items in front of your prospect. 
+
 A typical demonstration script will include at least the following subjects (See right navigation bar to go to a specific sections):
 
 * Review Event Streams Components
@@ -28,11 +31,12 @@ You’ll need the following as well:
     ![](./images/access-oc-cli.png)
 
 * Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
+* Java 11 is need to run the [Event Streams starter application](./#run-the-starter-application).
 
 
 ## Review Event Streams components
 
-Narative: Event Streams is the IBM packaging of different Open Source projects to support an integrated user experience deploying and managing Kafka on OpenShift cluster. The following figure illustrates such components:
+**Narative**: Event Streams is the IBM packaging of different Open Source projects to support an integrated user experience deploying and managing Kafka on OpenShift cluster. The following figure illustrates such components:
 
 ![](./images/es-components.png)
 
@@ -113,7 +117,7 @@ There are several ways to install Event Streams. We are going to look at this, w
 ???- "Read more"
     * [Cepth and block devise](https://docs.ceph.com/en/latest/rbd/rbd-kubernetes/)
     * [Kafka Brokers](https://ibm-cloud-architecture.github.io/refarch-eda/technology/kafka-overview/#kafka-components) and architecture
-    *  [GitOps approach for Day1 and Day 2 operations](#day-2-operations)
+    * [GitOps approach for Day1 and Day 2 operations](#day-2-operations)
 
 ## Review Event Streams user interface features
 
@@ -184,7 +188,7 @@ Topics are append log, producer applications publish records to topics, and cons
 
 ## Run the Starter Application
 
-1. Go to the `Toolbox` and explain, that there is a **Starter** application, developer or SRE may use to test producing  and consuming events. You may have already downloaded this application. It will take time to do it during any live demonstration, so better to be prepared. Also we have packaged a [docker image](https://quay.io/repository/ibmcase/es-demo), for you, so it can be easy to deploy it in OpenShift or run locally without any java dependencies. The starter application runs on your local laptop and is remote connected to the Event Streams cluster via a OCP route: 
+1. Go to the Event Streams Console > `Toolbox` menu, and explain, that there is a **Starter** application, developer or SRE may use to test producing  and consuming events to Event Streams. You may have already downloaded this application. It will take time to do it during any live demonstration, so better to be prepared. Also we have packaged a [docker image](https://quay.io/repository/ibmcase/es-demo), for you, so it can be easy to deploy it in OpenShift or run locally without any java dependencies. The starter application runs on your local laptop and is remotly connected to the Event Streams cluster via a OCP route: 
 
     ![](./images/toolbox-starter-app.png)
    
@@ -192,11 +196,10 @@ Topics are append log, producer applications publish records to topics, and cons
 
     ![](./images/download-properties.png)
 
-   * Enter the name of the application (e.g. starter-app), select the topic created previously, and download the generated properties. 
+   * Enter the name of the application (e.g. po1e-starter-app), select the topic created previously, and download the generated properties. 
 
     !!! Warning
         When running on a multi-tenant Event Streams cluster you need to modify the name of the starter app, to avoid conflicting with other application name in the consumer group.
-
 
 
 1. Unzip somewhere and open a Terminal window on your laptop, go to the folder you have unzipped the file and start the app:
@@ -204,6 +207,15 @@ Topics are append log, producer applications publish records to topics, and cons
     !!! Warning
         When using Windows laptop, be sure to have done the [windows pre-requisites](../#windows-user) for getting your environment ready.
 
+1. You have two choices to run the application, one using java, the other one using docker:
+
+    * Java run:
+
+    ```sh
+    java -Dproperties_path=$(pwd)/kafka.properties -jar demo-all.jar
+    ```
+
+    * docker run:
     ```sh
     docker run -ti -p 8080:8080 -v  $(pwd)/kafka.properties:/deployments/kafka.properties -v  $(pwd)/truststore.p12:/deployments/truststore.p12  quay.io/ibmcase/es-demo
     ```
@@ -298,7 +310,7 @@ For a demonstration purpose, you need to illustrate that you can have multiple t
 
 The following diagram illustrates those event producers.
 
-![](./images/different-producers.png)
+    ![](./images/different-producers.png)
 
 Each producer needs to get a URL to the broker, defines the protocol to authenticate, and gets server side TLS certificate, the topic name, and that's it to start sending messages.
 
@@ -306,7 +318,7 @@ For production deployment, event structures are well defined and schema are used
 
 You can introduce the schema processing with the figure below:
 
-![](./images/schema-registry.png)
+    ![](./images/schema-registry.png)
 
 ???- "Schema flow explanations"
     * (1) Avro or Json schemas are defined in the context of a producer application. As an example you can use the [OrderEvent.avsc in the EDA quickstart](https://github.com/ibm-cloud-architecture/eda-quickstarts/blob/main/quarkus-reactive-kafka-producer/src/main/avro/OrderEvent.avsc) project. 
@@ -554,6 +566,7 @@ Kafka Streams is client API to build microservices with input and output data ar
 
 ### Apache Flink as your streaming platform
 
+To be done.
 
 ## Real-time inventory demo
 
@@ -591,7 +604,7 @@ The following diagram can be used to present the MM2 topology
 ![](./images/mm2-topology.png)
 ### Active - Passive
 
-See a demonstration for the real time inventory and replication in [this article](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/mm2/)
+See a demonstration for the real-time inventory and replication in [this article](https://ibm-cloud-architecture.github.io/eda-rt-inventory-gitops/mm2/)
 
 ![](./images/mm2-dr.png)
 
@@ -641,10 +654,13 @@ A solution will have a specific gitops repository that manages services (operand
 
 ### Start the GitOps demo
 
+!!! Warning
+    In the context of the **Tech academy**, if you want to use Gitops you should use the [lab 4 exercise](../lab4/index.md) as it is a little bit simpler than to execute next section.
+
 To be able to do continuous deployment we need to have some ArgoCD apps deployed on GitOps server. 
 In all gitOps demos, we assume you have a fork of the [eda-rt-inventory-gitops](https://github.com/ibm-cloud-architecture/eda-rt-inventory-gitops). 
 
-If you are not using a cluster with cp4i-eventstreams already installed in the `cp4i-eventstreams`, you may need to
+If you are not using a cluster with Event Streams already installed in the `cp4i-eventstreams`, you may need to
 modify the [Copy Secret job ()]() so it can get the `ibm-entitlement-key` from the good namespace.
 
 1. If not done yet, jumpstart GitOps

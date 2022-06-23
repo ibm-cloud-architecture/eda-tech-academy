@@ -261,9 +261,10 @@ mq-source   poe10-connect-cluster   com.ibm.eventstreams.connect.mqsource.MQSour
 
 ## Cleaning your OpenShift project
 
-Run the following command
+Run the following command to clean the demonstration deployment, specially if you will do next GitOps lab.
 
 ```sh
+oc project $PREFIX
 make clean
 ```
 ## Troubleshooting

@@ -1,5 +1,5 @@
 resources:
-- namespace.yaml
+# - namespace.yaml
 - role.yaml
 - service-account.yaml
 - cp-secret.yaml
