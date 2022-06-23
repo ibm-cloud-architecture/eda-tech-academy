@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 #originPrefix="std-1"
-originPrefix="poe1"
+originPrefix="ahsoka20"
 originGitAccount=jbcodeforce
 
 echo "Updating prefix to " $PREFIX
