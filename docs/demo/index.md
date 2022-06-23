@@ -301,7 +301,7 @@ For a demonstration purpose, you need to illustrate that you can have multiple t
 
 * Existing Queuing apps, which are using IBM MQ, and get their messages transparently sent to Event Streams, using [IBM MQ Streaming Queue](https://www.ibm.com/docs/en/ibm-mq/9.2?topic=scenarios-streaming-queues) and [MQ Source Kafka Connector](https://github.com/ibm-messaging/kafka-connect-mq-source).
 
-    ![](./images/streaming_queuesa.jpeg)
+![](./images/streaming_queuesa.jpeg)
 
 * Microservice applications publishing events using Kafka producer API, or reactive messaging in Java Microprofile. For Nodejs, Python there is a C library which supports the Kafka APIs. We have code template for that.
 * Change data capture product, like [Debezium](https://debezium.io/), that gets database updates and maps records to events in topic. One topic per table. Some data transformation can be done on the fly.
@@ -310,7 +310,7 @@ For a demonstration purpose, you need to illustrate that you can have multiple t
 
 The following diagram illustrates those event producers.
 
-    ![](./images/different-producers.png)
+![](./images/different-producers.png)
 
 Each producer needs to get a URL to the broker, defines the protocol to authenticate, and gets server side TLS certificate, the topic name, and that's it to start sending messages.
 
@@ -318,7 +318,7 @@ For production deployment, event structures are well defined and schema are used
 
 You can introduce the schema processing with the figure below:
 
-    ![](./images/schema-registry.png)
+![](./images/schema-registry.png)
 
 ???- "Schema flow explanations"
     * (1) Avro or Json schemas are defined in the context of a producer application. As an example you can use the [OrderEvent.avsc in the EDA quickstart](https://github.com/ibm-cloud-architecture/eda-quickstarts/blob/main/quarkus-reactive-kafka-producer/src/main/avro/OrderEvent.avsc) project. 
