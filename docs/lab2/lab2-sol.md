@@ -2,7 +2,7 @@
 
 ## The output inventory class
 
-The class needs to keep store name and a map of items and current inventory. The class is [StoreInventory](https://github.ibm.com/ibm-eda/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/StoreInventory.java)
+The class needs to keep store name and a map of items and current inventory. The class is [StoreInventory](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/StoreInventory.java)
 
 ```java
 public class StoreInventory  {
@@ -35,7 +35,7 @@ public StoreInventory updateStock(String sku, long newV) {
 
 ## Developing the Topology in test class
 
-Continuing test with the TopolofyTestDriver, you will implement the topology with the same structure as before, in the class [TestStoreAggregation.java](https://github.ibm.com/ibm-eda/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestStoreAggregation.java). Here what the topology needs to do:
+Continuing test with the TopolofyTestDriver, you will implement the topology with the same structure as before, in the class [TestStoreAggregation.java](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestStoreAggregation.java). Here what the topology needs to do:
 
 * Get ItemTransaction from input stream the Key being the storeName
 * Aggregation wwork on keyed group, so groupByKey the input records
@@ -101,9 +101,9 @@ In fact the topology creation is defined in a business service. The microservice
                         └── StoreSerdes.java
 ```
 
-The topology is in the Domain layer in the [StoreInventoryAggregator class]()https://github.ibm.com/ibm-eda/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/StoreInventoryAggregator.java.
+The topology is in the Domain layer in the [StoreInventoryAggregator class]()https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/domain/StoreInventoryAggregator.java.
 
-The Topology is started in a thread in the [ItemProcessingAgent class](https://github.ibm.com/ibm-eda/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/ItemProcessingAgent.java) when the application starts, by looking at the `StartupEvent`
+The Topology is started in a thread in the [ItemProcessingAgent class](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/main/java/ibm/gse/eda/stores/infra/events/ItemProcessingAgent.java) when the application starts, by looking at the `StartupEvent`
 
 ```java
     void onStart(@Observes StartupEvent ev){

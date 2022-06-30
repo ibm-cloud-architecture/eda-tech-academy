@@ -132,7 +132,6 @@ What are the technical use cases where Event Streams is a good fit. Why customer
 * [Technical use cases - general positioning](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/usecases/#technical-use-cases)
 * [Assessment questions for Event Streams opportunity](https://pages.github.ibm.com/ibm-eda/eda-internal/kafka-assessment/)
 * Detailed [use case slides](https://github.ibm.com/ibm-eda/eda-internal/raw/master/docs/eda-usecases/01-EDA-Usecases.pptx)
-* Review the subjects and content of the [end to end Event Streams Demo script](https://pages.github.ibm.com/ibm-eda/eda-internal/) just to get familiar.
 
 
 ???- "Read more"
@@ -148,8 +147,6 @@ Review the Client provided requirements, and elaborate a system design for an ED
 * [Review the problem statement and the lab's instructions](./lab1/)
 * [A potential solution may look like](./lab1/lab1-sol.md)
 
-???- "Read more"
-    * [Demonstration of Event Streams product](https://pages.github.ibm.com/ibm-eda/eda-internal/demo/demo-script/)
 ## Lab 2 [Optional]: Implement a simple item sell or restock event stream processing with Kafka Streams API
 
 Learning the basic of Kafka Streams, and implement a store aggregation processing with Java. The code and environment should be self efficient. 

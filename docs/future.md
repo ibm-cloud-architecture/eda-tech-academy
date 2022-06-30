@@ -13,7 +13,7 @@ IBM - Internal: Register in Your Learning for a [community call every Wednesday 
 
 ## Internal site
 
-[IBM internal site](https://pages.github.ibm.com/ibm-eda/eda-internal/)
+[IBM internal site](https://pages.github.ibm.com/ibm-eda/eda-internal/) for sharing knowledge on use cases / workshops / ...
 
 ## Kafka Connector World
 
