@@ -4,7 +4,7 @@ You can run on your own OpenShift cluster with existing assets and more assets a
 
 ## EDA Community Call
 
-IBM - Internal: Register in Your Learning for a [community call every Wednesday at 1:00 PM PST](https://ec.yourlearning.ibm.com/w3/enrollment/meeting/10281824) (Webex boyerje). We will organize the calls in different scope:
+IBM - Internal: Register in Your Learning for a [community call every Wednesday at 7:00am PST](https://ec.yourlearning.ibm.com/w3/enrollment/meeting/10281824) (Webex boyerje). We will organize the calls in different scope:
 
 * Week 1 of every month: Beginner sessions for Kafka
 * Week 2 of every month: Bring you own opportunity so we can share trick on how to make it progresses
@@ -13,7 +13,7 @@ IBM - Internal: Register in Your Learning for a [community call every Wednesday 
 
 ## Internal site
 
-[IBM internal site](https://pages.github.ibm.com/boyerje/eda-internal/)
+[IBM internal site](https://pages.github.ibm.com/ibm-eda/eda-internal/)
 
 ## Kafka Connector World
 
@@ -21,7 +21,7 @@ The Event Streams demonstration introduced the Kafka Connect framework,
 
 ![](./demo/images/connector-tasks.png)
 
-The real time inventory solution uses MQ source connector, with the Kafka connector cluster defined in [this kafka-connect.yaml file](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab3-4/services/kconnect/kafka-connect.yaml) as:
+The real time inventory solution uses MQ source connector, with the Kafka connector cluster defined in [this kafka-connect.yaml file](https://github.ibm.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab3-4/services/kconnect/kafka-connect.yaml) as:
 
 ```yaml
 apiVersion: eventstreams.ibm.com/v1beta2
@@ -77,7 +77,7 @@ spec:
        secretName: std-1-tls-user
 ```
 
-And the source definition [kafka-mq-src-connector.yaml](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/lab3-4/apps/mq-source/kafka-mq-src-connector.yaml)
+And the source definition [kafka-mq-src-connector.yaml](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab3-4/apps/mq-source/kafka-mq-src-connector.yaml)
 
 you may need to go deeper with labs and best practices: 
 
