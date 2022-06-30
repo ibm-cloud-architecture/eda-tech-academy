@@ -34,7 +34,7 @@ Sink connectors, based on Kafka Connect framework, may be used to move data to l
 The Enterprise Network column includes the potential applications the data pipeline is integrated with.
 
 ???- "More information"
-    * If you want to reuse the diagram the source is at [this url](https://github.ibm.com/boyerje/eda-tech-academy/blob/main/docs/diagrams/hl-solution.drawio)
+    * If you want to reuse the diagram the source is at [this url](https://github.ibm.com/ibm-eda/eda-tech-academy/blob/main/docs/diagrams/hl-solution.drawio)
     * [EDA reference architecture presentation](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/reference-architecture/#event-driven-architecture) and argumentations
     * [Kappa architecture](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/reference-architecture/#kappa-architecture)
 

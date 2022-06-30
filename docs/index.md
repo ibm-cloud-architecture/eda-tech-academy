@@ -130,13 +130,13 @@ Need to enable Windows Subsystem for Linux.
 What are the technical use cases where Event Streams is a good fit. Why customers are going full speed to adopt EDA?
 
 * [Technical use cases - general positioning](https://ibm-cloud-architecture.github.io/refarch-eda/introduction/usecases/#technical-use-cases)
-* [Assessment questions for Event Streams opportunity](https://pages.github.ibm.com/boyerje/eda-internal/kafka-assessment/)
-* Detailed [use case slides](https://github.ibm.com/boyerje/eda-internal/raw/master/docs/eda-usecases/01-EDA-Usecases.pptx)
-* Review the subjects and content of the [end to end Event Streams Demo script](https://pages.github.ibm.com/boyerje/eda-internal/) just to get familiar.
+* [Assessment questions for Event Streams opportunity](https://pages.github.ibm.com/ibm-eda/eda-internal/kafka-assessment/)
+* Detailed [use case slides](https://github.ibm.com/ibm-eda/eda-internal/raw/master/docs/eda-usecases/01-EDA-Usecases.pptx)
+* Review the subjects and content of the [end to end Event Streams Demo script](https://pages.github.ibm.com/ibm-eda/eda-internal/) just to get familiar.
 
 
 ???- "Read more"
-    * [EDA internal site - use cases](https://pages.github.ibm.com/boyerje/eda-internal/eda-usecases/)
+    * [EDA internal site - use cases](https://pages.github.ibm.com/ibm-eda/eda-internal/eda-usecases/)
     * [EDA public web site we use to present content to customers](https://ibm.biz/learn-eda)
 ## Lab 1: System design for a real-time inventory solution
 
@@ -149,7 +149,7 @@ Review the Client provided requirements, and elaborate a system design for an ED
 * [A potential solution may look like](./lab1/lab1-sol.md)
 
 ???- "Read more"
-    * [Demonstration of Event Streams product](https://pages.github.ibm.com/boyerje/eda-internal/demo/demo-script/)
+    * [Demonstration of Event Streams product](https://pages.github.ibm.com/ibm-eda/eda-internal/demo/demo-script/)
 ## Lab 2 [Optional]: Implement a simple item sell or restock event stream processing with Kafka Streams API
 
 Learning the basic of Kafka Streams, and implement a store aggregation processing with Java. The code and environment should be self efficient. 
