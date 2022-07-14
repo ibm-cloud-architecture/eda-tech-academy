@@ -10,7 +10,9 @@ nav:
     - Fit for purpose: https://ibm-cloud-architecture.github.io/refarch-eda/concepts/fit-to-purpose/
     - EDA Reference Architecture: https://ibm-cloud-architecture.github.io/refarch-eda/introduction/reference-architecture/#event-driven-architecture
   - Journey 1:
-    - Beginner Lab: demo/index.md
+    - Getting started with Event Streams: getting-started/index.md
+    - Event Streams schema: getting-started/schema-lab.md
+    - Demonstration A to Z: demo/index.md
     - System Design Lab:
       - Problem Statement: lab1/index.md
       - Solution Overview: lab1/lab1-sol.md
