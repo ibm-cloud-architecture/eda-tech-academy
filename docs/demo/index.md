@@ -188,41 +188,8 @@ Topics are append log, producer applications publish records to topics, and cons
 
 ## Run the Starter Application
 
-1. Go to the Event Streams Console > `Toolbox` menu, and explain, that there is a **Starter** application, developer or SRE may use to test producing  and consuming events to Event Streams. You may have already downloaded this application. It will take time to do it during any live demonstration, so better to be prepared. Also we have packaged a [docker image](https://quay.io/repository/ibmcase/es-demo), for you, so it can be easy to deploy it in OpenShift or run locally without any java dependencies. The starter application runs on your local laptop and is remotly connected to the Event Streams cluster via a OCP route: 
+See the [beginned dedicated lab](../getting-started/index.md) to get the application started, once done:
 
-    ![](./images/toolbox-starter-app.png)
-   
-   * Download `truststore.p12` and `kafka.properties` from the toolbox > Generate properties:
-
-    ![](./images/download-properties.png)
-
-   * Enter the name of the application (e.g. po1e-starter-app), select the topic created previously, and download the generated properties. 
-
-    !!! Warning
-        When running on a multi-tenant Event Streams cluster you need to modify the name of the starter app, to avoid conflicting with other application name in the consumer group.
-
-
-1. Unzip somewhere and open a Terminal window on your laptop, go to the folder you have unzipped the file and start the app:
-
-    !!! Warning
-        When using Windows laptop, be sure to have done the [windows pre-requisites](../#windows-user) for getting your environment ready.
-
-1. You have two choices to run the application, one using java, the other one using docker:
-
-    * Java run:
-
-    ```sh
-    java -Dproperties_path=$(pwd)/kafka.properties -jar demo-all.jar
-    ```
-
-    * docker run:
-    ```sh
-    docker run -ti -p 8080:8080 -v  $(pwd)/kafka.properties:/deployments/kafka.properties -v  $(pwd)/truststore.p12:/deployments/truststore.p12  quay.io/ibmcase/es-demo
-    ```
-
-1. Got to [http://localhost:8080](http://localhost:8080), then select the star producing message.
-
-    ![](./images/starter-app.png)
 
 1. Go back to the Event Streams console, Topic management, and the `starter-app` topic, select the `Messages` tab and go to any messages. Explain that each messages has a timestamp, and an offset that is an increasing number.  Offset are used by consumer to be able to replay from an older message, or when restarting from a failure. Offset management at the consumer application level is tricky, if needed you can have a deeper conversation on this topic later after the demonstration.
 
