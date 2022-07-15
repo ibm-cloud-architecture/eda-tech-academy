@@ -15,9 +15,6 @@ nav:
     - Event-endpoint management: getting-started/eepm.md
     - Mirror maker 2 lab: getting-started/mm2.md
     - Demonstration A to Z: demo/index.md
-    - System Design Lab:
-      - Problem Statement: lab1/index.md
-      - Solution Overview: lab1/lab1-sol.md
   - Journey 2:
     - Lab 1 - System Design Lab:
       - Problem Statement: lab1/index.md
