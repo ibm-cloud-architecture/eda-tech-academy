@@ -1,0 +1,27 @@
+[
+    {
+        "class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+        "type": "sink",
+        "version": "2.8.1"
+    },
+    {
+        "class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
+        "type": "source",
+        "version": "2.8.1"
+    },
+    {
+        "class": "org.apache.kafka.connect.mirror.MirrorCheckpointConnector",
+        "type": "source",
+        "version": "1"
+    },
+    {
+        "class": "org.apache.kafka.connect.mirror.MirrorHeartbeatConnector",
+        "type": "source",
+        "version": "1"
+    },
+    {
+        "class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+        "type": "source",
+        "version": "1"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "name": "<NAME>",
+    "config": {
+      "connector.class": "org.apache.kafka.connect.mirror.MirrorSourceConnector",
+      "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+      "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+      "header.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+      "source.cluster.alias": "<SOURCE-ALIAS>",
+      "target.cluster.alias": "<TARGET-ALIAS>",
+      "source.cluster.bootstrap.servers": "<STRIMZI-BOOTSTRAP:PORT>",
+      "target.cluster.bootstrap.servers": "<TARGET-ES-BOOTSTRAP:PORT>",
+      "topics": "basicuserdata",
+      "replication.factor": 1,
+      "offset-syncs.topic.replication.factor": 1,
+      "sync.topic.acls.enabled": false
+     }
+}

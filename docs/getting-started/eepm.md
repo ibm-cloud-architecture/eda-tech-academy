@@ -95,7 +95,7 @@ Please use one of these URLs to access the Developer Portal:
     Copy the file to `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\`
 
 
-    !!! Warning
+    !!! note
         If you do not have openssl installed in your computer or if you are unable to run the openssl command, you may use this for the PEM certificate. Copy and save one of the following (depending on the Openshift cluster you are using) as eem_truststore.pem. 
 
 5. Test consuming the data in the topic you have just subscribed using the KafkaClient that you used for the Schema Registry lab.
@@ -127,4 +127,5 @@ Please use one of these URLs to access the Developer Portal:
 
     You should see messages being consumed. 
 
-    NOTE: EEM can only be used for consuming data. Not for producing data. 
+    !!! note
+         EEM can only be used for consuming data. Not for producing data. 
