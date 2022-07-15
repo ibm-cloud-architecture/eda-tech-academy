@@ -12,6 +12,7 @@ nav:
   - Journey 1:
     - Getting started with Event Streams: getting-started/index.md
     - Event Streams schema: getting-started/schema-lab.md
+    - Event-endpoint management: getting-started/eepm.md
     - Demonstration A to Z: demo/index.md
     - System Design Lab:
       - Problem Statement: lab1/index.md
