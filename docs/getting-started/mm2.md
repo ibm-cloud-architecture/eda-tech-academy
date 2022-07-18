@@ -19,10 +19,10 @@ In  this  lab,  we  will  review  the  basic  concepts  of  MirrorMaker2.  You  
 
 MM2 addresses some of the problems with legacy MM (MM1).
 
-    * Offset translation –avoid duplicates.
-    * Consumer group checkpoints.
-    * Topics con figurations synced (e.g. partitions, ACLs).
-    * MM2 takes advantage of the Connect ecosystem. 
+* Offset translation –avoid duplicates.
+* Consumer group checkpoints.
+* Topics con figurations synced (e.g. partitions, ACLs).
+* MM2 takes advantage of the Kafka Connect ecosystem. 
     
 MM2 has 3 main components / connectors.
 

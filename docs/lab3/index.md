@@ -77,6 +77,7 @@ The blue components should have been deployed with the Cloud Pak for Integration
         export PREFIX=poe10
         ./updateStudent.sh
         ```
+        
     * Windows user in the Linux
 
         ```sh

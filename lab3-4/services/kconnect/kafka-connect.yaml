@@ -26,11 +26,11 @@ spec:
           eventstreams.production.type: CloudPakForIntegrationNonProduction
           productID: 2a79e49111f44ec3acd89608e56138f5
           productName: IBM Event Streams for Non Production
-          productVersion: 11.0.1
+          productVersion: 11.0.2
           productMetric: VIRTUAL_PROCESSOR_CORE
           cloudpakId: c8b82d189e7545f0892db9ef2731b90d
           cloudpakName: IBM Cloud Pak for Integration
-          cloudpakVersion: 2022.1.1
+          cloudpakVersion: 2022.2.1
           productCloudpakRatio: "2:1"
   config:
     group.id: ahsoka20-connect-cluster
@@ -39,6 +39,7 @@ spec:
     status.storage.topic: ahsoka20-connect-cluster-status
     config.storage.replication.factor: 3
     offset.storage.replication.factor: 3
+    offset.storage.cleanup.policy: compact
     status.storage.replication.factor: 3
   tls:
     trustedCertificates:
