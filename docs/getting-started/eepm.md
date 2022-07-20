@@ -8,7 +8,7 @@ In this lab, you will learn:
 * Consume messages from topics via EEM 
 
 ???- "References:"
-    EEM:  [https://www.ibm.com/docs/en/cloud-paks/cp-integration/2021.4?topic=capabilities-event-endpoint-management-deployment](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2021.4?topic=capabilities-event-endpoint-management-deployment)
+    EEM:  [https://www.ibm.com/docs/en/cloud-paks/cp-integration/2022.2?topic=capabilities-event-endpoint-management-deployment](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2022.2?topic=capabilities-event-endpoint-management-deployment)
 
 ## Lab Prerequisites
 
