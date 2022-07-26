@@ -67,6 +67,7 @@ Then Kstream offers a lot of functions to process the records. Below is a quick 
 | [aggregate](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KGroupedStream.html#aggregate) | Aggregate the values of records in this stream by the grouped key | .aggregate(() ->  new StoreInventory(), (store , newItem, existingStoreInventory) -> existingStoreInventory.updateStockQuantity(store,newItem), materializeAsStoreInventoryKafkaStore());        |
 | [split](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/KStream.html#split()) | Split a stream into branches| items.split(Named.as("B-")) |
 | [BranchedKStream](https://kafka.apache.org/30/javadoc/org/apache/kafka/streams/kstream/BranchedKStream.html) | Branches the records in the original stream based on the predicates supplied for the branch definitions. |  .branch((k,v) -> (v.storeName == null), Branched.as("wrong-tx")).defaultBranch(Branched.as("good-tx"));   branches.get("B-good-tx").to(outTopicName); branches.get("B-wrong-tx").to(deadLetterTopicName); |
+| [selectKey](https://kafka.apache.org/32/javadoc/org/apache/kafka/streams/kstream/KStream.html#selectKey(org.apache.kafka.streams.kstream.KeyValueMapper)) | Change the key of a record | 
 
 ### KTable
 
