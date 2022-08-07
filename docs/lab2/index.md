@@ -11,6 +11,7 @@ This lab is about some Java implementation, if you have no experience in Java yo
 * Open Visual Code. Click on “Open Java Project” and pick the refarch-eda-store-inventory from the `eda-tech-academy\lab2\` folder 
 
 From there, select / modify the java code and run it from Visual Code.
+
 ## Context
 
 The figure illustrates what you need to build, the green rectangle, which is a Java application using Kafka Streams API consuming `items` events and computing `store inventory` events by aggregating at the store level.
@@ -35,7 +36,7 @@ To do the hands-on exerices, go to the `/lab2/refarch-eda-store-inventory` folde
 
 **Goal:** Test a basic topology inside unit test.
 
-In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java "Link to apache doc"). The most important elements of this test are:
+In your IDE go to the `src/test/java/ut` folder and open the class: [TestYourFirstTopology.java](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestYourFirstTopology.java). The most important elements of this test are:
 
 * The `TopologyTestDriver` is a class to test a Kafka Streams topology without Kafka. It uses dummy configuration.
 * the `TestInputTopic` class is used to pipe test records to a topic in TopologyTestDriver. This is used to send test messages. The creation of this instance needs to specify the serializer or deserialer used.
