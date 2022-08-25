@@ -1,0 +1,64 @@
+<mxfile host="65bd71144e">
+    <diagram id="xTo4Y9xUiNg21mpGeq5E" name="Page-1">
+        <mxGraphModel dx="512" dy="374" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="Your developer's workstation" style="shape=mxgraph.ibm.box;prType=classic;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#4376BB;strokeWidth=2;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="1" vertex="1">
+                    <mxGeometry x="185" y="370" width="410" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Producer App" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#82b366;sketch=1;fillColor=#d5e8d4;" parent="3" vertex="1">
+                    <mxGeometry x="20" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="Consumer App" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#82b366;sketch=1;fillColor=#d5e8d4;" parent="3" vertex="1">
+                    <mxGeometry x="260" y="100" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="IBM Cloud" style="shape=mxgraph.ibm.box;prType=cloud;fontStyle=0;verticalAlign=top;align=left;spacingLeft=32;spacingTop=4;fillColor=none;rounded=0;whiteSpace=wrap;html=1;strokeColor=#4376BB;strokeWidth=3;dashed=0;container=1;spacing=-4;collapsible=0;expand=0;recursiveResize=0;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="20" width="740" height="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;font color=&quot;#ff0000&quot;&gt;OpenShift&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#FF0000;align=left;verticalAlign=top;" parent="4" vertex="1">
+                    <mxGeometry x="20" y="30" width="710" height="250" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="cp4i-eventstreams" style="swimlane;fontColor=#0000FF;strokeColor=#0000FF;" parent="4" vertex="1">
+                    <mxGeometry x="115" y="40" width="555" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Kafka Brokers" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;sketch=1;fillColor=#dae8fc;" parent="6" vertex="1">
+                    <mxGeometry x="345" y="90" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Kafka Brokers" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;sketch=1;fillColor=#dae8fc;" parent="6" vertex="1">
+                    <mxGeometry x="215" y="90" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Kafka Brokers" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;sketch=1;fillColor=#dae8fc;" parent="6" vertex="1">
+                    <mxGeometry x="85" y="90" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="Schema Registry" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#d79b00;sketch=1;fillColor=#ffe6cc;" parent="4" vertex="1">
+                    <mxGeometry x="130" y="80" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Entity Opertor" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;sketch=1;fillColor=#dae8fc;" parent="4" vertex="1">
+                    <mxGeometry x="540" y="75" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Route" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;sketch=1;fontColor=#0000FF;strokeColor=#0000FF;size=10;" parent="4" vertex="1">
+                    <mxGeometry x="340" y="194" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="scram - listener" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontColor=#0000FF;" parent="4" vertex="1">
+                    <mxGeometry x="325" y="174" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.375;entryY=1;entryDx=0;entryDy=0;fontColor=#0000FF;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="12" target="14" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" style="edgeStyle=orthogonalEdgeStyle;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontColor=#0000FF;exitX=0.625;exitY=1;exitDx=0;exitDy=0;" parent="1" source="14" target="13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" style="edgeStyle=orthogonalEdgeStyle;html=1;fontColor=#0000FF;exitX=0.25;exitY=0;exitDx=0;exitDy=0;fillColor=#e1d5e7;strokeColor=#9673a6;sketch=1;" parent="1" source="12" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="275" y="480" as="sourcePoint"/>
+                        <mxPoint x="392.5" y="254" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=orthogonalEdgeStyle;sketch=1;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontColor=#0000FF;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" source="7" target="13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -54,10 +54,10 @@ plugins:
   - minify:
       minify_html: true
 markdown_extensions:
-  - meta
   - abbr
   - attr_list
   - admonition
+  - md_in_html
   - footnotes
   - pymdownx.smartsymbols
   - toc:

@@ -34,7 +34,7 @@ App details: [https://ibm.github.io/event-streams/getting-started/generating-sta
 ## Lab Environment Pre-Requisites
 
 * The Cloud Pak for Integration has been deployed and the access credentials are available.
-* Java version 11 installed on local environment.
+* Java version 11 installed on local environment. Use the [adoptium site to download Java](https://adoptium.net/)
 * Apache Maven Installed on local environment.
 
 ## Getting started with IBM Event Streams
@@ -115,7 +115,6 @@ App details: [https://ibm.github.io/event-streams/getting-started/generating-sta
 
 **Congratulations! You have successfully run your starter application.**
 
-
 ## Learning summary
 
 In summary, you have learned the following in this lab:
@@ -123,3 +122,9 @@ In summary, you have learned the following in this lab:
 * Run an Apache Kafka Java application that has both a producer and consumer.
 * View consumer and producer message traffic in IBM Event Streams console.
 * Specifying the topic within IBM Event Streams and then connecting an Apache Kafka application to produce and consume messages to and from that topic.
+
+## More code template
+
+To start your Event Streams journey you can use reactive messaging, a Java microprofile extension, and use one of the template from this repository: [eda-quickstart](https://github.com/ibm-cloud-architecture/eda-quickstarts/)
+
+[>> Next - Schema Registry](./schema-lab.md)

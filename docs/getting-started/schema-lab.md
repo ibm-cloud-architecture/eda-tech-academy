@@ -1,5 +1,24 @@
 # Producing & Consuming Data with Event Streams and Schema
 
+## Introduction
+
+Version control can be a nightmare for organizations. With Kafka, it’s no different. With stream processing pipelines, there are no files to act as containers for messages with a single format. Let take a look at how Event Streams handles Schema Management with the Schema Registry.
+
+## Lab Objective
+
+In this lab, we’ll do the following: 
+
+* Create a topic and attach a schema to it
+* Create a Kafka user with appropriate rights to produce and consume data
+* Gather information needed to connect to the Kafka / Schema clusters.
+* Test producing / consuming data.
+* Make changes to the Schema and see the impact to producer/consumer.
+
+The following figure illustrates the components involved in this lab:
+
+![](./images/es-schema-lab.png){ width="1200" }
+
+You will run producer and consumer apps on your laptop, and they will contact schema registry and brokers using SCRAM authentication and TLS encryption.
 ## Setting Up The Client Machine
 
 Setting up the sample Kafka Client to be used for the lab.
@@ -15,14 +34,15 @@ This section provides the instructions for setting up the Kafka Client that will
     At least version 1.8.0_301 should be available.
     ```
 
-	If it’s not installed, download and install the Java Runtime. [https://www.java.com/en/download/manual.jsp](https://www.java.com/en/download/manual.jsp)
+	If it’s not installed, download and install the Java Runtime. Use the [adoptium site to download Java](https://adoptium.net/)
 
-2.	Download the sample Kafka Client [from here:](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/tech-jam/KafkaClient_20220131.zip)
+2.	Download the sample Kafka Client code [from here:](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/tech-jam/KafkaClient_20220131.zip) to be used on your local laptop.
 
-3.	Unzip the downloaded Kafka Client (KafkaClient_YYYYMMDD.zip) into a folder called 
+3.	Unzip the downloaded Kafka Client (KafkaClient_YYYYMMDD.zip) into a folder: 
 
     ```sh
     C:\TechJam\EventStreams_Lab\
+    unzip KafkaClient_20220131.zip 
     ```
 
 4.	Test the client: Open a Command Prompt.
@@ -32,21 +52,10 @@ This section provides the instructions for setting up the Kafka Client that will
 	java -jar KafkaClient.jar
     ```
 
-    ![](./images/lab-2-set-2.png)
+![](./images/lab-2-set-2.png){ width="1200" }
 
-## Introduction
 
-Version control can be a nightmare for organizations. With Kafka, it’s no different. With stream processing pipelines, there are no files to act as containers for messages with a single format. Let take a look at how Event Streams handles Schema Management with the Schema Registry.
 
-## Lab Objective
-
-In this lab, we’ll do the following: 
-
-* Create a topic and attach a schema to it
-* Create a Kafka user with appropriate rights to produce and consume data
-* Gather information needed to connect to the Kafka / Schema clusters.
-* Test producing / consuming data.
-* Make changes to the Schema and see the impact to producer/consumer.
 
 ## Pre-Requisites
 
@@ -63,10 +72,10 @@ Schema Registry provides a serving layer for your metadata. It provides a RESTfu
 * Allows evolution of schemas according to the configured compatibility settings and expanded support for these schema types. 
 * Provides serializers that plug into Apache Kafka® clients that handle schema storage and retrieval for Kafka messages that are sent in any of the supported formats.
 
-In Event Streams, Schemas are stored in internal Kafka topics by the Apicurio Registry, an open-source schema registry. In addition to storing a versioned history of schemas, Apicurio Registry provides an interface for retrieving them. Each Event Streams cluster has its own instance of Apicurio Registry providing schema registry functionality.
+In Event Streams, Schemas are stored in internal Kafka topics by the [Apicur.io Registry](http://apicur.io/registry), an open-source schema registry led by Red Hat. In addition to storing a versioned history of schemas, Apicurio Registry provides an interface for retrieving them. Each Event Streams cluster has its own instance of Apicurio Registry providing schema registry functionality.
 
  
-![](./images/lab-2-sc-1.png)
+![](./diagrams/lab-2-sc-1.drawio.svg){ width="1200" }
 
 
 ### How the Schema Registry Works?
@@ -92,37 +101,40 @@ Now, let’s take a look at how the Schema Registry works.
 
     | Host | URL |
     | --- | --- |
-    | Mandalorian | [https://cpd-cp4i.apps.mandalorian.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.mandalorian.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
+    | Finn | [https://cpd-cp4i.apps.finn.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.finn.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
     | Cody| [https://cpd-cp4i.apps.cody.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.cody.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
     | Grievous | [https://cpd-cp4i.apps.grievous.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.grievous.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |  
 
+    ![](./images/lab-1-es-1.png)
+
 1. Create Topic.
 
-    Click on Create a Topic. Use only lower cases for the topic.
+    Click on Create a Topic. Use only lower cases for the topic name (e.g. `finn20-customers`).
 
-    ![](./images/lab-2-sc-3.png)
+    ![](./images/lab-2-sc-3.png){ width="900" }
 
     Please refer to screenshots attached as sample. 
 
-    ![](./images/lab-2-sc-4.png)
+    ![](./images/lab-2-sc-4.png){ width="1200" }
 
 1. Next create the schema and attach to the topic. 
 
     * Click on the Schema Registry tab in the left. 
 
-    ![](./images/lab-2-sc-6.png)
+    ![](./images/lab-2-sc-6.png){ width="600" }
 
     * Click on Add Schema (in the right)
 
-   ![](./images/lab-2-sc-5.png)
+   ![](./images/lab-2-sc-5.png){ width="600" }
 
    * Click Upload Definition -> Choose `customer.avsc` located in the Kafka Client unzipped folder. (`C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\com\example`)
    
-    ![](./images/lab-2-sc-7.png)
+    ![](./images/lab-2-sc-7.png){ width="1200" }
 
-    * Check the details and make sure the schema is valid. Change the name of the schema. The name of the schema maps the schema to the topic. To attach this schema to your topic, the schema should be named according to the topic: <topic_name>-value. (For example, if your topic is “jam60-topic1”, the schema should be named)
+    * Check the details and make sure the schema is valid. 
+    * **Change the name of the schema** to avoid conflict with other students: The name of the schema maps the schema to the topic. To attach this schema to your topic, the schema should be named according to the topic: <topic_name>-value. (For example, if your topic is `finn20-customers`”, the schema should be named)
  
-    ![](./images/lab-2-sc-8.png)
+    ![](./images/lab-2-sc-8.png){ width="1200" }
 
     Click on Add Schema. The schema is now attached to the topic. 
 
@@ -133,12 +145,14 @@ Now, let’s take a look at how the Schema Registry works.
 
 1.	Go to the Event Streams home page. **Select** “Connect to this Cluster” -> Generate SCRAM Credentials.
  
-    ![](./images/lab-2-sc-9.png)
+    ![](./images/lab-2-sc-9.png){ width="1200" }
 
     Refer to the screenshot attached as reference. 
 
  
-    ![](./images/lab-2-sc-11.png)
+    ![](./images/lab-2-sc-11.png){ width="1300" }
+
+    Keep information about the SCRAM password. 
 ## Gather Connection Details
 
 Creating connection from Consumer / Producer requires some connectivity details. These details can be gathered from the Event Stream’s portal. Connectivity details needed will depend on type of authentication and SASL mechanism used. 
@@ -150,10 +164,11 @@ From the Event Stream home page, click on “Connect to this Cluster”.  Get th
 1. Truststore Password. (Password will be generated once Download Certificate is clicked).
 1. Schema Registry URL
 
-![](./images/lab-2-sc-12.png)
+![](./images/lab-2-sc-12.png){ width="1200" }
+
 ## Test Producer / Consumer
 
-1.	Prepare the config.properties file located in `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\` Check and change the following fields. The fields not mentioned here can be left default. 
+1.	Prepare the `config.properties` file located in `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\` Check and change the following fields. The fields not mentioned here can be left default. 
 
     | Field	| Value |
     | --- | --- |
@@ -243,9 +258,9 @@ From the Event Stream home page, click on “Connect to this Cluster”.  Get th
     Check if the message is listed in the topic. In the Event Streams portal, go to Topics. Look for the topic that you created. Click on it. Then click on messages.  You should see the messages produced. 
 
     !!! Warning
-        The messages content may not be displayed correctly in the portal due to deserialization error.
+        The messages content may not be displayed correctly in the portal due to binary serialization with Avro.
     
-    ![](./images/lab-2-sc-13.png)
+    ![](./images/lab-2-sc-13.png){ width="1200" }
 
 1. Test consuming message. 
 
@@ -256,32 +271,32 @@ From the Event Stream home page, click on “Connect to this Cluster”.  Get th
     Messages should be consumed correctly.  Message content should be displayed correctly. Press CTRL-C to stop the consumer. 
 
   
-    ![](./images/lab-2-sc-14.png)
+    ![](./images/lab-2-sc-14.png){ width="1200" }
 
 
 ## Check the impact of changing the Schema Registry
 
-1. We will change the schema registry and check what happens when producing / consuming. 
+1. We will change the schema registry by adding a new field with default value, and check what happens when producing / consuming. 
 
     In the client computer, make a copy of the customer.avsc file (located in `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\com\example>`) and name it `customer_v2.avsc`. You can do this from Windows Explorer.
 
-    Edit the file using Notepad++. Add this line right after country. Change the version.
+    Edit the file using Notepad++. Add this line right after country. Change the version to version `1.1`.
     
     ```json
-       { "name": "company", "type": "string", "doc": "Customer Company" },
+       { "name": "company", "type": "string", "doc": "Customer Company"},
     ```
 
     The `customer_v2.avsc` should look like this:
 
-    ![](./images/lab-2-sc-15.png)
+    ![](./images/lab-2-sc-15.png){ width="1000" }
 
-    ![](./images/lab-2-sc-16.png)
+    ![](./images/lab-2-sc-16.png){ width="1200" }
 
 1. From the Event Streams portal, Go to Schema Registry -> Click on your Schema. Then, click on “Add New Version”.
 
 1. Click on “Upload Definition” and select the edited avsc file (`customer_v2.avsc`).
 
-    ![](./images/lab-2-sc-17.png)
+    ![](./images/lab-2-sc-17.png){ width="1200" }
 
     You should get a validation failed message. 
 
@@ -323,12 +338,12 @@ Enter your SCRAM USERNAME and SCRAM PASSWORD separated by a colon.
 E.g. <SCRAM_USER>:<SCRAM_PASSEORD>
 Click on Encode and it will generate the Basic Authentication Token. 
 
-Get the default compatibility.
+Get the default compatibility. 
 
 ```sh
-curl -ki -X GET -H “Accept: application/json” -H “Authorization: Basic <BASIC AUTH TOKEN>” https://<SCHEMA_REGISTRY_URL>/rules/COMPATIBILITY
+curl -ki -X GET -H "Accept: application/json" -H "Authorization: Basic <BASIC AUTH TOKEN>" https://<SCHEMA_REGISTRY_URL>/rules/COMPATIBILITY
 E.g. 
-curl -ki -X GET -H “Accept: application/json” -H “Authorization: Basic <BASIC_AUTH_TOKEN>” https://es1-ibm-es-ac-reg-external-cp4i.apps.ocp46.tec.uk.ibm.com/rules/COMPATIBILITY
+curl -ki -X GET -H "Accept: application/json" -H "Authorization: Basic <BASIC_AUTH_TOKEN>" https://es1-ibm-es-ac-reg-external-cp4i.apps.ocp46.tec.uk.ibm.com/rules/COMPATIBILITY
 ```
 
 The response should be something like:
@@ -353,4 +368,8 @@ This should give you an empty response
 
 Which basically means – the schema uses the default global setting – which is FULL (as we saw when we tried changing the schema).
  
+* Test sending some message, you will see default value for the company new field.
 
+```sh
+java -jar KafkaClient.jar producer 10 config.properties
+```
