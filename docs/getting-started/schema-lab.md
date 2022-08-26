@@ -373,3 +373,7 @@ Which basically means – the schema uses the default global setting – which i
 ```sh
 java -jar KafkaClient.jar producer 10 config.properties
 ```
+
+!!! success "Congratulations!" You've completed the schema registry lab. 
+
+[>> Next - Event End Point Management](./eepm.md)

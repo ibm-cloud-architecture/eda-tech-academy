@@ -45,8 +45,7 @@ App details: [https://ibm.github.io/event-streams/getting-started/generating-sta
     | --- | --- |
     | Mandalorian | [https://cpd-cp4i.apps.mandalorian.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.mandalorian.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
     | Cody| [https://cpd-cp4i.apps.cody.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.cody.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
-    | Grievous | [https://cpd-cp4i.apps.grievous.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.grievous.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |  
-    | Ventress | [ https://cpd-cp4i.apps.ventress.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted]( https://cpd-cp4i.apps.ventress.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
+    | Finn | [https://cpd-cp4i.apps.finn.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.finn.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |  
 
 
     ![](./images/lab-1-es-1.png)
@@ -123,7 +122,7 @@ In summary, you have learned the following in this lab:
 * View consumer and producer message traffic in IBM Event Streams console.
 * Specifying the topic within IBM Event Streams and then connecting an Apache Kafka application to produce and consume messages to and from that topic.
 
-## More code template
+## More code templates
 
 To start your Event Streams journey you can use reactive messaging, a Java microprofile extension, and use one of the template from this repository: [eda-quickstart](https://github.com/ibm-cloud-architecture/eda-quickstarts/)
 
