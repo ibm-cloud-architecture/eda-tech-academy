@@ -1,14 +1,23 @@
-# Event end point management
+# Event endpoint management
 
 ## About this Lab
 
 In this lab, you will learn:
 
-* The Developer capability to subscribe to topics easily from EEM.  
+* The Application Developer capability to subscribe to topics easily from Event Endpoint Management (EEM).  
 * Consume messages from topics via EEM 
 
-???- "References:"
-    EEM:  [https://www.ibm.com/docs/en/cloud-paks/cp-integration/2022.2?topic=capabilities-event-endpoint-management-deployment](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2022.2?topic=capabilities-event-endpoint-management-deployment)
+The following diagram explains some the components involved in the lab and the global flow, an API developer will do and an Application developer will also performs.
+
+![](./images/eepm-overview.png)
+
+This lab is NOT about API manager(Kafka topic owner in diagram above) creating asyncAPI for application developers to subscribe to. You will play the role of the App developer and mostly do the steps 5,6,8  and 9.
+
+???+ "References:"
+    * Event Endpoint Management:  [https://www.ibm.com/docs/en/cloud-paks/cp-integration/2022.2?topic=capabilities-event-endpoint-management-deployment](https://www.ibm.com/docs/en/cloud-paks/cp-integration/2022.2?topic=capabilities-event-endpoint-management-deployment)
+    * Understanding [AsyncAPI and Kafka topic article](https://ibm-cloud-architecture.github.io/refarch-eda/patterns/api-mgt/#describing-kafka-with-asyncapi)
+    * [Dale Lane's blog](https://dalelane.co.uk/blog/?p=4380)
+
 
 ## Lab Prerequisites
 
@@ -17,24 +26,32 @@ In this lab, you will learn:
 
 ## Lab Procedures
 
-1.	Open the Developer portal (link provided in table below) and create a login for yourself [if this is the first time you are logging in]. If you already have a username created, login. For users who are creating the login for the first time, you will receive an email for confirmation. 
-Please use one of these URLs to access the Developer Portal:
+1.	Open the Developer portal (link provided in table below) and register a login for yourself (if this is the first time you are logging in. You need a real email address and you can use one of the student userid). If you already have a username created, login to the portal. For users who are creating the login for the first time, you will receive an email for confirmation. 
+
+    Please use one of these URLs to access the Developer Portal, matching the userid you have:
 
     | Host | URL |
     | --- | --- |
     | Mandalorian | [Mandalorian API Portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.mandalorian.coc-ibm.com/mandalorian-admin-porg/sandbox) |
     | Cody| [Cody API portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.cody.coc-ibm.com/cody-admin-porg/sandbox) |
-    | Grievous | [Grievous API portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.grievous.coc-ibm.com/grievous-admin-porg/sandbox) |  
+    | Finn | [Finn API portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.finn.coc-ibm.com/finn-admin-porg/sandbox) |  
 
-2. Create an App.
+    ![](./images/user-login-portal.png)
 
-    Go to Apps and Click on “Create a new app”. 
+    then you should reach the portal main home page, with the `TechJam product defined`
+
+    ![](./images/apic-portal-view.png)
+
+    ![](./images/apic-home.png)
+
+    This portal is coming from the Admin user, and he defined an API product defining AsyncAPI on a customers topic in the event streams running in the OpenShift cluster under `cp4i-eventstreams`.
+
+
+1. Create an App.
+
+    Go to Apps and Click on “Create a new app”.     Enter a name and click on save.
 
     ![](./images/lab-3-1.png)
-
-    Enter a name and click on save.
-
-    ![](./images/lab-3-2.png)
 
     The API Key and secret will be provided. Take note of it and close the box.
     
@@ -44,7 +61,7 @@ Please use one of these URLs to access the Developer Portal:
 
     In the main portal, Go to "API Products".   
     
-    Look for a topic and Click on it.
+    Look for a product and Click on it.
 
     ![](./images/lab-3-3.png)
 
