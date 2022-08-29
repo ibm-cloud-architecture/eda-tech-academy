@@ -87,14 +87,14 @@ This lab is NOT about API manager(Kafka topic owner in diagram above) creating a
 
     ![](./images/lab-3-6.png)
     
-    You have now subscribed to a topic. 
+    You have now subscribed to the AsyncAPI for the `customers` topic running in Event Streams within the same OpenShift cluster as the api management. 
 
 4.	Create the PEM certificate needed while accessing the EEM.
 
     Run this command from a terminal. 
 
     ```sh
-    echo | openssl s_client -connect BOOTSTRAP-URL:PORT -servername BOOTSTRAP-URL
+    echo | openssl s_client -connect EVENT_GATEWAY_URL:PORT -servername EVENT_GATEWAY_URL
     ```
 
     Example:
@@ -103,7 +103,7 @@ This lab is NOT about API manager(Kafka topic owner in diagram above) creating a
     openssl s_client -connect apim-demo-myegw-event-gw-client-apic.apps.cody.coc-ibm.com:443 -servername apim-demo-myegw-event-gw-client-apic.apps.cody.coc-ibm.com
     ```
 
-    The BOOTSTRAP-URL is the bootstrap_server URL obtained in step 3. 
+    The EVENT_GATEWAY_URL is the server URL obtained in step 3. 
 
     Copy the output lines between BEGIN CERTIFICATE and END CERTIFICATE to a file called eem_truststore.pem. The file should look like this:
 
