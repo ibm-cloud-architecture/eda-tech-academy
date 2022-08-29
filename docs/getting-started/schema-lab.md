@@ -9,8 +9,8 @@ Version control can be a nightmare for organizations. With Kafka, it’s no diff
 In this lab, we’ll do the following: 
 
 * Create a topic and attach a schema to it
-* Create a Kafka user with appropriate rights to produce and consume data
-* Gather information needed to connect to the Kafka / Schema clusters.
+* Create a Kafka User with appropriate rights to produce and consume data
+* Gather information needed to connect to the Kafka cluster and Schema registry.
 * Test producing / consuming data.
 * Make changes to the Schema and see the impact to producer/consumer.
 
@@ -53,8 +53,6 @@ This section provides the instructions for setting up the Kafka Client that will
     ```
 
 ![](./images/lab-2-set-2.png){ width="1200" }
-
-
 
 
 ## Pre-Requisites
