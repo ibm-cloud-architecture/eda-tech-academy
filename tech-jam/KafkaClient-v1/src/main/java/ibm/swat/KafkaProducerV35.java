@@ -24,7 +24,7 @@ public class KafkaProducerV35 {
 
 	public void start(Properties config) {
 		producer = new KafkaProducer<>(config);
-		
+		config.forEach((k,v) -> {System.out.println(k.toString() + "\t" + v.toString());});
 		List<String> file1lines = loadDataFile(file1Name);
 		List<String> file2lines = loadDataFile(file2Name);;
 		List<String> file3lines = loadDataFile(file3Name);

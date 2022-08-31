@@ -17,8 +17,8 @@ public class KafkaConsumerV35 {
 
         avroConsumer = new KafkaConsumer<>(config);
     	avroConsumer.subscribe(Collections.singleton(KafkaConfig.topic));
-	
-        config.forEach((k,v) -> {System.out.println(k.toString() + "\t" + v.toString());});
+        System.out.println("@@@ - Consumer subscribed to : " + KafkaConfig.topic);
+        config.forEach((k,v) -> {System.out.println("@@@ - " + k.toString() + "\t" + v.toString());});
 
         
         while (true){

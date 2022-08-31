@@ -3,7 +3,7 @@
   <groupId>ibm.swat</groupId>
   <artifactId>kafka-client</artifactId>
   <packaging>jar</packaging>
-  <version>1.0.1</version>
+  <version>1.0.0</version>
   <name>kafka-client</name>
   <url>http://maven.apache.org</url>
 
@@ -32,7 +32,12 @@
       <artifactId>kafka-clients</artifactId>
       <version>3.2.1</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro-tools</artifactId>
+      <version>1.11.1</version>
+  </dependency>
+  
     <dependency>
       <groupId>io.confluent</groupId>
       <artifactId>kafka-avro-serializer</artifactId>
@@ -43,7 +48,11 @@
       <artifactId>avro</artifactId>
       <version>${avro.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.36</version>
+  </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
