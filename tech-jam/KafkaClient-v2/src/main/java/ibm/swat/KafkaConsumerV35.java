@@ -18,7 +18,9 @@ public class KafkaConsumerV35 {
         avroConsumer = new KafkaConsumer<>(config);
     	avroConsumer.subscribe(Collections.singleton(KafkaConfig.topic));
 	
+        config.forEach((k,v) -> {System.out.println(k.toString() + "\t" + v.toString());});
 
+        
         while (true){
             System.out.println("Polling");
 	   

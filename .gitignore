@@ -3,3 +3,5 @@ lab2/refarch-eda-store-inventory/target/
 local/kconnect/.log.*
 local/kconnect/.com_ibm*/
 tmp/
+tech-jam/KafkaClient-v2/target/
+tech-jam/KafkaClient-v1/target/

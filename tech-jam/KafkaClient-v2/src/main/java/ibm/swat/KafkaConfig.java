@@ -38,6 +38,8 @@ public class KafkaConfig {
         Properties producerConfig = buildCommonProperties(config);
         producerConfig.setProperty("acks", "all");
         producerConfig.setProperty("retries", config.getProperty("retries"));
+        producerConfig.setProperty("key.serializer", config.getProperty("key.serializer"));
+        producerConfig.setProperty("value.serializer", config.getProperty("value.serializer"));
         return producerConfig;
     }
 
@@ -57,12 +59,13 @@ public class KafkaConfig {
         }
         Properties config = loadConfigFile(propertiesfile);
         Properties consumerConfig = buildCommonProperties(config);
-
+        topic = config.getProperty("topic");
         consumerConfig.put("group.id", config.getProperty("group.id"));
         consumerConfig.put("client.id",  config.getProperty("client.id"));
         consumerConfig.put("auto.commit.enable", "false");
         consumerConfig.put("auto.offset.reset", "earliest");
-	    consumerConfig.setProperty("key.deserializer", StringDeserializer.class.getName());
+	    consumerConfig.setProperty("key.deserializer", config.getProperty("key.deserializer"));
+        consumerConfig.setProperty("value.deserializer", config.getProperty("value.deserializer"));
         consumerConfig.setProperty("specific.avro.reader", "true");
         return consumerConfig;
     }
