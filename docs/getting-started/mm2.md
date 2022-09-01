@@ -78,8 +78,7 @@ Use one of the following KafkaConnect_URL depending on the Openshift Cluster tha
 | --- | --- |
 | Mandalorian | [connect-cp4i-eventstreams.apps.mandalorian.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.mandalorian.coc-ibm.com) |
 | Cody| [connect-cp4i-eventstreams.apps.cody.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.cody.coc-ibm.com)  |
-| Grievous | [connect-cp4i-eventstreams.apps.grievous.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.grievous.coc-ibm.com)  |  
-| ventress | [cconnect-cp4i-eventstreams.apps.ventress.coc-ibm.com]( https://cconnect-cp4i-eventstreams.apps.ventress.coc-ibm.com/) |
+| Finn | [connect-cp4i-eventstreams.apps.finn.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.finn.coc-ibm.com)  |  
 
 ### 3. Kafka Connect
 
@@ -94,7 +93,7 @@ curl -ki -X GET -H "Accept: application/json" https://<KAFKACONNECT_URL>/connect
 Example:
 
 ```sh
-curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connector-plugins/
+curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connector-plugins/
 ```
 
 You should get an output similar to this. 
@@ -110,12 +109,12 @@ Ensure the MirrorMaker related plugins are listed.
 {
     "class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
     "type": "sink",
-    "version": "2.8.1"
+    "version": "3.1.1"
 },
 {
     "class": "org.apache.kafka.connect.file.FileStreamSourceConnector",
     "type": "source",
-    "version": "2.8.1"
+    "version": "3.1.0"
 },
 {
     "class": "org.apache.kafka.connect.mirror.MirrorCheckpointConnector",
@@ -150,10 +149,11 @@ Ensure the MirrorMaker related plugins are listed.
 
     Edit the sample file `mm2_source.json` in the `C:\TechJam\EventStreams_Lab\` Folder. Fill-in the details accordingly. 
 
-    Fields not mentioned in this table can be left to it’s default values. 
+    Fields not mentioned in this table can be left to their default values. 
 
-    | name	| Enter your studentID. Example: student60 |
+    | parameter | Value |
     | --- | --- |
+    | **name**	| Enter your studentID. Example: student60 |
     | **source.cluster.alias**	| A name that you will give to the source cluster. All replicated topics will have a prefix of this alias.Make sure to use the studentID as the prefix. Example: student60-source |
     | **target.cluster.alias**	| A name that you will give to the target cluster. Make sure to use the studentID as the prefix. Example: student60-target|
     |  **source.cluster.bootstrap.servers**	| Kafka Bootstrap URL of the source Strimzi cluster. You can use this. `rajancluster-sng01-992844b4e64c83c3dbd5e7b5e2da5328-0000.jp-tok.containers.appdomain.cloud:32463` |
@@ -178,7 +178,7 @@ Ensure the MirrorMaker related plugins are listed.
 
     # Example:
 
-    curl -ki -X POST -H "Content-Type: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connectors --data "@./mm2_source.json"
+    curl -ki -X POST -H "Content-Type: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors --data "@./mm2_source.json"
     ```
 
 1.	Check the status of the MM2 connector. From the command prompt, type:
@@ -188,18 +188,18 @@ Ensure the MirrorMaker related plugins are listed.
     curl -ki -X GET -H "Accept: application/json" https://<KAFKACONNECT_URL>/connectors
 
     # Example:
-    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connectors/
+    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors/
 
-    ["techjam-source-connector"]
+    ["cody20"]
 
     # Then, get the status of the connector.
     curl -ki -X GET -H "Accept: application/json" https://<KAFKACONNECT_URL>/<connector_name>/status
 
     # Example:
-    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connectors/techjam-source-connector/status/
+    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors/cody20/status/
 
     {
-    "name": "techjam-source-connector",
+    "name": "cody20",
     "connector": {
         "state": "RUNNING",
         "worker_id": "10.128.0.52:8083"
@@ -218,7 +218,7 @@ Ensure the MirrorMaker related plugins are listed.
 ### 6. Verify topic creation
 
 1. Check the EventStreams web console and a new topic should have been created. 
-Look for the replicated topic. The topic should be named as: `<SOURCE_CLUSTER_ALIAS>-basicuserdata` Example: techjam-source.basicuserdata
+Look for the replicated topic. The topic should be named as: `<SOURCE_CLUSTER_ALIAS>-basicuserdata` Example: cody20-source.basicuserdata
 
 ![](./images/lab-4-5.png)
 
@@ -228,10 +228,11 @@ Look for the replicated topic. The topic should be named as: `<SOURCE_CLUSTER_AL
     
     Edit the sample file `mm2_checkpoint.json` in the `C:\TechJam\EventStreams_Lab\` Folder. Fill-in the details accordingly.  Fields not mentioned in this table can be left to it’s default values. 
 
-    | name	| Enter your studentID-checkpoint. Example: student60-checkpoint |
+    | parameter | Value |
     | --- | --- |
-    | **source.cluster.alias** |	A name that you will give to the source cluster. All replicated topics will have a prefix of this alias.Make sure to use the studentID as the prefix. Example: student60-source |
-    | **target.cluster.alias** |	A name that you will give to the target cluster. Make sure to use the studentID as the prefix. Example: student60-target |
+    | **name**	| Enter your studentID-checkpoint. Example: cody20-checkpoint |
+    | **source.cluster.alias** |	A name that you will give to the source cluster. All replicated topics will have a prefix of this alias.Make sure to use the studentID as the prefix. Example: cody20-source |
+    | **target.cluster.alias** |	A name that you will give to the target cluster. Make sure to use the studentID as the prefix. Example: cody20-target |
     | **source.cluster.bootstrap.servers** |	Kafka Bootstrap URL of the source Strimzi cluster. `rajancluster-sng01-992844b4e64c83c3dbd5e7b5e2da5328-0000.jp-tok.containers.appdomain.cloud:32463` |
     | **target.cluster.bootstrap.servers** |	Kafka Bootstrap URL of the target Event Stream Cluster. For the purpose of this lab, we have created a PLAIN connection. `es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9092` |
     | **groups** |	The consumer groups that has to be replicated. For the purpose of this lab we will replicate all groups in the source Kafka. So, use the value “.*” |
@@ -250,7 +251,7 @@ Look for the replicated topic. The topic should be named as: `<SOURCE_CLUSTER_AL
     curl -ki -X POST -H "Content-Type: application/json" https://<KAFKACONNECT_URL>/connectors --data "@./mm2_checkpoint.json"
 
     # Example:
-    curl -ki -X POST -H "Content-Type: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connectors --data "@./mm2_checkpoint.json"
+    curl -ki -X POST -H "Content-Type: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors --data "@./mm2_checkpoint.json"
     ```
 
 1. Check the status of the MM2 Checkpoint connector. From the command prompt, type:
@@ -261,18 +262,18 @@ Look for the replicated topic. The topic should be named as: `<SOURCE_CLUSTER_AL
     curl -ki -X GET -H "Accept: application/json" <KAFKACONNECT_URL>/connectors
 
     # Example:
-    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connectors/
+    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors/
 
-    ["techjam-checkpoint-connector","techjam-source-connector"]
+    ["cody20","cody20-checkpoint"]
 
     # Then, get the status of the checkpoint connector.
     curl -ki -X GET -H "Accept: application/json" https://<KAFKACONNECT_URL>/<connector_name>/status
 
     Example:
-    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.grievous.coc-ibm.com/connectors/techjam-checkpoint-connector/status/
+    curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors/cody20-checkpoint/status/
 
     {
-    "name": "techjam-checkpoint-connector",
+    "name": "cody20-checkpoint",
     "connector": {
         "state": "RUNNING",
         "worker_id": "10.128.0.52:8083"

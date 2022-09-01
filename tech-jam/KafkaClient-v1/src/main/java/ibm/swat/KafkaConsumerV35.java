@@ -9,14 +9,14 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 public class KafkaConsumerV35 {
    
-    public static KafkaConsumer<String, Customer> avroConsumer;
+    public static KafkaConsumer<String, Customer> kafkaConsumer;
    
 
     public static void start(Properties config) {
 	    int count = 1;
 
-        avroConsumer = new KafkaConsumer<>(config);
-    	avroConsumer.subscribe(Collections.singleton(KafkaConfig.topic));
+        kafkaConsumer = new KafkaConsumer<>(config);
+    	kafkaConsumer.subscribe(Collections.singleton(KafkaConfig.topic));
         System.out.println("@@@ - Consumer subscribed to : " + KafkaConfig.topic);
         config.forEach((k,v) -> {System.out.println("@@@ - " + k.toString() + "\t" + v.toString());});
 
@@ -24,7 +24,7 @@ public class KafkaConsumerV35 {
         while (true){
             System.out.println("Polling");
 	   
-            ConsumerRecords<String, Customer> records = avroConsumer.poll(Duration.ofMillis(1000));
+            ConsumerRecords<String, Customer> records = kafkaConsumer.poll(Duration.ofMillis(1000));
            	for (ConsumerRecord<String, Customer> record : records){
                 	Customer customer = record.value();
 			        System.out.println("Count: " + count);
@@ -32,7 +32,7 @@ public class KafkaConsumerV35 {
 			        count=count+1;  
             }
 	
-            avroConsumer.commitSync();
+            kafkaConsumer.commitSync();
 	    }
 	    
     }
