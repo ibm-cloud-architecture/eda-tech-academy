@@ -76,9 +76,9 @@ Use one of the following KafkaConnect_URL depending on the Openshift Cluster tha
 
 | Host | URL |
 | --- | --- |
-| Mandalorian | [connect-cp4i-eventstreams.apps.mandalorian.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.mandalorian.coc-ibm.com) |
-| Cody| [connect-cp4i-eventstreams.apps.cody.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.cody.coc-ibm.com)  |
-| Finn | [connect-cp4i-eventstreams.apps.finn.coc-ibm.com](https://cconnect-cp4i-eventstreams.apps.finn.coc-ibm.com)  |  
+| Mandalorian | [connect-cp4i-eventstreams.apps.mandalorian.coc-ibm.com](https://connect-cp4i-eventstreams.apps.mandalorian.coc-ibm.com) |
+| Cody| [connect-cp4i-eventstreams.apps.cody.coc-ibm.com](https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com)  |
+| Finn | [connect-cp4i-eventstreams.apps.finn.coc-ibm.com](https://connect-cp4i-eventstreams.apps.finn.coc-ibm.com)  |  
 
 ### 3. Kafka Connect
 
