@@ -71,7 +71,9 @@ basicColors.peek((key, value) -> System.out.println("PRE-FILTER: key=" + key + "
 1. `to()` is to output the stream to a topic.
 
 
-Run this test you should see the following output: The first part is a print of the defined topology and then the execution of the topology on the different input records.
+Run this test you should see the following output: The first part is a print of the defined topology and then the execution of the topology on the different input records.   
+If your IDE is Visual Studio Code, click the "Run Tests" icon right of TestYourFirstTopology on the explorer.   
+![](./images/vs_run.png).  
 
 ```sh
 Topologies:
