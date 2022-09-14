@@ -10,6 +10,145 @@ This use case is coming from four customer's engagements since the last three ye
 
 **Duration**: 30 minutes
 
+## Pre-requisites - MAC Users
+
+* Have a [git client installed](https://github.com/git-guides/install-git)
+* Have a git account into [IBM Internal github](https://github.ibm.com/) or public [github](https://github.com).
+* Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
+* A JDK 11.
+* Install the make tool:
+
+    *  `brew install make`
+
+* Have [oc cli](https://docs.openshift.com/container-platform/4.7/cli_reference/openshift_cli/getting-started-cli.html) installed. It can be done once connected to the OpenShift cluster using the <?> icon on the top-right and "Command Line Tool" menu.
+    ![](./images/access-oc-cli.png)
+
+* Get a Java development IDE, we use [Visual Code](https://code.visualstudio.com/) in our group.
+* Install [Java Coding Pack for Visual Studio](https://code.visualstudio.com/docs/languages/java#_install-visual-studio-code-for-java). This will download JDK and the necessary plugins.
+* OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster) as a base for our deployments [See environment section for your assigned cluster](#environments)
+
+* To access to the git repository click on the top right icon from the documentation page:
+
+![](./images/git-url-access.png)
+
+ [ibm-cloud-architecture/eda-tech-academy](https://github.com/ibm-cloud-architecture/eda-tech-academy/)
+
+**Fork** this repository to your own git account so you can modify content and deploy code from your repository when using GitOps.
+
+![](../lab2/images/fork-repo.png)
+
+and then clone it to your local laptop:
+
+```sh
+git clone https://github.com/ibm-cloud-architecture/eda-tech-academy/
+```
+
+### Environments
+
+We have two OpenShift clusters available with 25 userids each.
+
+* [Finn cluster is console-openshift-console.apps.finn.coc-ibm.com](https://console-openshift-console.apps.finn.coc-ibm.com/dashboards)
+* [Cody cluster is console-openshift-console.apps.cody.coc-ibm.com](https://console-openshift-console.apps.cody.coc-ibm.com/dashboards)
+
+* Userids will be finn1 to finn25 for Finn cluster
+* Userids will be cody1 to cody25 for the Cody cluster. 
+
+### Scripts
+
+All the scripts and configurations were developed from a Mac so no problem for you.
+
+
+## Pre-requisites - Windows Users
+
+* Have a [git client installed](https://desktop.github.com/)
+* Have a git account into [IBM Internal github](https://github.ibm.com/) or public [github](https://github.com).
+* Clone [ this ](https://github.com/ibm-cloud-architecture/eda-tech-academy)repositary:   
+  In GitHub Desktop, Choose to clone a URL. Enter the above URL.    
+  Clone to a local folder (e.g. C:\GitHub).  
+  Ensure the C:\Github folder and sub folders do not have the ‘Read Only’ turned on.    
+* Install Visual Code.   
+  [https://code.visualstudio.com/ ](https://code.visualstudio.com/ ).  
+  Ignore the warning about installing as an Admin user and continue.    
+  In the ‘Additional Tasks’ screen, pick all the tasks.    
+* Install Java Coding Pack for Visual Studio.   
+  [https://aka.ms/vscode-java-installer-win ](https://aka.ms/vscode-java-installer-win ).  
+  This will download JDK and the necessary plugins.    
+* Setup Windows Subsystem For Linux.  
+
+		Enable WSL.  
+		Open a PowerShell screen and run this command.   
+		Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux.  
+		This step will require a Reboot of the machine. Proceed to reboot.
+	     
+		Enable Virtual Machine Feature    
+		dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart.  
+		[May require restart for Windows 11]
+		
+		Download and install the Linux kernel update package.  
+		[https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi]
+		
+		If you are in a Windows 11 environment, you may have to set the default WSL version to 1.   
+		wsl --set-default-version 1.  
+		
+		Download and install Ubuntu Linux distribution from Microsoft Store.  
+		https://aka.ms/wslstore    
+		Search for Ubuntu and click on ‘Get’.    
+		This will download and install Ubuntu terminal environment with WSL.    
+		Once installed Click on ‘Open’.   The first time, it will take some time to decompress some files.   
+		Wait for this step to complete.    
+		At the end, you’ll be asked to create a username and password to be used to login. 
+		Finally, you will be in the Linux shell prompt. 
+		
+		Subsequently, open a CMD (or PowerShell) terminal and enter ‘bash’ to get access to the Linux shell.
+		
+* Setup a few tools in the Ubuntu system. Run these commands in the Ubuntu Shell screen.   
+
+		Install dos2unix.   
+		sudo apt-get update.  
+		sudo apt-get install dos2unix.  
+		
+		Install 'oc' CLI.
+		wget https://downloads-openshift-console.apps.cody.coc-ibm.com/amd64/linux/oc.tar --no-check-certificate.  
+		tar -xvf oc.tar.  
+		sudo mv oc /usr/local/bin.  
+		
+		Install 'make'
+		sudo apt install make.  
+		
+		Install 'zsh' shell.  
+		sudo apt install zsh.  
+		
+
+* OCP access with CP4I installed, could be ROKS, TechZone with CP4I cluster, we are using [CoC environment](https://cmc.coc-ibm.com/cluster) as a base for our deployments [See environment section for your assigned cluster](#environments)
+
+* To access to the git repository click on the top right icon from the documentation page:
+
+![](./images/git-url-access.png)
+
+ [ibm-cloud-architecture/eda-tech-academy](https://github.com/ibm-cloud-architecture/eda-tech-academy/)
+
+**Fork** this repository to your own git account so you can modify content and deploy code from your repository when using GitOps.
+
+![](../lab2/images/fork-repo.png)
+
+and then clone it to your local laptop:
+
+```sh
+git clone https://github.com/ibm-cloud-architecture/eda-tech-academy/
+```
+
+### Environments
+
+We have two OpenShift clusters available with 25 userids each.
+
+* [Finn cluster is console-openshift-console.apps.finn.coc-ibm.com](https://console-openshift-console.apps.finn.coc-ibm.com/dashboards)
+* [Cody cluster is console-openshift-console.apps.cody.coc-ibm.com](https://console-openshift-console.apps.cody.coc-ibm.com/dashboards)
+
+* Userids will be finn1 to finn25 for Finn cluster
+* Userids will be cody1 to cody25 for the Cody cluster. 
+
+
+
 ## Problem statement
 
 Today, a lot of companies which are managing item / product inventory are facing real challenges to get a close to real-time view of item availability and global inventory view. The solution can be very complex to implement while integrating Enterprise Resource Planning products and other custom legacy systems.
