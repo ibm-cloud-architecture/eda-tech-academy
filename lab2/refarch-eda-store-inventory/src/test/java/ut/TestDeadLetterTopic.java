@@ -61,6 +61,11 @@ public class TestDeadLetterTopic {
         // Generate to output topic
         branches.get("B-good-tx").to(outTopicName);
         branches.get("B-wrong-tx").to(deadLetterTopicName);
+        items.peek((key, value) -> System.out.println("PRE-BRANCH: key=" + key + ", value=" + value));
+        KStream<String, String> defaultTopic = builder.stream(outTopicName,Consumed.with(Serdes.String(), Serdes.String()));
+        defaultTopic.peek((key, value) -> System.out.println("POST-BRANCH-DEFAULT-TOPIC: key=" + key + ", value=" + value));
+        KStream<String, String> dlTopic = builder.stream(deadLetterTopicName,Consumed.with(Serdes.String(), Serdes.String()));
+        dlTopic.peek((key, value) -> System.out.println("POST-BRANCH-DEAD-LETTER-TOPIC: key=" + key + ", value=" + value));
 
         return builder.build();
     }
