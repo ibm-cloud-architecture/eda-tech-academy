@@ -9,6 +9,13 @@ The figure below illustrates the components involved:
 In this lab the operators are already installed in the OpenShift cluster under the `openshift-operators` project, and products are already install too. So this lab is aimed to deploy the components of the real-time inventory demo (the green components in figure above).
 
 As stated before you need to fork this repository under your own public git account, as all configurations will be monitored from your own git repository.
+## pre-requisites
+
+See [Pre-requisites section](../lab1/index.md) in the main page.   
+MAC users can run all the commands in this lab from terminal window.   
+Windows users will have to run the commands from a WSL Command window. Open a CMD window and type 'bash' to enter the WSL prompt.   
+
+
 ## Preparation
 
 1. Verify the OpenShift GitOps Operator is installed on your OpenShift cluster. In fact it should be installed, but this command may be helpful to you in your future proof of concepts.
@@ -16,7 +23,7 @@ As stated before you need to fork this repository under your own public git acco
     Work in the `eda-tech-academy/lab3-4` folder.
 
     ```sh
-    make verify-argocd-available
+    sudo make verify-argocd-available
     ```
 
     Should get this output if not installed
@@ -32,41 +39,45 @@ As stated before you need to fork this repository under your own public git acco
     openshift-gitops-operator Installed
     ```
 
-1. Prepare the ArgoCD app and project: Each student will have his/her own project within ArgoCD.
+2. Prepare the ArgoCD app and project: Each student will have his/her own project within ArgoCD.
 
     * **Automatic way:**
 
     ```sh
     # under the lab3-4 folder
     export PREFIX=poe10
-    export GIT_ACCOUNT=yourname
+    export GIT_ACCOUNT=<yourname GIT account name>
     # same exported variables as before
-    make prepare-argocd
-    ```
+    ```   
+	    sudo make prepare-argocd
 
-    * Manual way: update the namespace, project, and repoURL elements in the `argocd/*.yaml` files.
+    
 
-1. To get the ArgoCD `admin` user's password use the command
+
+*  **Manual way:**.   
+[Update the namespace, project, and repoURL elements in the `argocd/*.yaml` files.]
+
+3. To get the ArgoCD `admin` user's password use the command
 
     ```sh
     oc extract secret/openshift-gitops-cluster -n openshift-gitops --to=-
     ```
 
-1. Get the ArgoCD User Interface URL and open a web browser
+4. Get the ArgoCD User Interface URL and open a web browser
 
     ```sh
     chrome https://$(oc get route openshift-gitops-server -o jsonpath='{.status.ingress[].host}'  -n openshift-gitops)
     ```
 
-1. Verify project created
+5. Verify project created
 
     ![](./images/Verify-project.png)
 
-1. Set project to your ArgoCD project
+6. Set project to your ArgoCD project
 
     ![](./images/select-project.png)
 
-1. Commit and push your changes to your gitops repository (The fork for eda-tech-academy)
+7. Commit and push your changes to your gitops repository (The fork for eda-tech-academy)
 
     * You can add a remote URl by replacing with your username in git.
 
@@ -79,13 +90,13 @@ As stated before you need to fork this repository under your own public git acco
     git push -u mine
     ```
 
-1. Bootstrap Argocd:  
+8. Bootstrap Argocd:  
 
     ```sh
     make gitops
     ```
 
-1. Verify in the ArgoCD console the apps are started and process the synchronization.
+9. Verify in the ArgoCD console the apps are started and process the synchronization.
 
     ![](./images/argo-apps.png)
 
