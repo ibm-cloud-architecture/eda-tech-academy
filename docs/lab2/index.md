@@ -4,7 +4,8 @@ In this Lab, you will learn simple Kafka Streams exercises using Java APIs, and 
 
 ## Pre-requisites
 
-This lab is about some Java implementation, if you have no experience in Java you may skip it. 
+This lab requires some java experience.   
+Be sure to have completed the pre-requisites listed [here](../lab1/index.md)
 
 * Be sure your IDE, like VScode has java extension. For VSCode you can use [Red Hat java extension](https://marketplace.visualstudio.com/items?itemName=redhat.java)
 * maven is used to package and run some test. The project has `./mvnw` command that brings maven in the project.
@@ -71,9 +72,10 @@ basicColors.peek((key, value) -> System.out.println("PRE-FILTER: key=" + key + "
 1. `to()` is to output the stream to a topic.
 
 
-Run this test you should see the following output: The first part is a print of the defined topology and then the execution of the topology on the different input records.   
+Run this test you should see the following output in the Debug Console.    
 If your IDE is Visual Studio Code, click the "Run Tests" icon right of TestYourFirstTopology on the explorer.   
 ![](./images/vs_run.png).  
+The first part is a print of the defined topology and then the execution of the topology on the different input records.   
 
 ```sh
 Topologies:
