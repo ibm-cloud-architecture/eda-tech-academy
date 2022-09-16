@@ -23,7 +23,10 @@ A traditional solution may be organized with one git repository per application,
 * [item aggregator / inventory application](https://github.com/ibm-cloud-architecture/refarch-eda-item-inventory) same for item inventory cross store.
 ## pre-requisites
 
-See [Pre-requisites section](../#pre-requisites) in the main page.
+See [Pre-requisites section](../lab1/index.md) in the main page.   
+MAC users can run all the commands in this lab from terminal window.   
+Windows users will have to run the commands from a WSL Command window. Open a CMD window and type 'bash' to enter the WSL prompt.   
+
 ## Preparation
 
 Each Student will have received a unique identifier and will modify the current settings in this folder with their student id. 
@@ -78,11 +81,12 @@ The blue components should have been deployed with the Cloud Pak for Integration
         ./updateStudent.sh
         ```
         
-    * Windows user in the Linux
+    * Windows user (in Linux shell)
 
         ```sh
         export PREFIX=poe10
-        sudo dos2unix updateStudent.sh
+        sudo dos2unix updateStudent.sh  
+        ./updateStudent.sh
         ```
 
 ## Folder structure
@@ -107,7 +111,7 @@ The deployment will configure topics in event streams using a naming convention 
 1. Start the deployment
 
     ```sh
-    make all-no-gitops
+    sudo make all-no-gitops
     ```
 
 1. Verify the solution is up and running
@@ -118,7 +122,8 @@ The deployment will configure topics in event streams using a naming convention 
     oc get routes 
     oc get kafkatopic -n cp4i-eventstreams
     oc get kafkauser -n  cp4i-eventstreams
-    ```
+    ```  
+    ![](images/lab3_gitops.jpg)
 
 1. Access to the MQ console (replace the namespace and base url)
 
@@ -281,6 +286,8 @@ oc logs <pod_id>
 
 ## Running locally
 
+Do this step ONLY if you do not have an openshift environment.  
+You will require Docker to complete this step.  
 During proof of concept development you can run Event Streams, MQ and your code on your own laptop with docker engine. We give you a docker compose file to do so. Here are the commands to run the same demonstration locally:
 
 ```sh
