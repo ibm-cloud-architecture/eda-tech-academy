@@ -14,7 +14,6 @@ This use case is coming from four customer's engagements since the last three ye
 
 * Have a [git client installed](https://github.com/git-guides/install-git)
 * Have a git account into [IBM Internal github](https://github.ibm.com/) or public [github](https://github.com).
-* Get [docker desktop](https://www.docker.com/products/docker-desktop/) or [podman](https://podman.io/) on your local laptop
 * A JDK 11.
 * Install the make tool:
 
@@ -62,7 +61,7 @@ All the scripts and configurations were developed from a Mac so no problem for y
 
 * Have a [git client installed](https://desktop.github.com/)
 * Have a git account into [IBM Internal github](https://github.ibm.com/) or public [github](https://github.com).
-* Clone [ this ](https://github.com/ibm-cloud-architecture/eda-tech-academy)repositary:   
+* Clone [ https://github.com/ibm-cloud-architecture/eda-tech-academy/ ](https://github.com/ibm-cloud-architecture/eda-tech-academy)repositary:   
   In GitHub Desktop, Choose to clone a URL. Enter the above URL.    
   Clone to a local folder (e.g. C:\GitHub).  
   Ensure the C:\Github folder and sub folders do not have the ‘Read Only’ turned on.    
