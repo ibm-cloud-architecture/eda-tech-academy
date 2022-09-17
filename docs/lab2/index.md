@@ -386,7 +386,7 @@ For your information here are some more test classes that demonstrate some strea
     countedItems.toStream().to(outTopicName);
 ```
 
-* Same example as above but because of the caching to state store, the results are queriable. The test class is [TestAccumulateItemSoldWithCaching](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestAccumulateItemSold.java)
+
 
 ## Final store inventory exercice
 
