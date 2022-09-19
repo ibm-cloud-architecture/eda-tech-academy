@@ -35,7 +35,7 @@ public StoreInventory updateStock(String sku, long newV) {
 
 ## Developing the Topology in test class
 
-Continuing test with the TopolofyTestDriver, you will implement the topology with the same structure as before, in the class [TestStoreAggregation.java](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/lab2/refarch-eda-store-inventory/src/test/java/ut/TestStoreAggregation.java). Here what the topology needs to do:
+Continuing test with the TopolofyTestDriver, you will implement the topology with the same structure as before. Here what the topology needs to do:
 
 * Get ItemTransaction from input stream the Key being the storeName
 * Aggregation wwork on keyed group, so groupByKey the input records
