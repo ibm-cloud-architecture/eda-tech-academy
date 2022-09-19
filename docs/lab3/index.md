@@ -111,7 +111,7 @@ The deployment will configure topics in event streams using a naming convention 
 1. Start the deployment
 
     ```sh
-    sudo make all-no-gitops
+    make all-no-gitops
     ```
 
 1. Verify the solution is up and running
@@ -128,8 +128,8 @@ The deployment will configure topics in event streams using a naming convention 
 1. Access to the MQ console (replace the namespace and base url)
 
     ```sh
-    # change poe to another server name if needed
-    chrome https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/$PREFIX/$PREFIX-mq-ibm-mq/
+    # Open this link in a browser. change poe to another server name if needed
+    https://cpd-cp4i.apps.poe.coc-ibm.com/integration/messaging/$PREFIX/$PREFIX-mq-ibm-mq/
     ```
 
 1. Verify the queue manager has the ITEMS queue 
@@ -139,8 +139,9 @@ The deployment will configure topics in event streams using a naming convention 
 1. Access to the simulator console
 
     ```sh
-    
-    chrome http://$(oc get route store-simulator -o jsonpath='{.status.ingress[].host}')
+    Get the URL of the Store Simulator and open it in a browser. 
+    oc get route store-simulator -o jsonpath='{.status.ingress[].host}'
+
     ```
 
     Go to the SIMULATOR tab. If you want to test with the MQ source connector, select IBMMQ backend, and starts the `Controlled scenario` to send predefined messages: 
@@ -162,8 +163,8 @@ The deployment will configure topics in event streams using a naming convention 
 1. Access the Event Stream console to look at topic content:
 
 ```sh
-# change poe to the OCP cluster name
-chrome https://cpd-cp4i.apps.poe.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/
+# Open this link in a browser. change poe to the OCP cluster name. Login with you user-id using the Enterprise LDAP.
+https://cpd-cp4i.apps.poe.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/
 ```
 
 The `items` topic content the store transactions:
@@ -177,6 +178,21 @@ The `item.inventory` topic has the aggregates cross stores, as illustrates in fi
 And the `store.inventory` includes events on current inventory per store:
 
  ![](./images/store-inv-topic.png)
+
+## Test the Full Setup
+1. From the EventStreams portal, go to Topics and open the items-inventory topic (USERID-item.inventory)
+2. Go to Messages. 
+3. Open the first few messages and take note of the ItemID and CurrentStock. E.g. 
+	 {"itemID":"Item_1","currentStock":47}
+![](images/sim_1.jpg)
+1. From the Store Simulator page -> Click on Simulator.
+2. Choose IBM MQ for BackEnd. 
+3. Send one random message. Take note of the message sent. In particular, take note of Item number, Type (either SALE or RESTOCK) and quantity.
+![](images/sim_2.jpg)
+4. Go to the EventStreams portal and check if the new message has arrived in USERID-items topic.  
+5. From the EventStreams portal one new message should also be delivered to the USERID-item.inventory topic. Check the message.  The quantity should have been increased (Type RESTOCK) or reduced (SALE) by the quantity number (sent via Store Simulator). 
+6. You can also do a similar check in USERID-store.inventory topic.
+
 
 
 ???- "Read more on the demonstration script"
@@ -267,12 +283,16 @@ mq-source   poe10-connect-cluster   com.ibm.eventstreams.connect.mqsource.MQSour
 
 ## Cleaning your OpenShift project
 
-Run the following command to clean the demonstration deployment, specially if you will do next GitOps lab.
+Run the following command to clean the demonstration deployment. You MUST clean the deployment if you will do next GitOps lab.
 
 ```sh
 oc project $PREFIX
 make clean
 ```
+
+Upon cleaning, check if there are any pods or topics.   
+
+
 ## Troubleshooting
 
 ### Message not sent to MQ
@@ -283,6 +303,15 @@ This could come from a connection issue between the simulator and MQ. Get the lo
 oc get pod -l app.kubernetes.io/name=store-simulator
 oc logs <pod_id>
 ```
+
+### Some topics Not created.
+1. If the USERID-items topic is not created, try submitting some messages from the Store Simulator.
+2. If topics like USERID-item.invetory or USERID-store.inventory is not created, try restarting the following pods:
+store-simulator-\*.  
+item-inventory-\*.  
+Then, try sending some messages through the Store Simulator.   
+
+
 
 ## Running locally
 
