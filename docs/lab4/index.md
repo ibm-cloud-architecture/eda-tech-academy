@@ -238,7 +238,7 @@ oc get pods
 
 ## Clean up
 
-1. If you plan to do the lab 4 using gitops do not delete anything
+1. If you plan to do the lab 5 using gitops do not delete anything
 
 1. Full clean up the deployment
 
@@ -246,5 +246,5 @@ oc get pods
 
     ```sh
     make clean-gitops
->>>>>>> 334e59aced6363bfa5eb01d73619538b0bed253e
+
     ```
