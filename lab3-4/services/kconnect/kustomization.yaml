@@ -1,2 +1,3 @@
 resources: 
   - ./kafka-connect.yaml
+  - ./kafka-mq-src-connector.yaml
