@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -31,6 +30,8 @@ spec:
     - p, proj:ahsoka20:read-only, applications, get, ahsoka20/*, allow
     groups:
     - argocd-admins
+<<<<<<< HEAD
+=======
 =======
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -64,4 +65,3 @@ spec:
     - p, proj:finn15:read-only, applications, get, finn15/*, allow
     groups:
     - argocd-admins
->>>>>>> 709e2303b29f139f283d5567538d2aa4469533c5
