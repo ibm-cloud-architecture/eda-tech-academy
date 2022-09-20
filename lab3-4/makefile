@@ -83,7 +83,6 @@ all-no-gitops:  prepare-ns\
 	eventstreams-config \
 	mq-config \
 	kconnect \
-#	mq-kconnector \
 	apps
 
 clean-serv: 
@@ -95,7 +94,6 @@ clean:
 	@oc project $$PREFIX
 	@oc delete -k ./apps/item-inventory/
 	@oc delete -k ./apps/store-inventory/
-#	@oc delete -f ./apps/mq-source/kafka-mq-src-connector.yaml
 	@oc delete -k ./services/kconnect
 	@oc delete -k ./services/ibm-mq/overlays
 	@oc delete -k ./services/ibm-eventstreams/overlays
