@@ -50,10 +50,9 @@ You should have completed / attempted Lab 3. Specifically, you should have run t
     export PREFIX=poe10
     export GIT_ACCOUNT=<yourname GIT account name>
     # same exported variables as before
+    sudo make prepare-argocd
     ```   
-	    sudo make prepare-argocd
-
-    
+   
 
 
 	*  **Manual way:**.   
