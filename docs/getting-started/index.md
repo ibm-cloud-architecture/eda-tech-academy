@@ -43,7 +43,7 @@ App details: [https://ibm.github.io/event-streams/getting-started/generating-sta
 
     | Host | URL |
     | --- | --- |
-    | Mandalorian | [https://cpd-cp4i.apps.mandalorian.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.mandalorian.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
+    | Ventress | [https://cpd-cp4i.apps.ventress.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.ventress.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
     | Cody| [https://cpd-cp4i.apps.cody.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.cody.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |
     | Finn | [https://cpd-cp4i.apps.finn.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted](https://cpd-cp4i.apps.finn.coc-ibm.com/integration/kafka-clusters/cp4i-eventstreams/es-demo/gettingstarted) |  
 
@@ -86,7 +86,7 @@ App details: [https://ibm.github.io/event-streams/getting-started/generating-sta
 9.	After your applications starts, open a browser, and **enter**:
 
     ```sh
-    chrome http://localhost:8080 
+    http://localhost:8080 
     ```
 
     ![](./images/lab-1-es-9.png)
@@ -122,7 +122,7 @@ In summary, you have learned the following in this lab:
 * View consumer and producer message traffic in IBM Event Streams console.
 * Specifying the topic within IBM Event Streams and then connecting an Apache Kafka application to produce and consume messages to and from that topic.
 
-## More code templates
+## More code templates (Optional)
 
 To start your Event Streams journey you can use reactive messaging, a Java microprofile extension, and use one of the template from this repository: [eda-quickstart](https://github.com/ibm-cloud-architecture/eda-quickstarts/)
 
