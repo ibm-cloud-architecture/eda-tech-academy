@@ -32,7 +32,7 @@ This lab is NOT about API manager(Kafka topic owner in diagram above) creating a
 
     | Host | URL |
     | --- | --- |
-    | Mandalorian | [Mandalorian API Portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.mandalorian.coc-ibm.com/mandalorian-admin-porg/sandbox) |
+    | Ventress | [Ventress API Portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.ventress.coc-ibm.com/ventress-admin-porg/sandbox) |
     | Cody| [Cody API portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.cody.coc-ibm.com/cody-admin-porg/sandbox) |
     | Finn | [Finn API portal](https://apim-demo-ptl-portal-web-cp4i-apic.apps.finn.coc-ibm.com/finn-admin-porg/sandbox) |  
 
@@ -112,8 +112,6 @@ This lab is NOT about API manager(Kafka topic owner in diagram above) creating a
     Copy the file to `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\`
 
 
-    !!! note
-        If you do not have openssl installed in your computer or if you are unable to run the openssl command, you may use this for the PEM certificate. Copy and save one of the following (depending on the Openshift cluster you are using) as eem_truststore.pem. 
 
 5. Test consuming the data in the topic you have just subscribed using the KafkaClient that you used for the Schema Registry lab.
 
