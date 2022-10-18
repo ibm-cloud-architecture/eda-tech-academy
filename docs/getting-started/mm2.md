@@ -193,7 +193,7 @@ Ensure the MirrorMaker related plugins are listed.
     ["cody20"]
 
     # Then, get the status of the connector.
-    curl -ki -X GET -H "Accept: application/json" https://<KAFKACONNECT_URL>/<connector_name>/status
+    curl -ki -X GET -H "Accept: application/json" https://<KAFKACONNECT_URL>/connectors/<connector_name>/status
 
     # Example:
     curl -ki -X GET -H "Accept: application/json" https://connect-cp4i-eventstreams.apps.cody.coc-ibm.com/connectors/cody20/status/
