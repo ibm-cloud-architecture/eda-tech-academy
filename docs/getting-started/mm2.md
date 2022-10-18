@@ -309,14 +309,16 @@ The new consumer group should appear and the offset lag should match with that o
 Now you can consume the data from the Event Streams cluster. You will only be consuming the remaining messages. 
 
 Make a copy of the `config.properties` file.  Call it `config.properties.mm2`
-Edit the `config.properties.mm2 `file and change the following fields.
+Edit the `config.properties.mm2 `file and change the following fields.   
+You will have to create a new SCRAM user, and this time, at the point where you choose consumers, select "All Consumers".   
 
 
 | Field	| Value |
 | --- | --- |
+| **sasl.jaas.config** |	Use the newly created SCRAM user and password |
 | **enableschemaavro** |	False |
 | **topic** | 	The newly replicated topic. Example: student60-source.basicuserdata |
-| **group.id** |	You should use the same Consumer Group as the one that has been replicated. Student60-general-group-v1 |
+| **group.id** |	You should use the same Consumer Group as the one that has been replicated.     general-strimzi-consumer-v1 |
 
 Run the KafkaClient in consumer mode:
 
