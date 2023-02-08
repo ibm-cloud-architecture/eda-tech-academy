@@ -61,7 +61,7 @@ Message offset value will not be preserved due to retention policy in source kaf
 
 You can check the status of strimzi topic here:
 
-[https://kafdrop-strimzi.rajancluster-syd01-992844b4e64c83c3dbd5e7b5e2da5328-0000.au-syd.containers.appdomain.cloud/topic/basicuserdata](https://kafdrop-strimzi.rajancluster-syd01-992844b4e64c83c3dbd5e7b5e2da5328-0000.au-syd.containers.appdomain.cloud/topic/basicuserdata)  
+[https://kafdrop-rajan-strimzi.rajancluster-sng01-992844b4e64c83c3dbd5e7b5e2da5328-0000.jp-tok.containers.appdomain.cloud/topic/basicuserdata](https://kafdrop-rajan-strimzi.rajancluster-sng01-992844b4e64c83c3dbd5e7b5e2da5328-0000.jp-tok.containers.appdomain.cloud/topic/basicuserdata)  
 
 Take note of the topic name, consumer group, consumer lags and last offset message. 
 
@@ -153,10 +153,10 @@ Ensure the MirrorMaker related plugins are listed.
 
     | parameter | Value |
     | --- | --- |
-    | **name**	| Enter your studentID. Example: student60 |
+    | **name**	| Enter your studentID. Example: student60-source |
     | **source.cluster.alias**	| A name that you will give to the source cluster. All replicated topics will have a prefix of this alias.Make sure to use the studentID as the prefix. Example: student60-source |
     | **target.cluster.alias**	| A name that you will give to the target cluster. Make sure to use the studentID as the prefix. Example: student60-target|
-    |  **source.cluster.bootstrap.servers**	| Kafka Bootstrap URL of the source Strimzi cluster. You can use this. `rajancluster-syd01-992844b4e64c83c3dbd5e7b5e2da5328-0000.au-syd.containers.appdomain.cloud:31688` |
+    |  **source.cluster.bootstrap.servers**	| Kafka Bootstrap URL of the source Strimzi cluster. You can use this. `rajancluster-sng01-992844b4e64c83c3dbd5e7b5e2da5328-0000.jp-tok.containers.appdomain.cloud:30719` |
     | **target.cluster.bootstrap.servers**	| Kafka Bootstrap URL of the target Event Stream Cluster. For the purpose of this lab, we have created a PLAIN connection. `es-demo-kafka-bootstrap.cp4i-eventstreams.svc:9092` |
     | **topics**	| Use the topic called “basicuserdata” that has been created for the purpose of this lab. | 
 
