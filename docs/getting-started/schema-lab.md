@@ -282,7 +282,7 @@ From the Event Stream home page, click on “Connect to this Cluster”.  Get th
 
 1. We will change the schema registry by adding a new field with default value, and check what happens when producing / consuming. 
 
-    In the client computer, make a copy of the customer.avsc file (located in `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\com\example>`) and name it `customer_v2.avsc`. You can do this from Windows Explorer.
+    In the client computer, make a copy of the customer.avsc file (located in `C:\TechJam\EventStreams_Lab\KafkaClient_YYYYMMDD\>`) and name it `customer_v2.avsc`. You can do this from Windows Explorer.
 
     Edit the file using Notepad++. Add this line right after country. Change the version to version `1.1`.
     
