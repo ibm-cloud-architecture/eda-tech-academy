@@ -31,18 +31,18 @@ This section provides the instructions for setting up the Kafka Client that will
 
     ```sh
     C:\Users\rajan>java -version
-    At least version 1.8.0_301 should be available.
+    At least version 17.0 should be available.
     ```
 
 	If it’s not installed, download and install the Java Runtime. Use the [adoptium site to download Java](https://adoptium.net/)
 
-2.	Download the sample Kafka Client code [from here:](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/tech-jam/KafkaClient_20220131.zip) to be used on your local laptop.
+2.	Download the sample Kafka Client code [from here:](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/tech-jam/KafkaClient_20221204.zip) to be used on your local laptop.
 
 3.	Unzip the downloaded Kafka Client (KafkaClient_YYYYMMDD.zip) into a folder: 
 
     ```sh
     C:\TechJam\EventStreams_Lab\
-    unzip KafkaClient_20220131.zip 
+    unzip KafkaClient_20221204.zip 
     ```
 
 4.	Test the client: Open a Command Prompt.
