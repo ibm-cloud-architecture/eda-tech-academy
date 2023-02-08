@@ -29,13 +29,13 @@ App details: [https://ibm.github.io/event-streams/getting-started/generating-sta
 2. Red Hat Openshift Container Platform
 3. IBM Event Streams version 11.x
 4. Apache Kafka 3.2
-5. Java version 11
+5. Java version 17
 
 ## Lab Environment Pre-Requisites
 
 * The Cloud Pak for Integration has been deployed and the access credentials are available.
-* Java version 11 installed on local environment. Use the [adoptium site to download Java](https://adoptium.net/)
-* Apache Maven Installed on local environment.
+* Java version 17 installed on local environment. Use the [adoptium site to download Java](https://adoptium.net/)
+* Apache Maven Installed on local environment (Optional).
 
 ## Getting started with IBM Event Streams
 
