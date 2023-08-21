@@ -34,7 +34,7 @@ App details: [https://ibm.github.io/event-automation/es/getting-started/generati
 ## Lab Environment Pre-Requisites
 
 * The Cloud Pak for Integration has been deployed and the access credentials are available.
-* Java version 17 installed on local environment. Use the [adoptium site to download Java](https://adoptium.net/)
+* Java version 17 installed on local environment. Use the [IBM Semeru Runtimes Downloads site to download Java](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/)
 * Apache Maven Installed on local environment (Optional).
 
 ## Getting started with IBM Event Streams
