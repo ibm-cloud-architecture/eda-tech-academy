@@ -36,13 +36,13 @@ This section provides the instructions for setting up the Kafka Client that will
 
 	If it’s not installed, download and install the Java Runtime. Use the [adoptium site to download Java](https://adoptium.net/)
 
-2.	Download the sample Kafka Client code [from here:](https://github.com/ibm-cloud-architecture/eda-tech-academy/blob/main/tech-jam/KafkaClient_20221204.zip) to be used on your local laptop.
+2.	Download the sample Kafka Client code [from here:](https://github.com/natarajan-k/kafka-client/raw/main/pre-compiled/KafkaClient_20240203.zip) to be used on your local laptop.
 
 3.	Unzip the downloaded Kafka Client (KafkaClient_YYYYMMDD.zip) into a folder: 
 
     ```sh
     C:\TechJam\EventStreams_Lab\
-    unzip KafkaClient_20221204.zip 
+    unzip KafkaClient_20240203.zip 
     ```
 
 4.	Test the client: Open a Command Prompt.
@@ -149,7 +149,7 @@ Now, let’s take a look at how the Schema Registry works.
     Refer to the screenshot attached as reference. 
 
  
-    ![](./images/lab-2-sc-11.png){ width="1300" }
+![](./images/lab-2-sc-11.png){ width="1300" }
 
     Keep information about the SCRAM password. 
 ## Gather Connection Details
